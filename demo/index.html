@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="en" data-world="departure">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Next Step Portfolio Demo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;600&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Bagel+Fat+One&family=Nunito:wght@500;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:wght@400;600&family=Kalam:wght@400;700&display=swap">
+<style>
+/*
+  CONCEPT · "Next Step"
+  Katherine designs for the moment a routine breaks. The portfolio itself is explainable:
+  a WHY panel (after Wildling's MIND panel) narrates every layout decision, and a journey
+  rail (after Transfer Coach) shows where the visitor is in the flow.
+  Four worlds skin one flow: Boot → Hero → Work → Case → About → Contact.
+  Each world commits to one look, so colours are set explicitly per world.
+*/
+:root{
+  --bg:#F3F4F1; --fg:#111111; --muted:#5E605B; --line:#111111; --card:#FFFFFF;
+  --accent:#FF5B14; --accent2:#FFB000; --ink-on-accent:#111111;
+  --fd:"Archivo", "Arial Narrow", system-ui, sans-serif;
+  --fb:"Archivo", system-ui, sans-serif;
+  --fm:"JetBrains Mono", ui-monospace, monospace;
+  --radius:0px;
+  --gutter:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:light;
+}
+/* D · Departure — Swiss signal, after Dennis Snellenberg + Daniel Spatzek */
+html[data-world="departure"]{
+  --bg:#F3F4F1; --fg:#111111; --muted:#5E605B; --line:#111111; --card:#FFFFFF;
+  --accent:#FF5B14; --accent2:#FFB000; --ink-on-accent:#111111;
+  --fd:"Archivo", "Arial Narrow", system-ui, sans-serif; --fb:"Archivo", system-ui, sans-serif; --fm:"JetBrains Mono", ui-monospace, monospace;
+  --radius:0px; color-scheme:light;
+}
+/* B · Mind OS — cinematic glass, after Jason Yuan */
+html[data-world="mind-os"]{
+  --bg:#07080C; --fg:#ECEBF5; --muted:#8C8BA3; --line:rgba(236,235,245,.12); --card:rgba(255,255,255,.05);
+  --accent:#B9A6FF; --accent2:#8EF0D0; --ink-on-accent:#07080C;
+  --fd:"Geist", system-ui, sans-serif; --fb:"Geist", system-ui, sans-serif; --fm:"Geist Mono", ui-monospace, monospace;
+  --radius:18px; color-scheme:dark;
+}
+/* C · Clay Island — a small world to walk around, after David Heckhoff + Luca */
+html[data-world="clay-island"]{
+  --bg:#DCE5CC; --fg:#3B2A20; --muted:#6F6150; --line:#3B2A20; --card:#FFF8EA;
+  --accent:#8A5A3B; --accent2:#F2A65A; --ink-on-accent:#FFF8EA;
+  --fd:"Bagel Fat One", "Arial Rounded MT Bold", system-ui, sans-serif; --fb:"Nunito", system-ui, sans-serif; --fm:"Nunito", system-ui, sans-serif;
+  --radius:28px; color-scheme:light;
+}
+/* A · Field Notes — research board, after Queenie + Luca */
+html[data-world="field-notes"]{
+  --bg:#E8EDF1; --fg:#1B2A4A; --muted:#55657F; --line:#1B2A4A; --card:#FFFFFF;
+  --accent:#2F5BEA; --accent2:#F7E463; --ink-on-accent:#FFFFFF;
+  --fd:"Bricolage Grotesque", system-ui, sans-serif; --fb:"Instrument Sans", system-ui, sans-serif; --fm:"Kalam", "Comic Sans MS", cursive;
+  --radius:4px; color-scheme:light;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg); color:var(--fg); font-family:var(--fb); font-size:16px; line-height:1.5; overflow-x:hidden; transition:background .4s, color .4s}
+img{max-width:100%; display:block}
+a{color:inherit}
+button{font:inherit; color:inherit; cursor:pointer}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+h1,h2,h3{text-wrap:balance; margin:0}
+p{margin:0}
+.wrap{padding-left:var(--gutter); padding-right:var(--gutter-r)}
+.inner{max-width:1240px; margin:0 auto}
+.eyebrow{font-family:var(--fm); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+
+/* ─── Top bar ─────────────────────────────────────────── */
+.topbar{position:fixed; inset:0 0 auto; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:calc(12px + env(safe-area-inset-top,0px)) var(--gutter-r) 12px var(--gutter); pointer-events:none}
+.topbar > *{pointer-events:auto}
+.mark{font-family:var(--fd); font-weight:800; font-size:15px; text-decoration:none; display:flex; align-items:center; gap:8px; mix-blend-mode:normal}
+.mark i{width:10px; height:10px; border-radius:50%; background:var(--accent); display:inline-block; animation:pulse 2.4s infinite}
+@keyframes pulse{50%{transform:scale(.6); opacity:.5}}
+.topbar .meta{font-family:var(--fm); font-size:12px; color:var(--muted)}
+
+/* ─── World switcher ──────────────────────────────────── */
+.switcher{position:fixed; z-index:60; left:50%; transform:translateX(-50%); bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  display:flex; gap:4px; padding:5px; border-radius:999px; background:#111; color:#fff; box-shadow:0 10px 40px rgba(0,0,0,.25); max-width:calc(100vw - 32px); overflow-x:auto}
+.switcher button{border:0; background:transparent; color:#bbb; padding:9px 14px; border-radius:999px; font-family:"JetBrains Mono", monospace; font-size:12px; white-space:nowrap; display:flex; gap:6px; align-items:center}
+.switcher button b{font-weight:600; color:#666}
+.switcher button[aria-pressed="true"]{background:#fff; color:#111}
+.switcher button[aria-pressed="true"] b{color:var(--accent)}
+.switcher button:hover{color:#fff}
+.switcher button[aria-pressed="true"]:hover{color:#111}
+
+/* ─── Journey rail (after Transfer Coach) ─────────────── */
+.rail{position:fixed; z-index:40; right:calc(16px + env(safe-area-inset-right,0px)); top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:0}
+.rail button{border:0; background:none; display:flex; align-items:center; gap:10px; justify-content:flex-end; padding:7px 0; font-family:var(--fm); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.rail button span{opacity:0; transform:translateX(6px); transition:.25s}
+.rail:hover button span, .rail button.on span{opacity:1; transform:none}
+.rail button i{width:11px; height:11px; border-radius:50%; border:1.5px solid currentColor; position:relative; flex:none; transition:.25s}
+.rail button:not(:last-child) i::after{content:""; position:absolute; left:50%; top:100%; width:1.5px; height:20px; background:currentColor; opacity:.35; transform:translateX(-50%)}
+.rail button.on{color:var(--fg)}
+.rail button.on i{background:var(--accent); border-color:var(--accent); transform:scale(1.25)}
+.rail button.done i{background:currentColor}
+
+/* ─── WHY panel (after Wildling's MIND panel) ─────────── */
+.why{position:fixed; z-index:45; left:calc(16px + env(safe-area-inset-left,0px)); bottom:calc(76px + env(safe-area-inset-bottom,0px)); width:min(320px, calc(100vw - 32px));
+  font-family:"JetBrains Mono", monospace; font-size:12px; line-height:1.55; color:#E9E9E4; background:rgba(17,17,17,.92); border-radius:14px; backdrop-filter:blur(10px);
+  box-shadow:0 12px 40px rgba(0,0,0,.25); overflow:hidden}
+.why header{display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.1)}
+.why header strong{letter-spacing:.14em; font-weight:600; display:flex; align-items:center; gap:8px}
+.why header strong::before{content:""; width:7px; height:7px; border-radius:50%; background:#8EF0D0; box-shadow:0 0 10px #8EF0D0}
+.why header button{background:none; border:0; color:#aaa; font-size:12px}
+.why .body{padding:12px 14px 14px; display:grid; gap:8px}
+.why .row{display:grid; grid-template-columns:86px 1fr; gap:8px}
+.why .k{color:#7F7F78; text-transform:uppercase; letter-spacing:.08em; font-size:10.5px; padding-top:1px}
+.why .v{min-width:0}
+.why .cand{display:flex; flex-wrap:wrap; gap:4px}
+.why .cand s{opacity:.45}
+.why .cand em{font-style:normal; color:#111; background:#8EF0D0; padding:0 5px; border-radius:3px}
+.why.min .body{display:none}
+.why .typing::after{content:"▍"; animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ─── Boot: an interrupted load (after HCI research) ──── */
+.boot{position:fixed; inset:0; z-index:100; background:#0E0E0E; color:#F3F4F1; display:grid; place-items:center; font-family:"JetBrains Mono", monospace; transition:clip-path .9s cubic-bezier(.76,0,.24,1); clip-path:inset(0 0 0 0)}
+.boot.out{clip-path:inset(0 0 100% 0)}
+.boot .box{width:min(560px, calc(100vw - 32px)); display:grid; gap:18px}
+.boot .count{font-family:"Archivo", sans-serif; font-variation-settings:"wdth" 125; font-weight:800; font-size:clamp(72px,18vw,180px); line-height:.85; letter-spacing:-.04em; font-variant-numeric:tabular-nums}
+.boot .bar{height:3px; background:#2A2A2A; position:relative; overflow:hidden}
+.boot .bar i{position:absolute; inset:0 auto 0 0; width:0; background:#FF5B14}
+.boot .log{font-size:13px; color:#9A9A92; min-height:5.5em; white-space:pre-line}
+.boot .log b{color:#FFB000; font-weight:400}
+.boot.glitch .count{color:#FF5B14; animation:shake .25s 3}
+@keyframes shake{25%{transform:translate(-4px,2px)}75%{transform:translate(4px,-2px)}}
+.boot .skip{justify-self:start; background:none; border:1px solid #444; color:#ccc; border-radius:999px; padding:6px 12px; font-size:12px}
+
+/* ─── Curtain between worlds (after Dennis Snellenberg) ─ */
+.curtain{position:fixed; inset:-20vh 0; z-index:90; background:#111; color:#fff; transform:translateY(110%); display:grid; place-items:center; pointer-events:none;
+  border-radius:50% 50% 0 0 / 14vh 14vh 0 0; transition:transform .7s cubic-bezier(.76,0,.24,1), border-radius .7s}
+.curtain.in{transform:translateY(0); border-radius:0}
+.curtain.leave{transform:translateY(-110%); border-radius:0 0 50% 50% / 0 0 14vh 14vh}
+.curtain .t{text-align:center; display:grid; gap:10px; padding:0 16px}
+.curtain .t h2{font-family:"Archivo", sans-serif; font-variation-settings:"wdth" 125; font-weight:800; font-size:clamp(40px,9vw,110px); letter-spacing:-.03em; line-height:.9}
+.curtain .t p{font-family:"JetBrains Mono", monospace; font-size:12px; color:#999; letter-spacing:.12em; text-transform:uppercase}
+
+/* ─── Cursor ──────────────────────────────────────────── */
+.cursor{position:fixed; z-index:80; left:0; top:0; width:12px; height:12px; margin:-6px 0 0 -6px; border-radius:50%; background:var(--accent); pointer-events:none;
+  transition:width .25s, height .25s, margin .25s, background .25s; display:grid; place-items:center; font-family:var(--fm); font-size:11px; color:var(--ink-on-accent); mix-blend-mode:normal}
+.cursor span{opacity:0; transition:opacity .2s; white-space:nowrap}
+.cursor.big{width:76px; height:76px; margin:-38px 0 0 -38px}
+.cursor.big span{opacity:1}
+@media (pointer:coarse){.cursor{display:none}}
+
+/* ─── Sections (shared) ───────────────────────────────── */
+main{overflow-x:clip}
+main section{position:relative}
+.sec-head{display:flex; justify-content:space-between; align-items:end; gap:16px; flex-wrap:wrap; padding-bottom:28px}
+.sec-head h2{font-family:var(--fd); font-size:clamp(32px,5vw,64px); line-height:.95; letter-spacing:-.02em}
+
+/* About / process — a real sequence, so numbered */
+.about{padding-block:clamp(72px,10vw,140px)}
+.about .lead{font-family:var(--fd); font-size:clamp(24px,3.2vw,42px); line-height:1.12; letter-spacing:-.01em; max-width:22ch}
+.about .grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-top:48px}
+.step{border-top:1.5px solid var(--line); padding-top:14px; display:grid; gap:8px; align-content:start}
+.step .n{font-family:var(--fm); font-size:12px; color:var(--accent)}
+.step h3{font-family:var(--fd); font-size:22px}
+.step p{color:var(--muted); font-size:15px}
+.step .ex{font-family:var(--fm); font-size:12px; color:var(--fg); opacity:.8}
+
+.contact{padding-block:clamp(72px,10vw,140px) 160px; text-align:left}
+.contact h2{font-family:var(--fd); font-size:clamp(44px,9vw,140px); line-height:.9; letter-spacing:-.03em}
+.contact .row{display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-top:40px}
+.magnet{display:inline-grid; place-items:center; width:156px; height:156px; border-radius:50%; background:var(--accent); color:var(--ink-on-accent); text-decoration:none; font-family:var(--fd); font-size:17px; text-align:center; transition:transform .25s cubic-bezier(.2,.8,.2,1); border:0}
+.pill{border:1.5px solid var(--line); border-radius:999px; padding:12px 20px; text-decoration:none; background:transparent; font-family:var(--fm); font-size:13px}
+.pill:hover{background:var(--fg); color:var(--bg)}
+.footnote{margin-top:56px; font-family:var(--fm); font-size:12px; color:var(--muted); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+
+/* ════════════════════════════════════════════════════════
+   WORLD D · DEPARTURE
+   ════════════════════════════════════════════════════════ */
+.d-hero{padding-block:120px 40px; overflow:hidden}
+.d-hero .top{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:start}
+.d-hero .top p{max-width:34ch; font-size:18px}
+.d-name{font-family:"Archivo", sans-serif; font-weight:900; font-variation-settings:"wdth" 125; font-size:clamp(56px,15.2vw,236px); line-height:.82; letter-spacing:-.045em; margin-top:40px; white-space:nowrap}
+.d-name span{display:inline-block; transition:font-variation-settings .5s, transform .5s}
+.d-name .l2{display:block; padding-left:12vw}
+.d-sub{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-top:28px; align-items:end}
+.d-sub h3{font-family:"Archivo", sans-serif; font-variation-settings:"wdth" 75; font-weight:700; font-size:clamp(22px,3vw,36px); line-height:1.05; text-transform:uppercase}
+.d-sub h3 em{font-style:normal; background:var(--accent); padding:0 .2em}
+.ticker{overflow:hidden; border-block:1.5px solid var(--line); margin-top:48px; white-space:nowrap; font-family:var(--fm); font-size:13px; padding:10px 0; text-transform:uppercase}
+.ticker div{display:inline-block; animation:tick 38s linear infinite}
+.ticker span{margin-right:42px}
+.ticker span::before{content:"●"; color:var(--accent); margin-right:12px}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+.d-work{padding-block:80px}
+.board{background:#121212; color:#F3F4F1; border-radius:6px; padding:clamp(14px,2vw,28px); font-family:var(--fm)}
+.board .bh, .board .br{display:grid; grid-template-columns:52px minmax(0,1.3fr) minmax(0,1.2fr) minmax(0,1fr) 40px; gap:16px; align-items:center}
+.board .bh{font-size:11px; letter-spacing:.14em; color:#8A8A85; padding:0 12px 12px; border-bottom:1px solid #2B2B2B}
+.board .br{padding:16px 12px; border-bottom:1px solid #222; text-decoration:none; position:relative; cursor:pointer; background:none; border-left:0; border-right:0; border-top:0; width:100%; text-align:left; color:inherit}
+.board .br:hover, .board .br:focus-visible{background:var(--accent); color:#111}
+.board .br:hover .flap, .board .br:focus-visible .flap{color:#111; background:rgba(0,0,0,.08)}
+.board .br .t{font-family:"Archivo", sans-serif; font-variation-settings:"wdth" 110; font-weight:800; font-size:clamp(20px,2.6vw,34px); letter-spacing:-.01em; line-height:1}
+.board .br .c{font-size:12.5px; color:inherit; opacity:.75}
+.flaps{display:flex; gap:2px; flex-wrap:wrap}
+.flap{display:inline-grid; place-items:center; min-width:1.05em; height:1.6em; background:#1F1F1F; color:#FFB000; font-size:13px; border-radius:2px; position:relative; font-weight:600}
+.flap::after{content:""; position:absolute; left:0; right:0; top:50%; height:1px; background:rgba(0,0,0,.6)}
+.board .arrow{font-size:22px; justify-self:end; transition:transform .25s}
+.board .br:hover .arrow{transform:translateX(4px) rotate(-45deg)}
+.d-follow{position:fixed; z-index:30; left:0; top:0; width:min(360px,40vw); aspect-ratio:4/3; pointer-events:none; border-radius:4px; overflow:hidden; opacity:0; transform:translate(-50%,-50%) scale(.6); transition:opacity .25s, scale .25s; background:#222}
+.d-follow.on{opacity:1}
+.d-follow img{width:100%; height:100%; object-fit:cover}
+.d-legend{display:flex; gap:20px; flex-wrap:wrap; margin-top:16px; font-family:var(--fm); font-size:12px; color:var(--muted)}
+
+/* ════════════════════════════════════════════════════════
+   WORLD B · MIND OS
+   ════════════════════════════════════════════════════════ */
+.aurora{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+.aurora i{position:absolute; width:60vmax; height:60vmax; border-radius:50%; filter:blur(90px); opacity:.42; animation:float 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){background:#6B4BFF; left:-15vmax; top:-20vmax}
+.aurora i:nth-child(2){background:#1FB89A; right:-20vmax; top:10vmax; animation-delay:-7s; opacity:.28}
+.aurora i:nth-child(3){background:#FF7AC6; left:30vw; bottom:-35vmax; animation-delay:-13s; opacity:.2}
+@keyframes float{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+html[data-world="mind-os"] main{position:relative; z-index:1}
+.m-hero{padding-block:140px 60px; text-align:center; display:grid; justify-items:center; gap:22px}
+.m-hero .hello{font-family:var(--fm); font-size:12px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase}
+.m-hero h1{font-weight:300; font-size:clamp(40px,7vw,96px); letter-spacing:-.045em; line-height:.98; max-width:14ch}
+.m-hero h1 b{font-weight:600; background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.cmd{width:min(680px,100%); margin-top:18px; border-radius:18px; background:rgba(255,255,255,.06); border:1px solid var(--line); backdrop-filter:blur(24px); box-shadow:0 30px 80px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08); text-align:left; overflow:hidden}
+.cmd label{display:flex; align-items:center; gap:12px; padding:16px 18px}
+.cmd label svg{flex:none; opacity:.6}
+.cmd input{flex:1; min-width:0; background:none; border:0; outline:0; color:var(--fg); font:inherit; font-size:18px}
+.cmd input::placeholder{color:var(--muted)}
+.cmd kbd{font-family:var(--fm); font-size:11px; color:var(--muted); border:1px solid var(--line); border-radius:6px; padding:2px 6px}
+.cmd .lenses{display:flex; gap:8px; flex-wrap:wrap; padding:12px 18px 16px; border-top:1px solid var(--line)}
+.lens{border:1px solid var(--line); background:rgba(255,255,255,.03); border-radius:999px; padding:6px 12px; font-size:13px; color:var(--muted)}
+.lens[aria-pressed="true"]{background:var(--fg); color:var(--bg); border-color:var(--fg)}
+.m-work{padding-block:40px 80px}
+.windows{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:18px}
+.win{border-radius:var(--radius); background:var(--card); border:1px solid var(--line); backdrop-filter:blur(20px); overflow:hidden; text-align:left; padding:0; display:flex; flex-direction:column;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1), opacity .4s, filter .4s, box-shadow .4s; box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.win:hover{transform:translateY(-6px); box-shadow:0 30px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.1)}
+.win.dim{opacity:.18; filter:blur(2px) grayscale(1); transform:scale(.97)}
+.win .bar{display:flex; align-items:center; gap:6px; padding:10px 12px; font-family:var(--fm); font-size:11px; color:var(--muted)}
+.win .bar i{width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.18)}
+.win .bar span{margin-left:auto}
+.win .shot{aspect-ratio:16/9; overflow:hidden; margin:0 10px; border-radius:10px}
+.win .shot img{width:100%; height:100%; object-fit:cover; transition:transform .8s}
+.win:hover .shot img{transform:scale(1.05)}
+.win .txt{padding:14px 14px 16px; display:grid; gap:6px}
+.win .txt h3{font-size:20px; font-weight:600; letter-spacing:-.02em}
+.win .txt p{font-size:14px; color:var(--muted)}
+.mind{font-family:var(--fm); font-size:11px; display:grid; gap:3px; margin-top:6px; padding:8px 10px; border-radius:10px; background:rgba(0,0,0,.25)}
+.mind span{color:var(--muted)}
+.mind b{font-weight:500; color:var(--accent2)}
+.m-count{font-family:var(--fm); font-size:12px; color:var(--muted)}
+
+/* ════════════════════════════════════════════════════════
+   WORLD C · CLAY ISLAND
+   ════════════════════════════════════════════════════════ */
+html[data-world="clay-island"] body{background:linear-gradient(180deg,#CFE3E8 0, #DCE5CC 70vh, #DCE5CC 100%)}
+.c-hero{padding-block:110px 40px; display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:24px; align-items:center; overflow:hidden}
+.c-hero h1{font-family:var(--fd); font-weight:400; font-size:clamp(48px,7.5vw,108px); line-height:.92; color:var(--fg)}
+.c-hero h1 small{display:block; font-family:var(--fb); font-weight:800; font-size:clamp(18px,2vw,24px); color:var(--muted); margin-top:18px; line-height:1.3; letter-spacing:0}
+.c-hint{margin-top:22px; display:flex; flex-wrap:wrap; gap:8px}
+.c-hint span{background:var(--card); border-radius:999px; padding:7px 14px; font-weight:700; font-size:14px; box-shadow:0 4px 0 rgba(59,42,32,.15)}
+.c-ctrl{display:flex; gap:8px; margin-top:16px}
+.c-ctrl button{border:0; background:var(--accent); color:var(--card); border-radius:999px; width:44px; height:44px; font-size:18px; font-weight:800; box-shadow:0 5px 0 #5E3A23}
+.c-ctrl button:active{transform:translateY(3px); box-shadow:0 2px 0 #5E3A23}
+.scene{height:clamp(380px,48vw,600px); perspective:1400px; position:relative; touch-action:pan-y; cursor:grab; user-select:none}
+.scene:active{cursor:grabbing}
+.cloud{position:absolute; width:120px; height:38px; background:#fff; border-radius:999px; opacity:.85; animation:drift 30s linear infinite}
+.cloud::before{content:""; position:absolute; width:56px; height:56px; background:#fff; border-radius:50%; left:22px; top:-26px}
+@keyframes drift{from{transform:translateX(-30px)} to{transform:translateX(60px)} }
+.plane{position:absolute; left:50%; top:52%; width:min(440px,78vw); aspect-ratio:1; margin-left:calc(min(440px,78vw) / -2); margin-top:calc(min(440px,78vw) / -2);
+  transform-style:preserve-3d; transform:rotateX(58deg) rotateZ(var(--rz,35deg)); transition:transform .1s linear}
+.layer{position:absolute; inset:0; border-radius:34%; transform-style:preserve-3d}
+.ltop{background:radial-gradient(circle at 40% 35%, #A6CF7E, #7FB25B 70%); box-shadow:inset 0 0 0 10px rgba(255,255,255,.18)}
+.ltop::before{content:""; position:absolute; inset:16%; border-radius:30%; background:repeating-linear-gradient(45deg, rgba(255,255,255,.07) 0 18px, transparent 18px 36px)}
+.path{position:absolute; left:20%; right:20%; top:47%; height:6%; background:#E8D3A8; border-radius:99px; transform:rotate(-30deg)}
+.pond{position:absolute; left:62%; top:14%; width:22%; height:16%; background:radial-gradient(#9ED5E6,#6BB7D2); border-radius:50%}
+.obj{position:absolute; width:0; height:0; transform-style:preserve-3d}
+.obj .shadow{position:absolute; width:70px; height:30px; left:-35px; top:-15px; border-radius:50%; background:rgba(40,60,20,.28); filter:blur(3px)}
+.obj .bill{position:absolute; left:-46px; bottom:0; width:92px; transform-origin:50% 100%; transform:rotateZ(calc(var(--rz,35deg) * -1)) rotateX(-58deg); transition:transform .1s linear}
+.obj .bill button{width:92px; height:92px; padding:0; border:0; background:none; display:block; transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.obj .bill button:hover, .obj .bill button:focus-visible{transform:translateY(-14px) scale(1.12)}
+.obj .bill button svg{width:100%; height:100%; overflow:visible; filter:drop-shadow(0 6px 0 rgba(59,42,32,.18))}
+.obj .tag{position:absolute; left:50%; bottom:100%; transform:translateX(-50%) translateY(6px); white-space:nowrap; background:var(--fg); color:var(--card); font-weight:800; font-size:13px; padding:5px 11px; border-radius:999px; opacity:0; transition:.25s; pointer-events:none}
+.obj .bill:hover .tag, .obj .bill:focus-within .tag{opacity:1; transform:translateX(-50%) translateY(-2px)}
+.c-work{padding-block:40px 80px}
+.c-cards{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px}
+.c-card{background:var(--card); border-radius:var(--radius); border:0; padding:14px; text-align:left; display:grid; gap:10px; box-shadow:0 8px 0 rgba(59,42,32,.14); transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.c-card:hover{transform:translateY(-6px) rotate(-1deg)}
+.c-card .ic{width:58px; height:58px}
+.c-card .ic svg{width:100%; height:100%}
+.c-card h3{font-family:var(--fd); font-weight:400; font-size:24px; line-height:1}
+.c-card p{font-size:14px; color:var(--muted); font-weight:500}
+.c-card .chip{justify-self:start; font-size:12px; font-weight:800; background:#F2E6CF; border-radius:999px; padding:3px 10px}
+
+/* ════════════════════════════════════════════════════════
+   WORLD A · FIELD NOTES
+   ════════════════════════════════════════════════════════ */
+html[data-world="field-notes"] body{background-color:var(--bg); background-image:linear-gradient(#C9D6E2 1px, transparent 1px), linear-gradient(90deg,#C9D6E2 1px, transparent 1px); background-size:28px 28px}
+.f-hero{padding-block:120px 40px}
+.f-board{position:relative; display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:28px; align-items:start}
+.f-hero h1{font-family:var(--fd); font-weight:800; font-size:clamp(52px,9vw,136px); line-height:.86; letter-spacing:-.04em; position:relative}
+.f-hero h1 .hl{background:linear-gradient(transparent 58%, var(--accent2) 58% 92%, transparent 92%); padding:0 .06em}
+.hand{font-family:"Kalam", cursive; color:var(--accent); font-size:21px; line-height:1.25}
+.f-anno{position:relative; margin-top:22px; display:flex; gap:12px; align-items:start; max-width:520px}
+.f-anno svg{flex:none}
+.f-q{font-size:19px; max-width:42ch; margin-top:22px}
+.stickies{display:grid; gap:14px; padding-top:10px}
+.sticky{padding:18px 18px 22px; font-family:"Kalam", cursive; font-size:20px; line-height:1.25; color:#1B2A4A; box-shadow:0 10px 18px -8px rgba(27,42,74,.35); position:relative}
+.sticky small{display:block; font-family:"Instrument Sans", sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; opacity:.6; margin-bottom:6px}
+.sticky:nth-child(1){background:#FFF1A8; transform:rotate(-2deg)}
+.sticky:nth-child(2){background:#FAD0DA; transform:rotate(1.5deg) translateX(18px)}
+.sticky:nth-child(3){background:#CFE7C2; transform:rotate(-1deg)}
+.sticky::before{content:""; position:absolute; top:-9px; left:50%; width:16px; height:16px; margin-left:-8px; border-radius:50%; background:radial-gradient(circle at 35% 35%,#FF8A8A,#C0392B); box-shadow:0 2px 3px rgba(0,0,0,.3)}
+.f-work{padding-block:60px 80px}
+.desk{position:relative; height:980px}
+.card{position:absolute; width:260px; background:var(--card); padding:10px 10px 14px; box-shadow:0 14px 28px -12px rgba(27,42,74,.45); cursor:grab; touch-action:none; user-select:none; transition:box-shadow .2s, transform .25s}
+.card:hover{transform:rotate(0deg) scale(1.03) !important; z-index:5}
+.card.drag{cursor:grabbing; box-shadow:0 30px 50px -12px rgba(27,42,74,.5); transition:none; z-index:10}
+.card .tape{position:absolute; top:-12px; left:50%; width:84px; height:24px; margin-left:-42px; background:rgba(247,228,99,.75); transform:rotate(-3deg)}
+.card img{aspect-ratio:4/3; object-fit:cover; width:100%; pointer-events:none; filter:saturate(.9)}
+.card h3{font-family:var(--fd); font-size:22px; margin-top:10px; letter-spacing:-.02em}
+.card p{font-size:13.5px; color:var(--muted)}
+.card .note{font-family:"Kalam", cursive; color:var(--accent); font-size:16px; margin-top:6px; line-height:1.2}
+.card .open{position:absolute; right:10px; bottom:12px; border:1.5px solid var(--line); background:var(--card); border-radius:999px; width:32px; height:32px; font-size:15px}
+.card .open:hover{background:var(--fg); color:var(--card)}
+.f-help{display:flex; gap:10px; align-items:center}
+
+/* ════════════════════════════════════════════════════════
+   CASE STUDY OVERLAY (shared skeleton, themed per world)
+   ════════════════════════════════════════════════════════ */
+.case{position:fixed; inset:0; z-index:70; background:var(--bg); overflow-y:auto; overscroll-behavior:contain; clip-path:circle(0 at var(--ox,50%) var(--oy,50%)); transition:clip-path .8s cubic-bezier(.76,0,.24,1); visibility:hidden}
+html[data-world="field-notes"] .case{background-color:var(--bg); background-image:linear-gradient(#C9D6E2 1px, transparent 1px), linear-gradient(90deg,#C9D6E2 1px, transparent 1px); background-size:28px 28px}
+html[data-world="clay-island"] .case{background:#EFE6D3}
+.case.open{clip-path:circle(150% at var(--ox,50%) var(--oy,50%)); visibility:visible}
+.case-bar{position:sticky; top:0; z-index:2; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:calc(12px + env(safe-area-inset-top,0px)) var(--gutter-r) 12px var(--gutter); background:var(--bg); border-bottom:1px solid var(--line)}
+html[data-world="mind-os"] .case-bar{background:rgba(7,8,12,.8); backdrop-filter:blur(16px)}
+html[data-world="clay-island"] .case-bar{background:#EFE6D3}
+.case-bar .crumb{font-family:var(--fm); font-size:12px; color:var(--muted)}
+.case-bar .nav{display:flex; gap:8px}
+.case-bar button{border:1.5px solid var(--line); background:transparent; border-radius:999px; padding:7px 14px; font-family:var(--fm); font-size:12px}
+.case-bar button:hover{background:var(--fg); color:var(--bg)}
+.case-cover{padding-block:56px 32px}
+.case-cover .kick{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.stage-chip{font-family:var(--fm); font-size:12px; padding:4px 10px; border-radius:999px; background:var(--accent); color:var(--ink-on-accent)}
+.case-cover h1{font-family:var(--fd); font-size:clamp(52px,10vw,150px); line-height:.86; letter-spacing:-.04em; margin-top:22px}
+html[data-world="departure"] .case-cover h1{font-variation-settings:"wdth" 125; font-weight:900}
+html[data-world="mind-os"] .case-cover h1{font-weight:300; letter-spacing:-.05em}
+html[data-world="clay-island"] .case-cover h1{font-weight:400}
+.case-cover .line{font-size:clamp(20px,2.4vw,30px); max-width:28ch; margin-top:18px; line-height:1.2}
+.cmeta{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:36px; border-top:1px solid var(--line); padding-top:16px}
+.cmeta div{display:grid; gap:4px; min-width:0}
+.cmeta dt{font-family:var(--fm); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.cmeta dd{margin:0; font-size:15px}
+.case-img{border-radius:var(--radius); overflow:hidden; margin-top:28px; border:1px solid var(--line)}
+.case-img img{width:100%; max-height:70vh; object-fit:cover}
+.chapters{display:grid; grid-template-columns:200px minmax(0,1fr); gap:40px; padding-block:56px 40px}
+.toc{position:sticky; top:84px; align-self:start; display:grid; gap:6px; font-family:var(--fm); font-size:12px}
+.toc a{text-decoration:none; color:var(--muted); padding:4px 0; border-left:2px solid transparent; padding-left:10px}
+.toc a:hover{color:var(--fg); border-color:var(--accent)}
+.chap{padding-bottom:64px; display:grid; gap:18px}
+.chap .no{font-family:var(--fm); font-size:12px; color:var(--accent); letter-spacing:.1em}
+.chap h2{font-family:var(--fd); font-size:clamp(28px,4vw,48px); line-height:1; letter-spacing:-.02em}
+.chap > p{font-size:19px; max-width:60ch}
+.decisions{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px}
+.decision{border:1.5px solid var(--line); border-radius:var(--radius); padding:16px; display:grid; gap:10px; align-content:start; background:var(--card)}
+.decision .q{font-family:var(--fm); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em}
+.decision h3{font-family:var(--fd); font-size:19px; line-height:1.15}
+.stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px}
+.stat{border-top:3px solid var(--accent); padding-top:12px; display:grid; gap:4px}
+.stat b{font-family:var(--fd); font-size:clamp(36px,5vw,64px); line-height:1; letter-spacing:-.03em; font-variant-numeric:tabular-nums}
+html[data-world="departure"] .stat b{font-variation-settings:"wdth" 110; font-weight:800}
+.stat span{color:var(--muted); font-size:14px}
+.limit{border:1.5px dashed var(--line); border-radius:var(--radius); padding:18px 20px; display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px; align-items:start; max-width:760px}
+.limit .ic{font-family:var(--fm); font-size:12px; background:var(--accent2); color:#111; border-radius:999px; padding:3px 9px; white-space:nowrap}
+.case-next{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; padding-block:40px 120px; border-top:1px solid var(--line)}
+.case-next button{border:0; background:none; text-align:left; padding:0}
+.case-next .big{font-family:var(--fd); font-size:clamp(32px,6vw,80px); line-height:.9; letter-spacing:-.03em; display:block}
+.case-next .big:hover{color:var(--accent)}
+.placeholder{font-family:var(--fm); font-size:12px; color:var(--muted); border:1px dashed var(--line); border-radius:var(--radius); padding:12px 14px}
+
+/* ─── Responsive ──────────────────────────────────────── */
+@media (max-width:900px){
+  .about .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .c-hero{grid-template-columns:1fr}
+  .c-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .f-board{grid-template-columns:1fr}
+  .chapters{grid-template-columns:1fr}
+  .toc{display:none}
+  .decisions,.stats{grid-template-columns:1fr}
+  .rail{display:none}
+  .board .bh{display:none}
+  .board .br{grid-template-columns:40px minmax(0,1fr) 28px; row-gap:8px}
+  .board .br .c{grid-column:2 / 3}
+  .board .br .flaps{grid-column:2 / 3}
+  .board .br .arrow{grid-row:1; grid-column:3}
+  .d-follow{display:none}
+  .desk{height:auto; display:grid; gap:28px; justify-items:center}
+  .card{position:relative; left:auto !important; top:auto !important; width:min(320px,100%); cursor:pointer}
+}
+@media (max-width:560px){
+  .about .grid{grid-template-columns:1fr}
+  .c-cards{grid-template-columns:1fr}
+  .cmeta{grid-template-columns:1fr}
+  .d-name .l2{padding-left:0}
+  .why{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  .switcher button{padding:8px 10px}
+  .switcher .lbl{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s !important; animation-iteration-count:1 !important; transition-duration:.001s !important}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="mark" href="#top" data-go="hero"><i></i><span>Katherine Lin</span></a>
+  <span class="meta" id="clock">Sydney · demo flow</span>
+</header>
+
+<div class="boot" id="boot" aria-live="polite">
+  <div class="box">
+    <div class="count" id="bootCount">00</div>
+    <div class="bar"><i id="bootBar"></i></div>
+    <div class="log" id="bootLog"></div>
+    <button class="skip" id="bootSkip" type="button">Skip intro ↵</button>
+  </div>
+</div>
+
+<div class="curtain" id="curtain"><div class="t"><p id="curtainRef"></p><h2 id="curtainName"></h2><p id="curtainNote"></p></div></div>
+
+<nav class="rail" id="rail" aria-label="Demo flow">
+  <button data-step="boot" type="button"><span>00 Boot</span><i></i></button>
+  <button data-step="hero" type="button"><span>01 Hero</span><i></i></button>
+  <button data-step="work" type="button"><span>02 Work</span><i></i></button>
+  <button data-step="case" type="button"><span>03 Case</span><i></i></button>
+  <button data-step="about" type="button"><span>04 Process</span><i></i></button>
+  <button data-step="contact" type="button"><span>05 Contact</span><i></i></button>
+</nav>
+
+<div class="aurora" id="aurora" hidden><i></i><i></i><i></i></div>
+
+<main id="stage"></main>
+
+<aside class="why" id="why" aria-live="polite">
+  <header><strong>WHY</strong><button type="button" id="whyToggle" aria-expanded="true">hide</button></header>
+  <div class="body" id="whyBody"></div>
+</aside>
+
+<div class="switcher" role="group" aria-label="Visual world">
+  <button type="button" data-world="departure"><b>1</b><span class="lbl">Departure</span></button>
+  <button type="button" data-world="mind-os"><b>2</b><span class="lbl">Mind OS</span></button>
+  <button type="button" data-world="clay-island"><b>3</b><span class="lbl">Clay Island</span></button>
+  <button type="button" data-world="field-notes"><b>4</b><span class="lbl">Field Notes</span></button>
+</div>
+
+<div class="d-follow" id="follow"><img alt="" id="followImg"></div>
+<div class="cursor" id="cursor"><span id="cursorLabel">Open</span></div>
+
+<div class="case" id="case" role="dialog" aria-modal="true" aria-labelledby="caseTitle"></div>
+
+<script>
+const IMG = "../assets/previews/";
+
+const P = [
+ {id:"circleu", title:"CircleU", line:"Private reflection, followed by words you can use.", cat:"AI product · native iOS", status:"TESTFLIGHT", lens:"ai",
+  role:"Team project · product, research, design, development", tools:"SwiftUI · SwiftData · Apple Foundation Models", stage:"TestFlight release; redesign in Simulator testing",
+  img:"circleu.jpg", live:"https://katherine0292.github.io/CircleU/",
+  need:"say the hard thing", chose:"on-device, editable suggestion",
+  problem:"People can replay a difficult conversation and still be unsure what to say next. CircleU links journaling to communication in one loop: Write → Reflect → Talk → How did it go?",
+  decisions:[["Privacy","Keep sensitive reflection on the phone"],["Fallback","Keep the core task available when the model is not"],["Agency","Keep interpretation with the person"]],
+  stats:[["6→9/10","reflection task completion after revision"],["311","unit tests reported by the source"],["20","discovery participants"]],
+  limit:"Small usability sessions. A team project: the case describes my contribution."},
+ {id:"wildling", title:"Wildling", line:"Meet a creature whose choices you can understand.", cat:"Creative interaction · explainable behaviour", status:"PLAYABLE V3.1", lens:"ai",
+  role:"AI product and interaction designer, developer", tools:"p5.js · MediaPipe · Web Audio", stage:"Playable V3.1 browser build",
+  img:"wildling.webp", live:"https://katherine0292.github.io/wildling/",
+  need:"understand a refusal", chose:"visible MIND panel",
+  problem:"A visitor needs to understand both how to interact and why a creature responds. When tracking fails, a refusal can look like a broken interface.",
+  decisions:[["Input","One interaction contract for hand and mouse"],["Refusal","A tired or hungry kitten gives a reason"],["Truth","Show the recorded decision, not a story told afterwards"]],
+  stats:[["119","deterministic replay tests"],["19","test suites"],["3","kittens with their own needs"]],
+  limit:"Recognition with real hands at venue lighting and distance is not yet measured."},
+ {id:"musictag", title:"MusicTag", line:"Familiar music, within reach.", cat:"Accessibility · connected product", status:"PROTOTYPE", lens:"recovery",
+  role:"Independent UX and interaction commission", tools:"HTML · CSS · JavaScript · Voice interaction", stage:"Browser prototype and 24 design states",
+  img:"musictag.webp", live:"https://katherine0292.github.io/MusicTag/",
+  need:"find a song again", chose:"stable home + tactile remote",
+  problem:"Familiar listening routines break when saved songs become hard to find, controls change, or a voice request is misunderstood.",
+  decisions:[["Return","Always a stable place to come back to"],["Choice","Voice proposes matches; the listener picks"],["Failure","Retry, typing and Library stay available"]],
+  stats:[["24","design states"],["5","controls on the remote"],["65+","intended listeners"]],
+  limit:"Voice, Bluetooth and speaker switching are simulations. Usability with intended listeners is next."},
+ {id:"transfer-coach", title:"Transfer Coach", line:"A next step when the journey changes.", cat:"Transport UX · decision support", status:"38 SCREENS", lens:"recovery",
+  role:"Commissioned UX researcher and interaction designer", tools:"Interactive HTML · UX research", stage:"38-screen prototype, three-method evaluation",
+  img:"transfer-coach.webp", live:"https://katherine0292.github.io/Transfer-Coach/portfolio/",
+  need:"decide: stay or switch", chose:"arrival time leads options",
+  problem:"A route plan made at home gives little help when a service is late. Transfer Coach answers: Can I catch it? Will I arrive on time? What should I do now?",
+  decisions:[["Delay","An explicit delayed state, old and new times"],["Honesty","“You're at Stand C”, not “Transfer complete”"],["Recovery","Choosing an alternative starts guidance"]],
+  stats:[["7","moderated usability sessions"],["8/13","recommendations fully implemented"],["38","prototype screens"]],
+  limit:"All routes and disruptions use sample data. No live feed or prediction model."},
+ {id:"who-said-what-when", title:"Who Said What When", line:"Link an answer to its speaker and evidence.", cat:"Audio AI · benchmark design", status:"PILOT 0.1.0", lens:"ai",
+  role:"Task framing, annotation workflow, scoring tooling", tools:"Python · JSONL · JSON Schema", stage:"0.1.0 pilot, 25 items",
+  img:"who-said-what-when-benchmark.png", live:"https://katherine0292.github.io/who-said-what-when-benchmark/",
+  need:"trust an answer", chose:"speaker + meaning + time",
+  problem:"An answer can sound plausible while giving a guest's claim to the host, dropping a qualification, or pointing to the wrong passage.",
+  decisions:[["Process","Annotate in two rounds: turns, then questions"],["Scoring","Temporal IoU over the real interval set"],["Pass","Joint Pass needs speaker, time and meaning"]],
+  stats:[["25","pilot items"],["18","in default evaluation"],["0","gold items so far"]],
+  limit:"No gold items and no held-out test set yet. Baselines check reproducibility only."},
+ {id:"foodsense", title:"FoodSense", line:"From what is in the fridge to what to cook.", cat:"AI interaction · iOS concept", status:"CONCEPT", lens:"recovery",
+  role:"Independent client commission", tools:"AI interaction design · iOS UX · Browser prototypes", stage:"25 iOS states, 10 paper screens, 3 prototypes",
+  img:"foodsense.jpg", live:"https://katherine0292.github.io/FoodSense/",
+  need:"cook before it spoils", chose:"detections as a draft",
+  problem:"In a shared fridge, groceries disappear behind other items and manual inventory becomes another chore.",
+  decisions:[["Review","Confirm detections before adding"],["Action","“Use first” links straight to feasible recipes"],["Uncertainty","Dates and sensor cues stay separate"]],
+  stats:[["25","iOS states"],["10","paper screens"],["3","prototypes"]],
+  limit:"The recognition model and device sync were not built. Waste reduction is an unmeasured hypothesis."},
+ {id:"hci-research", title:"Remembering in Motion", line:"What helps us resume after an interruption?", cat:"HCI research · field probe", status:"RESEARCH DONE", lens:"research",
+  role:"Framing, interviews, analysis, probe design, synthesis", tools:"Interviews · Affinity analysis · Field probe", stage:"Two phases complete; evaluation proposed",
+  img:"hci-research.jpg", live:"https://katherine0292.github.io/HCI-Research/",
+  need:"resume a broken routine", chose:"cue for the next step",
+  problem:"How do people remember belongings while moving between places, and how do they recover when an interruption displaces a familiar check?",
+  decisions:[["Framing","Separate a lost location from lost progress"],["Method","Use counterexamples to sharpen the question"],["Field","Move from interviews to an in-context probe"]],
+  stats:[["15","interview participants"],["356","coded entries"],["10","field incidents"]],
+  limit:"The field probe followed one participant: depth, with limited generalisation."},
+ {id:"data-visualisation", title:"The Price of Arrival", line:"Turn a headline into a decision someone can make.", cat:"Data storytelling · Tableau", status:"STORY LIVE", lens:"research",
+  role:"Data visualisation designer and storyteller", tools:"Tableau · Data preparation · HTML", stage:"6 figures, 19-slide story, film",
+  img:"data-visualisation.png", live:"https://katherine0292.github.io/Data-Visualisation/",
+  need:"choose where to study", chose:"figures ordered by decision",
+  problem:"A record enrolment headline says little about a student's intake, campus or budget. The story follows Mei, a prospective Master's student.",
+  decisions:[["Counts","Enrolments and commencements answer different questions"],["Restraint","Replaced a Sankey the data could not support"],["Scope","Removed a budget calculator CPI could not back"]],
+  stats:[["5","public datasets"],["6","figures"],["19","slides with 10 scenes"]],
+  limit:"Price indices describe change, not personal dollar estimates."}
+];
+
+const WORLDS = {
+  "departure":   {name:"Departure", ref:"After Dennis Snellenberg · Daniel Spatzek", note:"Swiss signal type · split-flap board · hover-follow images"},
+  "mind-os":     {name:"Mind OS", ref:"After Jason Yuan", note:"Cinematic glass · command bar · every project is a window"},
+  "clay-island": {name:"Clay Island", ref:"After David Heckhoff · Luca", note:"A small 3D world · each project is an object you can walk around"},
+  "field-notes": {name:"Field Notes", ref:"After Queenie · Luca", note:"Research board · sticky notes · drag the evidence around"}
+};
+
+/* WHY panel copy: what the site considered, chose, and why */
+const WHY = {
+ "departure":{
+   boot:{c:["spinner","progress %","interrupted resume"], s:"interrupted resume", r:"The loader breaks at 62% on purpose, then offers the next step. It is Katherine's thesis in three seconds."},
+   hero:{c:["portrait","tagline","full-bleed name"], s:"full-bleed name", r:"Wide Archivo at 125% width owns the screen like station signage. Hover a letter: the width axis reacts."},
+   work:{c:["card grid","carousel","departure board"], s:"departure board", r:"Transit recovery is her strongest motif. Reviewers scan status and stage the way commuters scan platforms."},
+   case:{c:["long scroll","slides","chaptered dossier"], s:"chaptered dossier", r:"Problem → Decisions → Evidence → Not yet proven. The last chapter is the honest-scope habit her repos already have."},
+   about:{c:["bio wall","skills cloud","4-step sequence"], s:"4-step sequence", r:"Numbered because it is a real order: research changes the decision, the prototype tests it, evidence closes the loop."},
+   contact:{c:["form","email link","magnetic button"], s:"magnetic button", r:"A single target that leans toward the cursor. One clear next step."}},
+ "mind-os":{
+   boot:{c:["spinner","progress %","interrupted resume"], s:"interrupted resume", r:"Same interruption, rendered as a system resuming its last session."},
+   hero:{c:["headline","reel","command bar"], s:"command bar", r:"Recruiters arrive with a question. The bar answers it: type or pick a lens and the work filters."},
+   work:{c:["list","masonry","floating windows"], s:"floating windows", r:"Each project is an app window with its own MIND readout: the user's need and the design's chosen response."},
+   case:{c:["page","modal","window zoom"], s:"window zoom", r:"The case opens from the point you clicked, so the visitor keeps their place in the system."},
+   about:{c:["timeline","4-step sequence"], s:"4-step sequence", r:"Kept identical across worlds. Only the material changes, so the flow is comparable."},
+   contact:{c:["form","magnetic button"], s:"magnetic button", r:"Glows in the aurora accent. ⌘K still works from anywhere."}},
+ "clay-island":{
+   boot:{c:["spinner","interrupted resume"], s:"interrupted resume", r:"Kept for every world: the interruption is the signature, the skin is optional."},
+   hero:{c:["flat grid","video","walkable island"], s:"walkable island", r:"The hero is the index. Drag to turn the island; each project is an object from its own world: otter, kitten, vinyl, bus."},
+   work:{c:["table","clay cards"], s:"clay cards", r:"A plain fallback below the island, so keyboard and phone users get every project without 3D."},
+   case:{c:["page","window zoom"], s:"window zoom", r:"Warm paper ground, clay accents. CircleU's palette leads this world."},
+   about:{c:["4-step sequence"], s:"4-step sequence", r:"Same content, rounder voice."},
+   contact:{c:["magnetic button"], s:"magnetic button", r:"Pressable like a clay button: it squashes when you click."}},
+ "field-notes":{
+   boot:{c:["spinner","interrupted resume"], s:"interrupted resume", r:"Reads like a field log being restored."},
+   hero:{c:["portrait","pinned board"], s:"pinned board", r:"Three sticky notes carry the three conditions she designs for: uncertain information, an interface in the way, a broken routine."},
+   work:{c:["grid","draggable evidence cards"], s:"draggable evidence cards", r:"An affinity wall. Reviewers can cluster the work themselves; handwritten notes show what each project taught."},
+   case:{c:["page","window zoom"], s:"window zoom", r:"Grid paper continues inside the case so the research voice holds."},
+   about:{c:["4-step sequence"], s:"4-step sequence", r:"The process reads like a method section."},
+   contact:{c:["magnetic button"], s:"magnetic button", r:"Marker-blue target on graph paper."}}
+};
+
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let world = "departure", step = "boot", caseIdx = -1;
+
+/* ─── Clay objects: one per project, drawn from its own world ─── */
+const OBJ = {
+ "circleu":`<svg viewBox="0 0 92 92"><ellipse cx="46" cy="62" rx="26" ry="24" fill="#8A5A3B"/><ellipse cx="46" cy="66" rx="15" ry="14" fill="#F2DFC2"/><circle cx="46" cy="36" r="22" fill="#8A5A3B"/><circle cx="28" cy="20" r="7" fill="#8A5A3B"/><circle cx="64" cy="20" r="7" fill="#8A5A3B"/><circle cx="28" cy="20" r="3.5" fill="#E9A07A"/><circle cx="64" cy="20" r="3.5" fill="#E9A07A"/><ellipse cx="46" cy="44" rx="11" ry="8" fill="#F2DFC2"/><circle cx="38" cy="34" r="2.6" fill="#2B1A12"/><circle cx="54" cy="34" r="2.6" fill="#2B1A12"/><ellipse cx="46" cy="41" rx="3.5" ry="2.5" fill="#2B1A12"/><path d="M30 54q16 8 32 0l-3 6q-13 5-26 0z" fill="#8FB07A"/><rect x="62" y="2" width="28" height="18" rx="9" fill="#FFF8EA"/><circle cx="70" cy="11" r="2" fill="#8A5A3B"/><circle cx="76" cy="11" r="2" fill="#8A5A3B"/><circle cx="82" cy="11" r="2" fill="#8A5A3B"/></svg>`,
+ "wildling":`<svg viewBox="0 0 92 92"><path d="M8 80q10-40 34-46" stroke="#4E8B3A" stroke-width="5" fill="none"/><ellipse cx="22" cy="54" rx="16" ry="7" fill="#5FA046" transform="rotate(-40 22 54)"/><path d="M28 30l6-22 12 16zM64 30l-6-22-12 16z" fill="#E98A3C"/><circle cx="46" cy="44" r="24" fill="#F0A050"/><path d="M34 30q12-8 24 0" stroke="#C86A22" stroke-width="3" fill="none"/><ellipse cx="37" cy="44" rx="5" ry="6" fill="#2F6E9A"/><ellipse cx="55" cy="44" rx="5" ry="6" fill="#2F6E9A"/><circle cx="38" cy="42" r="1.8" fill="#fff"/><circle cx="56" cy="42" r="1.8" fill="#fff"/><path d="M43 52h6l-3 3z" fill="#E7708A"/><ellipse cx="46" cy="58" rx="9" ry="5" fill="#FFF3E0"/><path d="M20 52h12M20 58h12M60 52h12M60 58h12" stroke="#fff" stroke-width="1.2"/><ellipse cx="46" cy="84" rx="20" ry="7" fill="#F0A050"/></svg>`,
+ "musictag":`<svg viewBox="0 0 92 92"><ellipse cx="46" cy="60" rx="40" ry="26" fill="#1E1A22"/><ellipse cx="46" cy="56" rx="40" ry="26" fill="#2A2530"/><ellipse cx="46" cy="56" rx="30" ry="19" fill="none" stroke="#3B3542" stroke-width="2"/><ellipse cx="46" cy="56" rx="22" ry="14" fill="none" stroke="#3B3542" stroke-width="2"/><ellipse cx="46" cy="56" rx="12" ry="8" fill="#A98BDA"/><ellipse cx="46" cy="56" rx="2.5" ry="1.6" fill="#1E1A22"/><rect x="62" y="6" width="22" height="40" rx="10" fill="#F2E9DA"/><circle cx="73" cy="18" r="5" fill="#E37B5C"/><rect x="68" y="28" width="10" height="3" rx="1.5" fill="#B8AA96"/><rect x="68" y="35" width="10" height="3" rx="1.5" fill="#B8AA96"/></svg>`,
+ "transfer-coach":`<svg viewBox="0 0 92 92"><rect x="10" y="24" width="72" height="50" rx="14" fill="#FF6A1A"/><rect x="10" y="56" width="72" height="18" rx="9" fill="#E2520A"/><rect x="18" y="32" width="16" height="16" rx="4" fill="#FFF3E6"/><rect x="38" y="32" width="16" height="16" rx="4" fill="#FFF3E6"/><rect x="58" y="32" width="16" height="16" rx="4" fill="#FFF3E6"/><rect x="28" y="14" width="36" height="12" rx="4" fill="#2A1A10"/><text x="46" y="23.5" font-family="JetBrains Mono, monospace" font-size="8" fill="#FFB000" text-anchor="middle">343</text><circle cx="26" cy="76" r="8" fill="#2A1A10"/><circle cx="66" cy="76" r="8" fill="#2A1A10"/><circle cx="26" cy="76" r="3" fill="#888"/><circle cx="66" cy="76" r="3" fill="#888"/></svg>`,
+ "who-said-what-when":`<svg viewBox="0 0 92 92"><rect x="6" y="36" width="80" height="44" rx="14" fill="#FFF8EA"/><g fill="#8FB07A"><rect x="14" y="52" width="5" height="12" rx="2.5"/><rect x="22" y="46" width="5" height="24" rx="2.5"/><rect x="30" y="54" width="5" height="8" rx="2.5"/></g><g fill="#E9A07A"><rect x="44" y="44" width="5" height="28" rx="2.5"/><rect x="52" y="50" width="5" height="16" rx="2.5"/><rect x="60" y="42" width="5" height="32" rx="2.5"/><rect x="68" y="52" width="5" height="12" rx="2.5"/></g><rect x="42" y="40" width="33" height="36" rx="6" fill="none" stroke="#3B2A20" stroke-width="2" stroke-dasharray="4 3"/><circle cx="22" cy="18" r="12" fill="#8FB07A"/><circle cx="62" cy="18" r="12" fill="#E9A07A"/><text x="22" y="22" font-size="11" font-family="Nunito, sans-serif" font-weight="800" fill="#fff" text-anchor="middle">A</text><text x="62" y="22" font-size="11" font-family="Nunito, sans-serif" font-weight="800" fill="#fff" text-anchor="middle">B</text></svg>`,
+ "foodsense":`<svg viewBox="0 0 92 92"><rect x="22" y="4" width="48" height="84" rx="12" fill="#EAF1F2"/><rect x="22" y="4" width="48" height="84" rx="12" fill="none" stroke="#B9CBD0" stroke-width="2"/><line x1="22" y1="34" x2="70" y2="34" stroke="#B9CBD0" stroke-width="2"/><rect x="60" y="12" width="4" height="14" rx="2" fill="#8FA3A8"/><rect x="60" y="42" width="4" height="20" rx="2" fill="#8FA3A8"/><path d="M6 66l20-14 4 6-20 14z" fill="#F08A2E"/><path d="M26 52l6-6M28 54l8-2M27 51l2-8" stroke="#5FA046" stroke-width="3" stroke-linecap="round"/><circle cx="78" cy="70" r="10" fill="#E2483D"/><path d="M78 60q2-5 6-6" stroke="#5FA046" stroke-width="3" fill="none"/></svg>`,
+ "hci-research":`<svg viewBox="0 0 92 92"><path d="M16 36h60l-6 46H22z" fill="#D7A86E"/><path d="M30 36q0-24 16-24t16 24" fill="none" stroke="#8A5A3B" stroke-width="5"/><rect x="16" y="34" width="60" height="8" rx="4" fill="#C08F55"/><circle cx="66" cy="60" r="9" fill="none" stroke="#E2B13C" stroke-width="4"/><rect x="72" y="58" width="16" height="4" rx="2" fill="#E2B13C"/><rect x="82" y="58" width="3" height="9" fill="#E2B13C"/><rect x="28" y="52" width="22" height="20" rx="3" fill="#FFF1A8" transform="rotate(-6 39 62)"/><path d="M31 58h14M31 63h10" stroke="#3B2A20" stroke-width="2" transform="rotate(-6 39 62)"/></svg>`,
+ "data-visualisation":`<svg viewBox="0 0 92 92"><rect x="8" y="80" width="76" height="6" rx="3" fill="#3B2A20"/><rect x="14" y="50" width="16" height="30" rx="4" fill="#8FB07A"/><rect x="38" y="30" width="16" height="50" rx="4" fill="#E9A07A"/><rect x="62" y="44" width="16" height="36" rx="4" fill="#A98BDA"/><path d="M46 4c-8 0-13 6-13 12 0 9 13 18 13 18s13-9 13-18c0-6-5-12-13-12z" fill="#E2483D"/><circle cx="46" cy="16" r="5" fill="#FFF8EA"/></svg>`
+};
+
+/* ─── Shared sections ─── */
+function about(){
+  return `<section class="about wrap" id="s-about" data-step="about"><div class="inner">
+    <div class="sec-head"><span class="eyebrow">04 · How I work</span></div>
+    <p class="lead">I design for the moment information is uncertain, an interface gets in the way, or a routine breaks.</p>
+    <div class="grid">
+      <div class="step"><span class="n">01</span><h3>Research</h3><p>Find where the routine breaks, and which cue helps people resume.</p><span class="ex">15 interviews · 356 coded entries</span></div>
+      <div class="step"><span class="n">02</span><h3>Decide</h3><p>Turn evidence into a decision a person can make on the spot.</p><span class="ex">“Stay or switch?” at Central</span></div>
+      <div class="step"><span class="n">03</span><h3>Prototype</h3><p>Build it for real: SwiftUI, p5.js, browser prototypes, Python tooling.</p><span class="ex">119 replay tests · 38 screens</span></div>
+      <div class="step"><span class="n">04</span><h3>Show the evidence</h3><p>Report what was measured, and name what is not proven yet.</p><span class="ex">“0 gold items” stated plainly</span></div>
+    </div></div></section>`;
+}
+function contact(){
+  return `<section class="contact wrap" id="s-contact" data-step="contact"><div class="inner">
+    <span class="eyebrow">05 · Contact</span>
+    <h2>Have a next<br>step in mind?</h2>
+    <div class="row">
+      <a class="magnet" href="https://github.com/katherine0292" target="_blank" rel="noopener">Get in<br>touch →</a>
+      <a class="pill" href="https://github.com/katherine0292" target="_blank" rel="noopener">GitHub ↗</a>
+      <button class="pill" type="button" id="replay">Replay the flow ↺</button>
+    </div>
+    <div class="footnote"><span>Shangcheng Lin (Katherine) · AI product design · UX research · Interaction</span><span>Demo · ${esc(WORLDS[world].name)} world</span></div>
+  </div></section>`;
+}
+
+/* ─── World renderers ─── */
+const R = {};
+
+R["departure"] = () => {
+  const name1 = "KATHERINE", name2 = "LIN";
+  const letters = s => [...s].map(ch => `<span>${ch}</span>`).join("");
+  const skills = ["AI product design","UX research","Interaction design","Creative development","Accessibility","Evidence & evaluation","SwiftUI","p5.js","MediaPipe","Tableau","Python"];
+  const tick = [...skills, ...skills].map(s => `<span>${s}</span>`).join("");
+  const rows = P.map((p,i) => `<button class="br" type="button" data-case="${i}" data-img="${p.img}">
+      <span class="c">${String(i+1).padStart(2,"0")}</span>
+      <span class="t">${esc(p.title)}</span>
+      <span class="c">${esc(p.cat)}</span>
+      <span class="flaps" data-flap="${esc(p.status)}"></span>
+      <span class="arrow" aria-hidden="true">→</span></button>`).join("");
+  return `
+  <section class="d-hero wrap" id="s-hero" data-step="hero"><div class="inner">
+    <div class="top"><span class="eyebrow">Portfolio · 2026 · Sydney</span><p>AI product design, UX research and interaction. I design the next step when a routine breaks.</p></div>
+    <h1 class="d-name" aria-label="Katherine Lin">${letters(name1)}<span class="l2">${letters(name2)}<span style="color:var(--accent)">.</span></span></h1>
+    <div class="d-sub"><h3>Make the <em>next step</em><br>obvious.</h3><span class="eyebrow">Scroll ↓ to departures</span></div>
+  </div>
+  <div class="ticker" aria-hidden="true"><div>${tick}</div></div></section>
+  <section class="d-work wrap" id="s-work" data-step="work"><div class="inner">
+    <div class="sec-head"><h2>Departures</h2><span class="eyebrow">8 projects · hover to preview · click to board</span></div>
+    <div class="board" role="list">
+      <div class="bh"><span>NO</span><span>PROJECT</span><span>VIA</span><span>STATUS</span><span></span></div>
+      ${rows}
+    </div>
+    <div class="d-legend"><span>Status = delivery stage, as recorded in each source repo</span><span>Lenses: AI & trust · Recovery · Research</span></div>
+  </div></section>
+  ${about()}${contact()}`;
+};
+
+R["mind-os"] = () => {
+  const wins = P.map((p,i) => `<button class="win" type="button" data-case="${i}" data-lens="${p.lens}" data-q="${esc((p.title+" "+p.cat+" "+p.line+" "+p.tools).toLowerCase())}">
+      <div class="bar"><i></i><i></i><i></i><span>${esc(p.id)}.app</span></div>
+      <div class="shot"><img src="${IMG+p.img}" alt="${esc(p.title)} preview" loading="lazy"></div>
+      <div class="txt"><h3>${esc(p.title)}</h3><p>${esc(p.line)}</p>
+        <div class="mind"><div><span>need ·</span> ${esc(p.need)}</div><div><span>selected ·</span> <b>${esc(p.chose)}</b></div></div></div></button>`).join("");
+  return `
+  <section class="m-hero wrap" id="s-hero" data-step="hero">
+    <span class="hello">Katherine Lin · AI product designer</span>
+    <h1>Interfaces that <b>explain themselves</b> when things break.</h1>
+    <div class="cmd">
+      <label for="cmdInput"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="cmdInput" type="text" autocomplete="off" placeholder="Ask the work… try “voice”, “iOS”, “evidence”"><kbd>⌘K</kbd></label>
+      <div class="lenses" role="group" aria-label="Reviewer lenses">
+        <button class="lens" type="button" data-lens="ai" aria-pressed="false">AI product & trust</button>
+        <button class="lens" type="button" data-lens="recovery" aria-pressed="false">UX, accessibility & recovery</button>
+        <button class="lens" type="button" data-lens="research" aria-pressed="false">Research & evidence</button>
+      </div>
+    </div>
+  </section>
+  <section class="m-work wrap" id="s-work" data-step="work"><div class="inner">
+    <div class="sec-head"><h2 style="font-weight:300">Open windows</h2><span class="m-count" id="mCount">8 of 8 running</span></div>
+    <div class="windows">${wins}</div></div></section>
+  ${about()}${contact()}`;
+};
+
+R["clay-island"] = () => {
+  const pos = [[22,26],[50,16],[78,30],[30,52],[70,58],[18,76],[48,82],[80,80]];
+  const objs = P.map((p,i) => `<div class="obj" style="left:${pos[i][0]}%;top:${pos[i][1]}%"><div class="shadow"></div>
+      <div class="bill"><span class="tag">${esc(p.title)}</span><button type="button" data-case="${i}" aria-label="Open ${esc(p.title)}">${OBJ[p.id]}</button></div></div>`).join("");
+  const layers = Array.from({length:9}, (_,k) => `<div class="layer" style="transform:translateZ(${-(k+1)*5}px); background:${k<2?"#6E9C4C":k<5?"#B07A4F":"#93613C"}"></div>`).reverse().join("");
+  const cards = P.map((p,i) => `<button class="c-card" type="button" data-case="${i}"><span class="ic">${OBJ[p.id]}</span><h3>${esc(p.title)}</h3><p>${esc(p.line)}</p><span class="chip">${esc(p.status.toLowerCase())}</span></button>`).join("");
+  return `
+  <section class="c-hero wrap" id="s-hero" data-step="hero">
+    <div>
+      <h1>Hi, I'm Katherine.<small>I make small worlds where people know what to do next. Drag the island. Every object is a project.</small></h1>
+      <div class="c-hint"><span>CircleU · otter</span><span>Wildling · kitten</span><span>MusicTag · vinyl</span><span>Transfer Coach · bus</span></div>
+      <div class="c-ctrl"><button type="button" id="rotL" aria-label="Turn island left">↺</button><button type="button" id="rotR" aria-label="Turn island right">↻</button></div>
+    </div>
+    <div class="scene" id="scene">
+      <div class="cloud" style="left:6%;top:12%"></div><div class="cloud" style="left:64%;top:4%;animation-delay:-12s;transform:scale(.7)"></div>
+      <div class="plane" id="plane">${layers}<div class="layer ltop"><div class="path"></div><div class="pond"></div></div>${objs}</div>
+    </div>
+  </section>
+  <section class="c-work wrap" id="s-work" data-step="work"><div class="inner">
+    <div class="sec-head"><h2 style="font-weight:400">The inventory</h2><span class="eyebrow">Same eight, no 3D needed</span></div>
+    <div class="c-cards">${cards}</div></div></section>
+  ${about()}${contact()}`;
+};
+
+R["field-notes"] = () => {
+  const spots = [[2,40,-4],[33,0,3],[66,30,-2],[8,360,2],[42,320,-3],[72,380,4],[18,680,-2],[56,660,3]];
+  const notes = ["→ editable, never auto-sent","refusal ≠ broken","stable home = recovery","delay is a state, not an error","0 gold items. Say so.","detections are a draft","lost place ≠ lost progress","removed the chart I couldn't defend"];
+  const cards = P.map((p,i) => `<article class="card" data-card="${i}" style="left:${spots[i][0]}%;top:${spots[i][1]}px;transform:rotate(${spots[i][2]}deg)">
+      <span class="tape"></span><img src="${IMG+p.img}" alt="${esc(p.title)} preview" loading="lazy">
+      <h3>${esc(p.title)}</h3><p>${esc(p.cat)}</p><p class="note">${notes[i]}</p>
+      <button class="open" type="button" data-case="${i}" aria-label="Open ${esc(p.title)}">↗</button></article>`).join("");
+  return `
+  <section class="f-hero wrap" id="s-hero" data-step="hero"><div class="inner f-board">
+    <div>
+      <span class="eyebrow" style="font-family:'Instrument Sans',sans-serif">Field notes · Katherine Lin · AI product & UX research</span>
+      <h1 style="margin-top:18px">What helps people <span class="hl">act</span> when things break?</h1>
+      <div class="f-anno">
+        <svg width="70" height="54" viewBox="0 0 70 54" fill="none" stroke="#2F5BEA" stroke-width="2.5" stroke-linecap="round"><path d="M64 6C40 4 18 14 10 44"/><path d="M4 34l6 12 10-8"/></svg>
+        <p class="hand">my research question, every project since. Eight answers below; drag them into your own clusters.</p>
+      </div>
+    </div>
+    <div class="stickies">
+      <div class="sticky"><small>Condition 01</small>when information is uncertain</div>
+      <div class="sticky"><small>Condition 02</small>when an interface gets in the way</div>
+      <div class="sticky"><small>Condition 03</small>when a routine breaks</div>
+    </div>
+  </div></section>
+  <section class="f-work wrap" id="s-work" data-step="work"><div class="inner">
+    <div class="sec-head"><h2>The evidence wall</h2><span class="hand f-help">drag cards · ↗ to open</span></div>
+    <div class="desk" id="desk">${cards}</div></div></section>
+  ${about()}${contact()}`;
+};
+
+/* ─── Case study overlay ─── */
+function renderCase(i){
+  const p = P[i], n = P[(i+1)%P.length], prev = P[(i-1+P.length)%P.length];
+  $("#case").innerHTML = `
+  <div class="case-bar"><span class="crumb">03 · Case · ${String(i+1).padStart(2,"0")}/08</span>
+    <div class="nav"><button type="button" data-case-go="${(i-1+P.length)%P.length}" aria-label="Previous: ${esc(prev.title)}">←</button><button type="button" data-case-go="${(i+1)%P.length}" aria-label="Next: ${esc(n.title)}">→</button><button type="button" id="caseClose">Close · Esc</button></div></div>
+  <div class="wrap"><div class="inner">
+    <div class="case-cover">
+      <div class="kick"><span class="stage-chip">${esc(p.status)}</span><span class="eyebrow">${esc(p.cat)}</span></div>
+      <h1 id="caseTitle">${esc(p.title)}</h1>
+      <p class="line">${esc(p.line)}</p>
+      <dl class="cmeta"><div><dt>Role</dt><dd>${esc(p.role)}</dd></div><div><dt>Tools</dt><dd>${esc(p.tools)}</dd></div><div><dt>Stage</dt><dd>${esc(p.stage)}</dd></div></dl>
+      <div class="case-img"><img src="${IMG+p.img}" alt="${esc(p.title)} preview"></div>
+    </div>
+    <div class="chapters">
+      <nav class="toc" aria-label="Chapters"><a href="#c1">01 Problem</a><a href="#c2">02 Decisions</a><a href="#c3">03 Evidence</a><a href="#c4">04 Not yet proven</a><a href="#c5">05 Media slots</a></nav>
+      <div>
+        <div class="chap" id="c1"><span class="no">01 · PROBLEM</span><h2>Where it breaks</h2><p>${esc(p.problem)}</p></div>
+        <div class="chap" id="c2"><span class="no">02 · DECISIONS</span><h2>Decisions that matter</h2>
+          <div class="decisions">${p.decisions.map(d => `<div class="decision"><span class="q">${esc(d[0])}</span><h3>${esc(d[1])}</h3></div>`).join("")}</div></div>
+        <div class="chap" id="c3"><span class="no">03 · EVIDENCE</span><h2>What the source records</h2>
+          <div class="stats">${p.stats.map(s => `<div class="stat"><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join("")}</div></div>
+        <div class="chap" id="c4"><span class="no">04 · NOT YET PROVEN</span><h2>Honest scope</h2>
+          <div class="limit"><span class="ic">limit</span><p>${esc(p.limit)}</p></div></div>
+        <div class="chap" id="c5"><span class="no">05 · MEDIA SLOTS</span><h2>To be laid out</h2>
+          <p class="placeholder">Demo template: full-bleed video · before/after slider · prototype embed link · process photos go here in the real build.</p>
+          <p><a class="pill" href="${p.live}" target="_blank" rel="noopener">Open the live project ↗</a></p></div>
+      </div>
+    </div>
+    <div class="case-next"><span class="eyebrow">Next departure</span><button type="button" data-case-go="${(i+1)%P.length}"><span class="big">${esc(n.title)} →</span></button></div>
+  </div></div>`;
+}
+function openCase(i, ev){
+  caseIdx = i;
+  const c = $("#case");
+  if (ev && ev.clientX != null){ c.style.setProperty("--ox", ev.clientX+"px"); c.style.setProperty("--oy", ev.clientY+"px"); }
+  renderCase(i);
+  c.scrollTop = 0;
+  c.classList.add("open");
+  document.body.style.overflow = "hidden";
+  setStep("case");
+  setTimeout(() => $("#caseClose")?.focus({preventScroll:true}), 50);
+  hideFollow();
+}
+function closeCase(){
+  $("#case").classList.remove("open");
+  document.body.style.overflow = "";
+  caseIdx = -1;
+  setStep("work");
+}
+
+/* ─── WHY panel ─── */
+let whyTimer;
+function setWhy(){
+  const w = WHY[world][step]; if(!w) return;
+  const cand = w.c.map(c => c === w.s ? `<em>${esc(c)}</em>` : `<s>${esc(c)}</s>`).join(" ");
+  $("#whyBody").innerHTML = `
+    <div class="row"><span class="k">step</span><span class="v">${esc(step)} · ${esc(WORLDS[world].name)}</span></div>
+    <div class="row"><span class="k">candidates</span><span class="v cand">${cand}</span></div>
+    <div class="row"><span class="k">reason</span><span class="v typing" id="whyR"></span></div>`;
+  const el = $("#whyR"); let k = 0; clearInterval(whyTimer);
+  if (reduce){ el.textContent = w.r; el.classList.remove("typing"); return; }
+  whyTimer = setInterval(() => { el.textContent = w.r.slice(0, k += 3); if (k >= w.r.length){ clearInterval(whyTimer); setTimeout(()=>el.classList.remove("typing"),1200);} }, 18);
+}
+function setStep(s){
+  if (s === step) return;
+  step = s;
+  const order = ["boot","hero","work","case","about","contact"];
+  $$("#rail button").forEach(b => { const j = order.indexOf(b.dataset.step); b.classList.toggle("on", b.dataset.step === s); b.classList.toggle("done", j < order.indexOf(s)); });
+  setWhy();
+}
+$("#whyToggle").addEventListener("click", e => { const w = $("#why"); w.classList.toggle("min"); e.target.textContent = w.classList.contains("min") ? "show" : "hide"; e.target.setAttribute("aria-expanded", !w.classList.contains("min")); });
+
+/* ─── Mount a world ─── */
+let io;
+function mount(){
+  document.documentElement.dataset.world = world;
+  $("#aurora").hidden = world !== "mind-os";
+  $("#stage").innerHTML = R[world]();
+  $$(".switcher button").forEach(b => b.setAttribute("aria-pressed", b.dataset.world === world));
+  io?.disconnect();
+  io = new IntersectionObserver(es => { if (caseIdx >= 0 || step === "boot") return; es.forEach(e => { if (e.isIntersecting) setStep(e.target.dataset.step); }); }, {rootMargin:"-45% 0px -45% 0px"});
+  $$("#stage [data-step]").forEach(s => io.observe(s));
+  wire[world]?.();
+  wireShared();
+  const s = step; step = ""; setStep(s === "case" ? "hero" : s);
+}
+
+function switchWorld(w){
+  if (w === world || !WORLDS[w]) return;
+  if (caseIdx >= 0) closeCase();
+  const c = $("#curtain");
+  $("#curtainName").textContent = WORLDS[w].name;
+  $("#curtainRef").textContent = WORLDS[w].ref;
+  $("#curtainNote").textContent = WORLDS[w].note;
+  if (reduce){ world = w; mount(); scrollTo(0,0); return; }
+  c.classList.remove("leave"); c.classList.add("in");
+  setTimeout(() => { world = w; mount(); scrollTo(0,0); try{ history.replaceState(null,"","#"+w); }catch(e){}
+    c.classList.add("leave"); c.classList.remove("in");
+    setTimeout(() => c.classList.remove("leave"), 800); }, 900);
+}
+$$(".switcher button").forEach(b => b.addEventListener("click", () => switchWorld(b.dataset.world)));
+addEventListener("hashchange", () => { const h = location.hash.slice(1); if (WORLDS[h]) switchWorld(h); });
+
+/* ─── Shared wiring ─── */
+function wireShared(){
+  $$("#stage [data-case]").forEach(el => el.addEventListener("click", e => { if (el.closest(".card")?.dataset.moved === "1") return; e.stopPropagation(); openCase(+el.dataset.case, e); }));
+  $("#replay")?.addEventListener("click", () => { scrollTo(0,0); runBoot(); });
+  const m = $(".magnet");
+  if (m && matchMedia("(pointer:fine)").matches){
+    m.addEventListener("pointermove", e => { const r = m.getBoundingClientRect(); m.style.transform = `translate(${(e.clientX-r.left-r.width/2)*.35}px,${(e.clientY-r.top-r.height/2)*.35}px)`; });
+    m.addEventListener("pointerleave", () => m.style.transform = "");
+    m.addEventListener("pointerdown", () => { if (world === "clay-island") m.style.transform += " scale(.9,.82)"; });
+  }
+  $$("#stage [data-case], .magnet").forEach(el => { el.addEventListener("pointerenter", () => cur(true, el.classList.contains("magnet") ? "Say hi" : "Open")); el.addEventListener("pointerleave", () => cur(false)); });
+}
+$("#case").addEventListener("click", e => {
+  const g = e.target.closest("[data-case-go]"); if (g){ caseIdx = +g.dataset.caseGo; renderCase(caseIdx); $("#case").scrollTop = 0; return; }
+  if (e.target.closest("#caseClose")) closeCase();
+  const a = e.target.closest(".toc a"); if (a){ e.preventDefault(); $("#case").querySelector(a.getAttribute("href"))?.scrollIntoView({behavior: reduce ? "auto" : "smooth"}); }
+});
+addEventListener("keydown", e => {
+  if (e.key === "Escape" && caseIdx >= 0) closeCase();
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k"){ if (world !== "mind-os") switchWorld("mind-os"); setTimeout(()=>$("#cmdInput")?.focus(), world==="mind-os"?0:1000); e.preventDefault(); }
+  if (/^[1-4]$/.test(e.key) && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) switchWorld(Object.keys(WORLDS)[+e.key-1]);
+  if (caseIdx >= 0 && (e.key === "ArrowRight" || e.key === "ArrowLeft")){ caseIdx = (caseIdx + (e.key === "ArrowRight" ? 1 : -1) + P.length) % P.length; renderCase(caseIdx); }
+});
+$$("#rail button").forEach(b => b.addEventListener("click", () => {
+  const s = b.dataset.step;
+  if (s === "boot") return runBoot();
+  if (s === "case") return openCase(caseIdx >= 0 ? caseIdx : 0);
+  if (caseIdx >= 0) closeCase();
+  $("#s-"+s)?.scrollIntoView({behavior: reduce ? "auto" : "smooth"});
+}));
+$(".mark").addEventListener("click", e => { e.preventDefault(); if (caseIdx >= 0) closeCase(); scrollTo({top:0, behavior: reduce ? "auto" : "smooth"}); });
+
+/* cursor + follow image */
+const cursor = $("#cursor"), follow = $("#follow");
+let mx = innerWidth/2, my = innerHeight/2, fx = mx, fy = my, cx = mx, cy = my;
+addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; });
+function cur(big, label){ cursor.classList.toggle("big", big); if (label) $("#cursorLabel").textContent = label; }
+function hideFollow(){ follow.classList.remove("on"); }
+(function loop(){
+  cx += (mx-cx)*.35; cy += (my-cy)*.35; cursor.style.transform = `translate(${cx}px,${cy}px)`;
+  fx += (mx-fx)*.12; fy += (my-fy)*.12; follow.style.left = fx+"px"; follow.style.top = fy+"px";
+  requestAnimationFrame(loop);
+})();
+
+/* ─── Per-world wiring ─── */
+const wire = {};
+const FLAPCH = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.";
+function flap(el, text){
+  el.innerHTML = [...text].map(() => `<span class="flap">&nbsp;</span>`).join("");
+  const cells = $$(".flap", el);
+  [...text].forEach((ch, i) => {
+    if (reduce || ch === " "){ cells[i].innerHTML = ch === " " ? "&nbsp;" : ch; return; }
+    let n = 6 + i*2 + Math.floor(Math.random()*6);
+    const t = setInterval(() => { cells[i].textContent = --n <= 0 ? ch : FLAPCH[Math.floor(Math.random()*FLAPCH.length)]; if (n <= 0) clearInterval(t); }, 45);
+  });
+}
+wire["departure"] = () => {
+  const flaps = $$("[data-flap]");
+  const fio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ flap(e.target, e.target.dataset.flap); fio.unobserve(e.target); } }), {threshold:.6});
+  flaps.forEach(f => { f.innerHTML = [...f.dataset.flap].map(c => `<span class="flap">${c===" "?"&nbsp;":c}</span>`).join(""); fio.observe(f); });
+  $$(".board .br").forEach(r => {
+    r.addEventListener("pointerenter", () => { $("#followImg").src = IMG + r.dataset.img; follow.classList.add("on"); flap($(".flaps", r), r.querySelector("[data-flap]").dataset.flap); });
+    r.addEventListener("pointerleave", hideFollow);
+  });
+  const fit = () => { const n = $(".d-name"); if (!n) return; n.style.fontSize = "100px"; const w = n.scrollWidth, avail = n.parentElement.clientWidth; n.style.fontSize = Math.min(236, 100 * avail / w * .98) + "px"; };
+  fit(); document.fonts?.ready.then(fit); addEventListener("resize", fit);
+  $$(".d-name span").forEach(s => s.addEventListener("pointerenter", () => { if (!s.classList.contains("l2")){ s.style.fontVariationSettings = '"wdth" 62'; s.style.color = "var(--accent)"; setTimeout(()=>{ s.style.fontVariationSettings = ""; s.style.color=""; }, 700); } }));
+};
+wire["mind-os"] = () => {
+  const input = $("#cmdInput"); let lens = null;
+  const apply = () => {
+    const q = input.value.trim().toLowerCase(); let n = 0;
+    $$(".win").forEach(w => { const ok = (!q || w.dataset.q.includes(q)) && (!lens || w.dataset.lens === lens); w.classList.toggle("dim", !ok); n += ok; });
+    $("#mCount").textContent = `${n} of 8 ${q||lens ? "match" : "running"}`;
+  };
+  input.addEventListener("input", apply);
+  input.addEventListener("keydown", e => { if (e.key === "Enter"){ const first = $(".win:not(.dim)"); first?.scrollIntoView({behavior:"smooth", block:"center"}); } });
+  $$(".lens").forEach(b => b.addEventListener("click", () => { lens = lens === b.dataset.lens ? null : b.dataset.lens; $$(".lens").forEach(x => x.setAttribute("aria-pressed", x.dataset.lens === lens)); apply(); }));
+  if (!reduce){ const demo = ["evidence","voice","ios",""]; let d = 0; const t = setInterval(() => { if (world !== "mind-os" || document.activeElement === input || lens){ clearInterval(t); return; } input.placeholder = d < demo.length-1 ? `Ask the work… “${demo[d]}”` : "Ask the work… try “voice”, “iOS”, “evidence”"; d = (d+1) % demo.length; }, 2200); }
+};
+wire["clay-island"] = () => {
+  const scene = $("#scene"), plane = $("#plane"); let rz = 35, drag = null, vel = 0;
+  const set = () => plane.style.setProperty("--rz", rz+"deg");
+  set();
+  scene.addEventListener("pointerdown", e => { if (e.target.closest("button")) return; drag = {x:e.clientX, rz}; scene.setPointerCapture(e.pointerId); });
+  scene.addEventListener("pointermove", e => { if (!drag) return; const nrz = drag.rz + (e.clientX - drag.x) * .4; vel = nrz - rz; rz = nrz; set(); });
+  const end = () => { if (!drag) return; drag = null; const glide = () => { if (Math.abs(vel) < .05) return; rz += vel; vel *= .92; set(); requestAnimationFrame(glide); }; if (!reduce) glide(); };
+  scene.addEventListener("pointerup", end); scene.addEventListener("pointercancel", end);
+  const turn = d => { const target = rz + d; const anim = () => { rz += (target - rz) * .15; set(); if (Math.abs(target - rz) > .3) requestAnimationFrame(anim); else { rz = target; set(); } }; reduce ? (rz = target, set()) : anim(); };
+  $("#rotL").addEventListener("click", () => turn(-45)); $("#rotR").addEventListener("click", () => turn(45));
+  if (!reduce){ const idle = () => { if (world !== "clay-island") return; if (!drag && Math.abs(vel) < .05 && step === "hero" && caseIdx < 0){ rz += .06; set(); } requestAnimationFrame(idle); }; idle(); }
+};
+wire["field-notes"] = () => {
+  const desk = $("#desk"); let z = 10;
+  $$(".card", desk).forEach(card => {
+    let st = null;
+    card.addEventListener("pointerdown", e => {
+      if (innerWidth <= 900 || e.target.closest(".open")) return;
+      st = {x:e.clientX, y:e.clientY, l:card.offsetLeft, t:card.offsetTop}; card.dataset.moved = "0";
+      card.setPointerCapture(e.pointerId); card.classList.add("drag"); card.style.zIndex = ++z;
+    });
+    card.addEventListener("pointermove", e => {
+      if (!st) return; const dx = e.clientX - st.x, dy = e.clientY - st.y;
+      if (Math.abs(dx) + Math.abs(dy) > 4) card.dataset.moved = "1";
+      const maxL = desk.clientWidth - card.offsetWidth;
+      card.style.left = Math.max(0, Math.min(maxL, st.l + dx)) + "px"; card.style.top = Math.max(-20, st.t + dy) + "px";
+    });
+    const up = () => { if (!st) return; st = null; card.classList.remove("drag"); if (card.dataset.moved === "0") openCase(+card.dataset.card); setTimeout(() => card.dataset.moved = "0", 0); };
+    card.addEventListener("pointerup", up); card.addEventListener("pointercancel", () => { st = null; card.classList.remove("drag"); });
+  });
+};
+
+/* ─── Boot: load, get interrupted, resume ─── */
+let bootRunning = false;
+function runBoot(){
+  if (caseIdx >= 0) closeCase();
+  const b = $("#boot"), cnt = $("#bootCount"), bar = $("#bootBar"), log = $("#bootLog");
+  b.classList.remove("out", "glitch"); bootRunning = true; step = ""; setStep("boot");
+  const lines = [];
+  const say = t => { lines.push(t); log.innerHTML = lines.slice(-4).join("\n"); };
+  let v = 0, phase = 0;
+  say("› restoring last session: Katherine Lin, portfolio");
+  const done = () => { if (!bootRunning) return; bootRunning = false; b.classList.add("out"); step = ""; setStep("hero"); };
+  $("#bootSkip").onclick = done;
+  if (reduce){ cnt.textContent = "100"; bar.style.width = "100%"; say("› ready"); setTimeout(done, 400); return; }
+  const tick = () => {
+    if (!bootRunning) return;
+    if (phase === 0){ v += 2 + Math.random()*3; if (v >= 62){ v = 62; phase = 1; b.classList.add("glitch"); say("<b>! interrupted at 62%. where was I?</b>"); setTimeout(() => { say("› last checkpoint found: 8 projects, 4 worlds"); setTimeout(() => { say("› next step: meet the work"); b.classList.remove("glitch"); phase = 2; tick(); }, 650); }, 750); }
+    } else if (phase === 2){ v += 4; if (v >= 100){ v = 100; cnt.textContent = "100"; bar.style.width = "100%"; setTimeout(done, 350); return; } }
+    cnt.textContent = String(Math.floor(v)).padStart(2,"0"); bar.style.width = v + "%";
+    if (phase !== 1) setTimeout(tick, 40);
+  };
+  setTimeout(() => { say("› loading research, prototypes, evidence"); tick(); }, 350);
+}
+
+/* clock */
+function clock(){ try{ $("#clock").textContent = "Sydney " + new Intl.DateTimeFormat("en-AU",{hour:"2-digit",minute:"2-digit",timeZone:"Australia/Sydney"}).format(new Date()) + " · demo"; }catch(e){} }
+clock(); setInterval(clock, 30000);
+
+/* start */
+const h = location.hash.slice(1);
+if (WORLDS[h]) world = h;
+if (innerWidth < 700){ $("#why").classList.add("min"); $("#whyToggle").textContent = "show"; $("#whyToggle").setAttribute("aria-expanded","false"); }
+mount();
+runBoot();
+</script>
+</body>
+</html>
