@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="390" viewBox="0 0 1280 390" role="img" aria-labelledby="title desc">
+  <title id="title">Katherine Lin — Selected Work</title>
+  <desc id="desc">Portfolio in AI product design, user research and interaction, with eight connected circular forms.</desc>
+  <rect width="1280" height="390" fill="#f2f1e9"/>
+  <path d="M0 389H1280" stroke="#d5d8cd" stroke-width="2"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#193e36">
+    <text x="62" y="58" font-size="15" letter-spacing="3.2">KATHERINE LIN / SELECTED WORK</text>
+    <text x="58" y="156" font-size="61" font-weight="700" letter-spacing="-2">Human decisions.</text>
+    <text x="58" y="228" font-size="61" font-weight="700" letter-spacing="-2">Thoughtful technology.</text>
+    <text x="62" y="292" font-size="20">AI product design · Research · Interaction</text>
+    <text x="62" y="345" font-size="14" letter-spacing="1.2">08 PROJECTS / FROM QUESTIONS TO EXPERIENCES</text>
+  </g>
+  <g transform="translate(1010 190)">
+    <circle r="139" fill="none" stroke="#cbd5c7" stroke-width="1.5"/>
+    <circle r="91" fill="none" stroke="#cbd5c7" stroke-width="1.5"/>
+    <path d="M0-139L98-98 139 0 98 98 0 139-98 98-139 0-98-98Z" fill="none" stroke="#8fa793" stroke-width="1.5"/>
+    <g fill="#c8d9ad">
+      <circle cy="-139" r="21"/><circle cx="98" cy="-98" r="21"/><circle cx="139" r="21"/><circle cx="98" cy="98" r="21"/>
+      <circle cy="139" r="21"/><circle cx="-98" cy="98" r="21"/><circle cx="-139" r="21"/><circle cx="-98" cy="-98" r="21"/>
+    </g>
+    <circle r="55" fill="#193e36"/>
+    <path d="M-20 1H20M0-19V21" stroke="#f2f1e9" stroke-width="2"/>
+    <circle cx="98" cy="-98" r="21" fill="#d96943"/>
+    <circle cx="-98" cy="98" r="21" fill="#8fa793"/>
+  </g>
+</svg>

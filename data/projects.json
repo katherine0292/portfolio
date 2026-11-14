@@ -1,0 +1,268 @@
+{
+  "author": {
+    "name": "Shangcheng Lin (Katherine)",
+    "github": "https://github.com/katherine0292"
+  },
+  "reviewedOn": "2026-11-15",
+  "projects": [
+    {
+      "id": "circleu",
+      "title": "CircleU",
+      "summary": "Private reflection and communication",
+      "category": "AI product / native iOS",
+      "role": "Team project; product, research, design and development",
+      "status": "Earlier TestFlight release; current redesign in Simulator testing",
+      "skills": [
+        "SwiftUI",
+        "SwiftData",
+        "Apple Foundation Models",
+        "Speech",
+        "XCTest"
+      ],
+      "repository": "https://github.com/katherine0292/CircleU",
+      "live": "https://katherine0292.github.io/CircleU/",
+      "caseStudy": "projects/circleu.md",
+      "preview": "assets/previews/circleu.jpg",
+      "sourceCommit": "045736d7b0a61fc3bb94468e4923ac43251a0d68",
+      "evidence": [
+        {
+          "path": "docs/product/how-circleu-works.md",
+          "url": "https://github.com/katherine0292/CircleU/blob/045736d7b0a61fc3bb94468e4923ac43251a0d68/docs/product/how-circleu-works.md"
+        },
+        {
+          "path": "docs/product/user-stories.md",
+          "url": "https://github.com/katherine0292/CircleU/blob/045736d7b0a61fc3bb94468e4923ac43251a0d68/docs/product/user-stories.md"
+        },
+        {
+          "path": "docs/qa/ai-acceptance-cases.md",
+          "url": "https://github.com/katherine0292/CircleU/blob/045736d7b0a61fc3bb94468e4923ac43251a0d68/docs/qa/ai-acceptance-cases.md"
+        }
+      ]
+    },
+    {
+      "id": "wildling",
+      "title": "Wildling",
+      "summary": "Explainable creatures, met through hand interaction",
+      "category": "Creative interaction / explainable behaviour",
+      "role": "AI product and interaction designer, developer",
+      "status": "Playable V3.1 browser build; venue recognition study pending",
+      "skills": [
+        "JavaScript",
+        "p5.js",
+        "MediaPipe Hand Landmarker",
+        "Web Audio",
+        "Node.js"
+      ],
+      "repository": "https://github.com/katherine0292/wildling",
+      "live": "https://katherine0292.github.io/wildling/",
+      "caseStudy": "projects/wildling.md",
+      "preview": "assets/previews/wildling.webp",
+      "sourceCommit": "621a4e448491e6a070cddf2eb74f4a3b4b57154a",
+      "evidence": [
+        {
+          "path": "docs/design/experience-spec-v3.md",
+          "url": "https://github.com/katherine0292/wildling/blob/621a4e448491e6a070cddf2eb74f4a3b4b57154a/docs/design/experience-spec-v3.md"
+        },
+        {
+          "path": "docs/ai-boundaries.md",
+          "url": "https://github.com/katherine0292/wildling/blob/621a4e448491e6a070cddf2eb74f4a3b4b57154a/docs/ai-boundaries.md"
+        },
+        {
+          "path": "docs/research/usability-test-plan.md",
+          "url": "https://github.com/katherine0292/wildling/blob/621a4e448491e6a070cddf2eb74f4a3b4b57154a/docs/research/usability-test-plan.md"
+        }
+      ]
+    },
+    {
+      "id": "musictag",
+      "title": "MusicTag",
+      "summary": "Accessible listening and recoverable voice search",
+      "category": "Accessibility / connected-product UX",
+      "role": "Independent UX and interaction design commission",
+      "status": "Browser prototype and 24 design states; service and hardware simulations",
+      "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Voice interaction design"
+      ],
+      "repository": "https://github.com/katherine0292/MusicTag",
+      "live": "https://katherine0292.github.io/MusicTag/",
+      "caseStudy": "projects/musictag.md",
+      "preview": "assets/previews/musictag.webp",
+      "sourceCommit": "5e6e758b99c1f94f7b8505a23846f61e2a0ac89b",
+      "evidence": [
+        {
+          "path": "docs/project-brief.md",
+          "url": "https://github.com/katherine0292/MusicTag/blob/5e6e758b99c1f94f7b8505a23846f61e2a0ac89b/docs/project-brief.md"
+        },
+        {
+          "path": "docs/evaluation.md",
+          "url": "https://github.com/katherine0292/MusicTag/blob/5e6e758b99c1f94f7b8505a23846f61e2a0ac89b/docs/evaluation.md"
+        }
+      ]
+    },
+    {
+      "id": "transfer-coach",
+      "title": "Transfer Coach",
+      "summary": "Recovery decisions during a disrupted commute",
+      "category": "Transport UX / decision support",
+      "role": "Independent commissioned UX researcher and interaction designer",
+      "status": "38-screen prototype, heuristic review, usability sessions and experience journals",
+      "skills": [
+        "HTML",
+        "UX research",
+        "Interaction design"
+      ],
+      "repository": "https://github.com/katherine0292/Transfer-Coach",
+      "live": "https://katherine0292.github.io/Transfer-Coach/portfolio/",
+      "caseStudy": "projects/transfer-coach.md",
+      "preview": "assets/previews/transfer-coach.webp",
+      "sourceCommit": "f6327d32f68adfa10991d7b5dc3b36b384d419a3",
+      "evidence": [
+        {
+          "path": "docs/02-research.md",
+          "url": "https://github.com/katherine0292/Transfer-Coach/blob/f6327d32f68adfa10991d7b5dc3b36b384d419a3/docs/02-research.md"
+        },
+        {
+          "path": "docs/06-evaluation.md",
+          "url": "https://github.com/katherine0292/Transfer-Coach/blob/f6327d32f68adfa10991d7b5dc3b36b384d419a3/docs/06-evaluation.md"
+        },
+        {
+          "path": "docs/07-outcomes-and-next-steps.md",
+          "url": "https://github.com/katherine0292/Transfer-Coach/blob/f6327d32f68adfa10991d7b5dc3b36b384d419a3/docs/07-outcomes-and-next-steps.md"
+        }
+      ]
+    },
+    {
+      "id": "who-said-what-when",
+      "title": "Who Said What When",
+      "summary": "Speaker, meaning and time evidence in conversational audio",
+      "category": "Audio AI / benchmark design",
+      "role": "Task framing, annotation workflow, validation and scoring tooling",
+      "status": "0.1.0 pilot; 25 items, 18 default evaluation items, 0 gold items",
+      "skills": [
+        "Python",
+        "JSONL",
+        "JSON Schema"
+      ],
+      "repository": "https://github.com/katherine0292/who-said-what-when-benchmark",
+      "live": "https://katherine0292.github.io/who-said-what-when-benchmark/",
+      "caseStudy": "projects/who-said-what-when.md",
+      "preview": "assets/previews/who-said-what-when-benchmark.png",
+      "sourceCommit": "9220da9271dacb9d3e641e1e68f136c037152b4f",
+      "evidence": [
+        {
+          "path": "docs/DATA_CARD.md",
+          "url": "https://github.com/katherine0292/who-said-what-when-benchmark/blob/9220da9271dacb9d3e641e1e68f136c037152b4f/docs/DATA_CARD.md"
+        },
+        {
+          "path": "docs/ANNOTATION_GUIDE.md",
+          "url": "https://github.com/katherine0292/who-said-what-when-benchmark/blob/9220da9271dacb9d3e641e1e68f136c037152b4f/docs/ANNOTATION_GUIDE.md"
+        },
+        {
+          "path": "docs/BENCHMARK_PROTOCOL.md",
+          "url": "https://github.com/katherine0292/who-said-what-when-benchmark/blob/9220da9271dacb9d3e641e1e68f136c037152b4f/docs/BENCHMARK_PROTOCOL.md"
+        }
+      ]
+    },
+    {
+      "id": "foodsense",
+      "title": "FoodSense",
+      "summary": "Review fridge inventory and choose a feasible meal",
+      "category": "AI interaction / iOS UX",
+      "role": "Independent client commission; UI/UX designer",
+      "status": "25 iOS states, 10 paper screens, 3 prototypes; recognition and devices simulated",
+      "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "iOS interaction design"
+      ],
+      "repository": "https://github.com/katherine0292/FoodSense",
+      "live": "https://katherine0292.github.io/FoodSense/",
+      "caseStudy": "projects/foodsense.md",
+      "preview": "assets/previews/foodsense.jpg",
+      "sourceCommit": "ee986d1edb228e1a72447aee775873fe4ddcb57a",
+      "evidence": [
+        {
+          "path": "docs/case-study.md",
+          "url": "https://github.com/katherine0292/FoodSense/blob/ee986d1edb228e1a72447aee775873fe4ddcb57a/docs/case-study.md"
+        },
+        {
+          "path": "docs/product-proposal.md",
+          "url": "https://github.com/katherine0292/FoodSense/blob/ee986d1edb228e1a72447aee775873fe4ddcb57a/docs/product-proposal.md"
+        },
+        {
+          "path": "docs/delivery.md",
+          "url": "https://github.com/katherine0292/FoodSense/blob/ee986d1edb228e1a72447aee775873fe4ddcb57a/docs/delivery.md"
+        }
+      ]
+    },
+    {
+      "id": "hci-research",
+      "title": "Remembering in Motion",
+      "summary": "Everyday memory and resumption after interruptions",
+      "category": "HCI / qualitative research",
+      "role": "Personal research: interviews, probes, synthesis and design opportunities",
+      "status": "Two completed research phases; design hypotheses and proposed evaluation",
+      "skills": [
+        "Semi-structured interviews",
+        "Affinity analysis",
+        "Field probes"
+      ],
+      "repository": "https://github.com/katherine0292/HCI-Research",
+      "live": "https://katherine0292.github.io/HCI-Research/",
+      "caseStudy": "projects/hci-research.md",
+      "preview": "assets/previews/hci-research.jpg",
+      "sourceCommit": "5e26e0646325d7d73a7b17ceb17118716aa96604",
+      "evidence": [
+        {
+          "path": "research/interview-study.md",
+          "url": "https://github.com/katherine0292/HCI-Research/blob/5e26e0646325d7d73a7b17ceb17118716aa96604/research/interview-study.md"
+        },
+        {
+          "path": "research/field-probe-study.md",
+          "url": "https://github.com/katherine0292/HCI-Research/blob/5e26e0646325d7d73a7b17ceb17118716aa96604/research/field-probe-study.md"
+        },
+        {
+          "path": "research/design-opportunities.md",
+          "url": "https://github.com/katherine0292/HCI-Research/blob/5e26e0646325d7d73a7b17ceb17118716aa96604/research/design-opportunities.md"
+        }
+      ]
+    },
+    {
+      "id": "data-visualisation",
+      "title": "The Price of Arrival",
+      "summary": "An interactive data story about international study in Sydney",
+      "category": "Data visualisation / storytelling",
+      "role": "Independent data visualisation designer and data storyteller",
+      "status": "6 figures, 19-slide story, film and evaluation workbook",
+      "skills": [
+        "Tableau",
+        "Data preparation",
+        "HTML",
+        "Visual storytelling"
+      ],
+      "repository": "https://github.com/katherine0292/Data-Visualisation",
+      "live": "https://katherine0292.github.io/Data-Visualisation/",
+      "caseStudy": "projects/data-visualisation.md",
+      "preview": "assets/previews/data-visualisation.png",
+      "sourceCommit": "358f1c9341709c05faa76e3dcaf81363f93b696c",
+      "evidence": [
+        {
+          "path": "docs/methodology.md",
+          "url": "https://github.com/katherine0292/Data-Visualisation/blob/358f1c9341709c05faa76e3dcaf81363f93b696c/docs/methodology.md"
+        },
+        {
+          "path": "docs/design-process.md",
+          "url": "https://github.com/katherine0292/Data-Visualisation/blob/358f1c9341709c05faa76e3dcaf81363f93b696c/docs/design-process.md"
+        },
+        {
+          "path": "docs/commission-brief.md",
+          "url": "https://github.com/katherine0292/Data-Visualisation/blob/358f1c9341709c05faa76e3dcaf81363f93b696c/docs/commission-brief.md"
+        }
+      ]
+    }
+  ]
+}
