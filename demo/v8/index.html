@@ -825,6 +825,13 @@ function galFrame(now){
 function galUI(){
   const k = Math.round(G.to), it = ITEMS[k], info = $("#info");
   const resting = mode === "gal" && !G.anim && !G.pushAnim && introDone && caseIdx < 0;
+  // on wide screens the card sits a fixed gap beside the artwork instead of at the screen edge
+  if (resting && it.k === "panel" && innerWidth >= 700 && G.cardFor !== k){
+    G.cardFor = k; const r = $(".bd", G.arts[it.i]).getBoundingClientRect(), cw = info.offsetWidth, gap = 56, W = innerWidth;
+    const left = P[it.i].side < 0 ? Math.min(r.right + gap, W - cw - 72) : Math.max(r.left - gap - cw, 24);
+    info.style.left = Math.round(left) + "px"; info.style.right = "auto";
+  }
+  if (!resting || it.k !== "panel") G.cardFor = -1;
   if (k !== G.lastK){ G.lastK = k; renderInfo(it); setWhere(it); G.arts.forEach((a,i) => a.classList.toggle("focus", it.k === "panel" && it.i === i)); }
   info.classList.toggle("show", resting && it.k !== "room");
   const chap = resting && it.k === "room";
@@ -833,7 +840,7 @@ function galUI(){
   $("#gHint").style.opacity = k === 0 ? 1 : 0;
 }
 function renderInfo(it){
-  const info = $("#info"); info.className = "info"; info.style.removeProperty("--l");
+  const info = $("#info"); info.className = "info"; info.style.removeProperty("--l"); if (innerWidth >= 700){ info.style.left = ""; info.style.right = ""; }
   if (it.k === "entrance"){ info.classList.add("guide");
     info.innerHTML = `<div class="row1 mono eyebrow">${T.guide}</div>
       <ol>${ROOMS.map((r,ri) => `<li style="--l:${r.l}"><span class="dot"></span><span class="mono">${LANG === "zh" ? NUM_ZH[r.n] : r.n}</span><span>${esc(r.name)}</span><small>${T.works(P.filter(p=>p.room===ri).length)}</small><span class="f">${T.featured}: ${esc(P.find(p=>p.room===ri && p.feat).title)}</span></li>`).join("")}</ol>
