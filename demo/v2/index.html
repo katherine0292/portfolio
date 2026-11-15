@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="en" data-world="gallery">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Next Step Motion Studies</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+/*
+  NEXT STEP · v2 motion studies
+  Brief: Heckhoff's spatial camera + Jason Yuan's editorial project layout,
+  in light, restrained materials. Quiet palette, loud motion.
+  Layout: one flow (Intro → Hero → Work → Case → Process → Contact) rendered by four worlds.
+*/
+:root{
+  --bg:#E9E7E2; --fg:#151515; --muted:#6E6C66; --line:rgba(21,21,21,.12); --paper:#F7F6F3; --accent:#2B3FE0;
+  --sans:"Geist", "Helvetica Neue", Arial, sans-serif;
+  --serif:"Instrument Serif", "Times New Roman", serif;
+  --mono:"Geist Mono", ui-monospace, Menlo, monospace;
+  --ease:cubic-bezier(.7,0,.2,1); --out:cubic-bezier(.2,.8,.2,1);
+  --gl:max(16px, env(safe-area-inset-left, 0px)); --gr:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:light;
+}
+html[data-world="gallery"]{--bg:#E9E7E2}
+html[data-world="studio"]{--bg:#E6E7E4}
+html[data-world="canvas"]{--bg:#F3F3F0}
+html[data-world="particles"]{--bg:#F6F6F4}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:16px; line-height:1.5; overflow-x:hidden; transition:background .6s}
+html.lock body{overflow:hidden}
+img{max-width:100%; display:block}
+a{color:inherit}
+button{font:inherit; color:inherit; cursor:pointer; background:none; border:0; padding:0}
+:focus-visible{outline:1.5px solid var(--accent); outline-offset:4px}
+h1,h2,h3,h4{margin:0; font-weight:500; text-wrap:balance}
+p{margin:0}
+em{font-family:var(--serif); font-style:italic; font-weight:400}
+.mono{font-family:var(--mono); font-size:12px; letter-spacing:.04em}
+.eyebrow{text-transform:uppercase; letter-spacing:.14em; color:var(--muted)}
+.wrap{padding-left:var(--gl); padding-right:var(--gr)}
+.inner{max-width:1280px; margin:0 auto}
+
+/* ── chrome ───────────────────────────── */
+.top{position:fixed; z-index:50; inset:0 0 auto; display:flex; justify-content:space-between; align-items:center; gap:16px; padding:calc(14px + env(safe-area-inset-top,0px)) var(--gr) 14px var(--gl); pointer-events:none}
+.top > *{pointer-events:auto}
+.brand{font-weight:500; font-size:14px; text-decoration:none; letter-spacing:-.01em}
+.brand em{font-size:16px}
+.top .mono{color:var(--muted)}
+.sw{position:fixed; z-index:60; left:50%; transform:translateX(-50%); bottom:calc(16px + env(safe-area-inset-bottom,0px)); display:flex; gap:2px; padding:4px; border-radius:999px;
+  background:rgba(255,255,255,.72); backdrop-filter:blur(18px) saturate(1.4); -webkit-backdrop-filter:blur(18px) saturate(1.4); border:1px solid var(--line); box-shadow:0 12px 40px rgba(0,0,0,.08); max-width:calc(100vw - 32px); overflow-x:auto}
+.sw button{padding:9px 15px; border-radius:999px; font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap; transition:background .3s, color .3s}
+.sw button b{font-weight:500; margin-right:6px; opacity:.5}
+.sw button[aria-pressed="true"]{background:var(--fg); color:var(--paper)}
+.rail{position:fixed; z-index:40; right:calc(18px + env(safe-area-inset-right,0px)); top:50%; transform:translateY(-50%); display:grid; gap:12px}
+.rail button{display:flex; align-items:center; justify-content:flex-end; gap:10px; font-family:var(--mono); font-size:11px; color:var(--muted)}
+.rail button span{opacity:0; transform:translateX(6px); transition:.3s var(--out)}
+.rail:hover button span{opacity:1; transform:none}
+.rail button i{width:18px; height:1.5px; background:currentColor; opacity:.35; transition:.4s var(--out)}
+.rail button.on{color:var(--fg)}
+.rail button.on i{width:34px; opacity:1; background:var(--accent)}
+.why{position:fixed; z-index:45; left:calc(16px + env(safe-area-inset-left,0px)); bottom:calc(16px + env(safe-area-inset-bottom,0px)); max-width:min(330px, calc(100vw - 32px));
+  background:rgba(255,255,255,.78); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid var(--line); border-radius:16px; font-size:13px; line-height:1.45; overflow:hidden}
+.why > button{display:flex; align-items:center; gap:8px; padding:10px 14px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; width:100%}
+.why > button::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px rgba(43,63,224,.15)}
+.why .wb{padding:0 14px 14px; display:grid; gap:6px}
+.why .wb .ch{display:flex; flex-wrap:wrap; gap:4px}
+.why .wb s{opacity:.4; font-family:var(--mono); font-size:11px}
+.why .wb b{font-family:var(--mono); font-size:11px; font-weight:500; background:var(--fg); color:var(--paper); padding:1px 6px; border-radius:4px}
+.why .wb p{color:var(--muted)}
+.why.min .wb{display:none}
+.cursor{position:fixed; z-index:96; left:0; top:0; width:8px; height:8px; margin:-4px; border-radius:50%; background:var(--fg); pointer-events:none; transition:width .35s var(--out), height .35s var(--out), margin .35s var(--out), background .3s; display:grid; place-items:center; color:var(--paper); font-family:var(--mono); font-size:11px}
+.cursor span{opacity:0; transition:opacity .2s}
+.cursor.big{width:84px; height:84px; margin:-42px; background:var(--fg)}
+.cursor.big span{opacity:1}
+@media (pointer:coarse){.cursor{display:none}}
+
+/* intro: load, interrupt, resume */
+.intro{position:fixed; inset:0; z-index:100; background:var(--paper); display:grid; place-items:center; clip-path:inset(0 0 0 0); transition:clip-path 1.1s var(--ease)}
+.intro.out{clip-path:inset(0 0 100% 0)}
+.intro .c{display:grid; gap:18px; justify-items:center; text-align:center; padding:0 16px}
+.intro .nm{font-family:var(--serif); font-size:clamp(48px,8vw,104px); line-height:1; overflow:hidden}
+.intro .nm span{display:inline-block; transform:translateY(105%); transition:transform 1s var(--out)}
+.intro.go .nm span{transform:none}
+.intro .ln{width:min(320px,70vw); height:1px; background:var(--line); position:relative}
+.intro .ln i{position:absolute; inset:0 auto 0 0; width:0; background:var(--fg); transition:width .7s var(--ease)}
+.intro .lab{color:var(--muted); min-height:1.5em}
+.intro.cut .ln i{background:var(--accent)}
+.veil{position:fixed; inset:0; z-index:90; background:var(--paper); display:grid; place-items:center; clip-path:inset(100% 0 0 0); transition:clip-path .8s var(--ease); pointer-events:none}
+.veil.in{clip-path:inset(0 0 0 0)}
+.veil.out{clip-path:inset(0 0 100% 0)}
+.veil .c{text-align:center; display:grid; gap:12px; padding:0 16px}
+.veil h2{font-family:var(--serif); font-size:clamp(56px,10vw,140px); line-height:.9; font-weight:400}
+.veil p{color:var(--muted)}
+
+/* shared: process + contact */
+.ab{padding-block:clamp(96px,14vw,200px) 80px; position:relative; z-index:2}
+.ab-lead{font-size:clamp(28px,4.2vw,60px); line-height:1.06; letter-spacing:-.035em; max-width:20ch; margin-top:24px}
+.ab-steps{list-style:none; margin:72px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px}
+.ab-steps li{border-top:1px solid var(--fg); padding-top:16px; display:grid; gap:8px; align-content:start}
+.ab-steps span{font-family:var(--mono); font-size:12px; color:var(--muted)}
+.ab-steps h3{font-size:22px; letter-spacing:-.02em}
+.ab-steps p{color:var(--muted); font-size:15px}
+.ab-steps small{font-family:var(--mono); font-size:11.5px}
+.ct{padding-block:80px 150px; position:relative; z-index:2}
+.ct-h{font-size:clamp(52px,10vw,160px); line-height:.9; letter-spacing:-.055em}
+.ct-h em{letter-spacing:-.02em}
+.ct-row{display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px; margin-top:48px}
+.ct-btn{display:inline-flex; align-items:center; gap:12px; background:var(--fg); color:var(--paper); text-decoration:none; padding:18px 26px; border-radius:999px; font-size:16px; transition:transform .4s var(--out)}
+.ct-btn i{width:8px; height:8px; border-radius:50%; background:var(--accent)}
+.ct-link{font-family:var(--mono); font-size:13px; text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px}
+.ct-foot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:96px; color:var(--muted); border-top:1px solid var(--line); padding-top:16px}
+
+/* ═══ A · GALLERY ═══════════════════════ */
+.g-scroll{position:relative; height:1000vh}
+.g-sticky{position:sticky; top:0; height:100vh; height:100dvh; overflow:hidden; perspective:900px; perspective-origin:50% 44%}
+.g-sticky::after{content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(circle at 50% 44%, rgba(233,231,226,1) 0, rgba(233,231,226,.85) 6%, rgba(233,231,226,0) 26%)}
+.g-yaw{position:absolute; left:50%; top:50%; width:0; height:0; transform-style:preserve-3d}
+.g-cam{position:absolute; left:0; top:0; transform-style:preserve-3d; will-change:transform}
+.g-cam > *{position:absolute; left:0; top:0}
+.g-floor{background:
+  linear-gradient(90deg, rgba(0,0,0,.06) 0 1px, transparent 1px) 0 0 / 300px 100%,
+  linear-gradient(0deg, rgba(0,0,0,.05) 0 1px, transparent 1px) 0 0 / 100% 600px,
+  linear-gradient(90deg,#D5D1C8,#DFDCD5 50%,#D5D1C8)}
+.g-ceil{background:
+  linear-gradient(0deg, transparent 0 600px, rgba(255,255,255,.75) 600px 630px, transparent 630px) 0 0 / 100% 1300px,
+  linear-gradient(90deg,#E3E0DA,#EEECE8 50%,#E3E0DA)}
+.g-wall{background:linear-gradient(0deg, #CFCBC2 0 14px, #E6E3DD 14px)}
+.g-end{display:grid; place-items:center; background:#EFEDE9; text-align:center}
+.g-end p{font-family:var(--serif); font-size:72px; line-height:1}
+.g-title{width:1400px; margin-left:-700px; text-align:center; display:grid; gap:18px; justify-items:center}
+.g-title h1{font-family:var(--serif); font-weight:400; font-size:190px; line-height:.86; letter-spacing:-.02em}
+.g-title p{font-size:26px; color:var(--muted)}
+.g-art{width:520px; margin-left:-260px; transform-origin:50% 100%; transform-style:preserve-3d; cursor:pointer}
+.g-board{background:#FBFAF8; padding:22px 22px 26px; box-shadow:0 1px 0 rgba(0,0,0,.04), 0 40px 60px -30px rgba(0,0,0,.25); position:relative; transition:transform .6s var(--out)}
+.g-art:hover .g-board{transform:translateY(-14px)}
+.g-board img{width:100%; aspect-ratio:16/10; object-fit:cover}
+.g-cap{display:grid; gap:4px; margin-top:16px}
+.g-cap h3{font-family:var(--serif); font-weight:400; font-size:40px; line-height:1}
+.g-cap p{color:var(--muted); font-size:15px}
+.g-board::before, .g-board::after{content:""; position:absolute; top:100%; width:2px; height:180px; background:#B9B5AD}
+.g-board::before{left:22%} .g-board::after{right:22%}
+.g-shade{width:640px; height:300px; margin:-150px 0 0 -320px; background:radial-gradient(ellipse at center, rgba(60,50,40,.22), rgba(60,50,40,0) 65%)}
+.g-hud{position:absolute; inset:auto var(--gr) calc(84px + env(safe-area-inset-bottom,0px)) var(--gl); display:flex; justify-content:space-between; align-items:end; gap:20px; pointer-events:none; z-index:3}
+.g-hud > *{pointer-events:auto}
+.g-now{display:grid; gap:6px; margin-left:min(360px, 0px)}
+.g-now h2{font-family:var(--serif); font-weight:400; font-size:clamp(40px,5vw,72px); line-height:.95}
+.g-now button{justify-self:start; font-family:var(--mono); font-size:12px; border-bottom:1px solid var(--fg); padding-bottom:2px; margin-top:6px}
+.g-map{width:72px; height:180px; position:relative; border-left:1px solid var(--line); border-right:1px solid var(--line)}
+.g-map b{position:absolute; width:14px; height:2px; background:var(--fg); opacity:.35}
+.g-map i{position:absolute; left:50%; width:9px; height:9px; margin:-4.5px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 5px rgba(43,63,224,.15)}
+.g-hint{position:absolute; top:calc(64px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); color:var(--muted); z-index:3; white-space:nowrap}
+
+/* ═══ B · STUDIO ═══════════════════════ */
+.s-wrap{position:relative; height:100vh; height:100dvh; min-height:560px; overflow:hidden; background:radial-gradient(ellipse 80% 70% at 50% 34%, #F7F7F5 0, #E6E7E4 70%)}
+.s-wrap canvas{position:absolute; inset:0; width:100%; height:100%; touch-action:pan-y; cursor:grab}
+.s-wrap canvas:active{cursor:grabbing}
+.s-ui{position:absolute; inset:0; pointer-events:none; padding:calc(84px + env(safe-area-inset-top,0px)) var(--gr) calc(90px + env(safe-area-inset-bottom,0px)) var(--gl); display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-rows:auto 1fr auto}
+.s-ui > *{pointer-events:auto; transition:opacity .6s, transform .8s var(--out)}
+.s-wrap.focus .s-head, .s-wrap.focus .s-list{opacity:0; transform:translateY(-20px); pointer-events:none}
+.s-head{grid-column:1; max-width:560px}
+.s-head h1{font-size:clamp(40px,5.6vw,84px); line-height:.95; letter-spacing:-.05em}
+.s-head p{color:var(--muted); margin-top:14px; max-width:40ch}
+.s-list{grid-column:2; grid-row:1 / 3; display:grid; align-content:start; gap:2px; text-align:right}
+.s-list button{font-size:15px; padding:3px 0; color:var(--muted); transition:color .3s, transform .4s var(--out); display:flex; justify-content:flex-end; gap:12px}
+.s-list button .mono{opacity:.6}
+.s-list button.on{color:var(--fg); transform:translateX(-10px)}
+.s-foot{grid-column:1 / 3; grid-row:3; display:flex; justify-content:space-between; align-items:end; gap:16px}
+.s-foot .big{font-family:var(--serif); font-size:clamp(30px,3.6vw,52px); line-height:1}
+.s-label{position:absolute; z-index:4; left:0; top:0; pointer-events:none; transform:translate(-50%,-100%); opacity:0; transition:opacity .25s; text-align:center; white-space:nowrap}
+.s-label.on{opacity:1}
+.s-label b{display:block; font-family:var(--serif); font-weight:400; font-size:30px; line-height:1}
+.s-label span{font-family:var(--mono); font-size:11px; color:var(--muted)}
+.s-wrap.nogl canvas{display:none}
+.s-fallback{display:none}
+.s-wrap.nogl .s-fallback{display:grid; place-items:center; position:absolute; inset:0; color:var(--muted); font-family:var(--mono); font-size:13px}
+
+/* ═══ C · CANVAS ═══════════════════════ */
+.cv-view{position:fixed; inset:0; overflow:hidden; touch-action:none; cursor:grab; background-color:var(--bg);
+  background-image:radial-gradient(circle, rgba(21,21,21,.16) 1px, transparent 1.4px)}
+.cv-view.drag{cursor:grabbing}
+.cv-plane{position:absolute; left:0; top:0; transform-origin:0 0}
+.cv-plane.moving{will-change:transform}
+.cb{position:absolute}
+.cb-title{width:1500px}
+.cb-title .mono{font-size:18px}
+.cb-title h1{font-size:220px; line-height:.86; letter-spacing:-.065em; margin-top:30px}
+.cb-title h1 em{font-size:240px; letter-spacing:-.03em}
+.cb-title p.l{font-size:34px; line-height:1.25; color:var(--muted); max-width:30ch; margin-top:44px; letter-spacing:-.01em}
+.cb-go{margin-top:48px; display:inline-flex; gap:14px; align-items:center; background:var(--fg); color:var(--paper); border-radius:999px; padding:22px 34px; font-size:24px}
+.cb-p{display:flex; gap:64px; align-items:flex-start; cursor:pointer}
+.cb-p figure{margin:0; flex:none; border-radius:18px; overflow:hidden; box-shadow:0 50px 80px -50px rgba(0,0,0,.35); transition:box-shadow .6s, transform .8s var(--out)}
+.cb-p figure img{width:100%; aspect-ratio:16/10; object-fit:cover}
+.cb-p:hover figure{transform:translateY(-12px); box-shadow:0 70px 90px -50px rgba(0,0,0,.4)}
+.cb-t{width:480px; flex:none; display:grid; gap:18px}
+.cb-t .mono{font-size:15px; color:var(--muted)}
+.cb-t h2{font-size:84px; line-height:.92; letter-spacing:-.05em}
+.cb-t .ln{font-family:var(--serif); font-size:34px; line-height:1.1}
+.cb-t .pr{font-size:19px; color:var(--muted)}
+.cb-t ol{list-style:none; margin:0; padding:0; display:grid; gap:0}
+.cb-t li{display:grid; grid-template-columns:110px 1fr; gap:12px; font-size:17px; border-top:1px solid var(--line); padding:10px 0}
+.cb-t li span{font-family:var(--mono); font-size:13px; color:var(--muted); padding-top:3px}
+.cb-st{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; border-top:1px solid var(--fg); padding-top:14px}
+.cb-st b{display:block; font-family:var(--serif); font-weight:400; font-size:52px; line-height:1}
+.cb-st span{font-size:13px; color:var(--muted); line-height:1.3; display:block}
+.cb-lim{font-size:16px; border-left:2px solid var(--accent); padding-left:14px}
+.cb-open{justify-self:start; font-family:var(--mono); font-size:15px; border:1px solid var(--fg); border-radius:999px; padding:12px 20px}
+.cb-open:hover{background:var(--fg); color:var(--paper)}
+.cb-ab{width:1100px}
+.cb-ab .ab-lead{font-size:76px; max-width:none}
+.cb-ab .ab-steps{grid-template-columns:repeat(2,1fr); gap:44px}
+.cb-ab .ab-steps h3{font-size:36px}
+.cb-ab .ab-steps p{font-size:22px}
+.cb-ab .ab-steps small, .cb-ab .ab-steps span{font-size:15px}
+.cb-ct{width:1200px}
+.cb-ct .ct-h{font-size:200px}
+.cb-ct .ct-btn{font-size:26px; padding:26px 40px}
+.cb-ct .ct-link{font-size:20px}
+.cv-ui{position:fixed; z-index:30; right:calc(16px + env(safe-area-inset-right,0px)); bottom:calc(76px + env(safe-area-inset-bottom,0px)); display:grid; gap:10px; justify-items:end}
+.cv-ctl{display:flex; gap:2px; padding:3px; border-radius:999px; background:rgba(255,255,255,.8); border:1px solid var(--line); backdrop-filter:blur(12px)}
+.cv-ctl button{min-width:34px; height:30px; border-radius:999px; font-family:var(--mono); font-size:12px; padding:0 10px}
+.cv-ctl button:hover{background:var(--fg); color:var(--paper)}
+.cv-map{position:relative; width:150px; height:164px; border-radius:12px; background:rgba(255,255,255,.8); border:1px solid var(--line); backdrop-filter:blur(12px); overflow:hidden; cursor:pointer}
+.cv-map i{position:absolute; background:rgba(21,21,21,.18); border-radius:2px}
+.cv-map i.on{background:var(--accent)}
+.cv-map b{position:absolute; border:1.5px solid var(--fg); border-radius:3px}
+.cv-hint.gone{opacity:0}
+.cv-hint{transition:opacity .6s; position:fixed; z-index:30; top:calc(56px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); color:var(--muted); white-space:nowrap; background:rgba(255,255,255,.7); padding:6px 12px; border-radius:999px; backdrop-filter:blur(10px)}
+
+/* ═══ D · PARTICLES ═══════════════════════ */
+.p-cv{position:fixed; inset:0; width:100%; height:100%; z-index:1; pointer-events:none}
+html[data-world="particles"] main > section{position:relative; z-index:2}
+.p-hero{min-height:100vh; min-height:100dvh; display:grid; grid-template-rows:auto 1fr auto; padding-block:calc(76px + env(safe-area-inset-top,0px)) 96px}
+.p-slot.hero{min-height:42vh}
+.p-bot{display:flex; justify-content:space-between; align-items:end; gap:16px; flex-wrap:wrap}
+.p-tag{font-size:clamp(26px,3.4vw,46px); line-height:1.05; letter-spacing:-.035em; max-width:18ch}
+.p-work{padding-block:80px 40px}
+.p-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:48px; align-items:start}
+.p-list{display:grid; padding-block:10vh 30vh}
+.p-row{display:grid; grid-template-columns:44px minmax(0,1fr); gap:4px 12px; text-align:left; padding:2.4vh 0; border-top:1px solid var(--line); transition:opacity .4s, transform .6s var(--out)}
+.p-row .t{font-size:clamp(30px,4.2vw,62px); line-height:1; letter-spacing:-.05em}
+.p-row .c{grid-column:2; color:var(--muted)}
+.p-list.hov .p-row{opacity:.28}
+.p-list .p-row.on{opacity:1; transform:translateX(14px)}
+.p-stick{position:sticky; top:14vh; display:grid; gap:12px}
+.p-slot.img{height:60vh; border-radius:16px; outline:1px solid var(--line); outline-offset:10px}
+.p-cap{display:flex; justify-content:space-between; gap:12px; color:var(--muted)}
+.p-slot.ct{height:34vh}
+
+/* ═══ CASE (shared, Jason-style editorial) ═══ */
+.case{position:fixed; inset:0; z-index:70; overflow-y:auto; overscroll-behavior:contain; background:var(--bg); opacity:0; visibility:hidden; transition:opacity .5s, visibility 0s .6s}
+.case.open{opacity:1; visibility:visible; transition:opacity .5s}
+.case.split{background:transparent; pointer-events:none}
+.case.split .cs{pointer-events:auto; margin-left:auto; width:min(58vw,900px); min-height:100%; background:var(--paper); box-shadow:-40px 0 100px rgba(0,0,0,.08); transform:translateX(102%); transition:transform 1s var(--ease)}
+.case.split.open .cs{transform:none}
+.cs{padding:0 var(--gr) 0 var(--gl)}
+.cs-in{max-width:1180px; margin:0 auto}
+.cs-bar{position:sticky; top:0; z-index:3; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:calc(14px + env(safe-area-inset-top,0px)) 0 14px; background:inherit}
+.case:not(.split) .cs-bar{background:var(--bg)}
+.case.split .cs-bar{background:var(--paper)}
+.cs-bar .nav{display:flex; gap:6px}
+.cs-bar button{border:1px solid var(--line); border-radius:999px; height:36px; min-width:36px; padding:0 14px; font-family:var(--mono); font-size:12px; background:rgba(255,255,255,.5)}
+.cs-bar button:hover{background:var(--fg); color:var(--paper)}
+.cs-cover{margin:18px 0 0; border-radius:16px; overflow:hidden; background:#ddd}
+.cs-cover img{width:100%; aspect-ratio:2/1; object-fit:cover}
+.case.split .cs-cover{display:none}
+.cs-head{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:40px; align-items:end; padding:48px 0 40px}
+.case.split .cs-head{grid-template-columns:1fr; padding-top:40px}
+.cs-head h1{font-size:clamp(56px,9vw,150px); line-height:.86; letter-spacing:-.065em}
+.cs-head .ln{font-family:var(--serif); font-size:clamp(26px,2.8vw,40px); line-height:1.1; margin-top:20px; max-width:20ch}
+.cs-meta{display:grid; gap:0; margin:0}
+.cs-meta div{display:grid; grid-template-columns:90px minmax(0,1fr); gap:12px; border-top:1px solid var(--line); padding:10px 0}
+.cs-meta dt{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); padding-top:3px}
+.cs-meta dd{margin:0; font-size:15px}
+.cs-row{display:grid; grid-template-columns:220px minmax(0,1fr); gap:32px; padding:40px 0; border-top:1px solid var(--line)}
+.case.split .cs-row{grid-template-columns:1fr; gap:16px}
+.cs-row h4{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); font-weight:400}
+.cs-row .big{font-size:clamp(22px,2.4vw,32px); line-height:1.25; letter-spacing:-.02em; max-width:34ch}
+.cs-dec{list-style:none; margin:0; padding:0}
+.cs-dec li{display:grid; grid-template-columns:40px 140px minmax(0,1fr); gap:16px; padding:16px 0; border-bottom:1px solid var(--line); font-size:19px; align-items:baseline}
+.cs-dec li span{font-family:var(--mono); font-size:12px; color:var(--muted)}
+.cs-dec li b{font-weight:500; font-size:14px; font-family:var(--mono); color:var(--accent)}
+.cs-st{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px}
+.cs-st b{display:block; font-family:var(--serif); font-weight:400; font-size:clamp(52px,6vw,92px); line-height:.9; font-variant-numeric:tabular-nums}
+.cs-st span{color:var(--muted); font-size:14px; display:block; margin-top:8px}
+.cs-lim{font-size:19px; max-width:52ch; border-left:2px solid var(--accent); padding-left:16px}
+.cs-slots{display:grid; grid-template-columns:2fr 1fr; grid-auto-rows:180px; gap:12px}
+.cs-slots div{border:1px dashed rgba(21,21,21,.25); border-radius:14px; display:grid; place-items:center; font-family:var(--mono); font-size:12px; color:var(--muted); text-align:center; padding:8px}
+.cs-slots div:first-child{grid-row:span 2}
+.cs-live{font-family:var(--mono); font-size:13px; border-bottom:1px solid var(--fg); text-decoration:none; justify-self:start}
+.cs-next{display:grid; grid-template-columns:minmax(0,1fr) 220px; gap:24px; align-items:end; width:100%; text-align:left; padding:48px 0 140px; border-top:1px solid var(--line)}
+.cs-next small{font-family:var(--mono); font-size:12px; color:var(--muted)}
+.cs-next strong{display:block; font-weight:500; font-size:clamp(40px,6vw,96px); line-height:.9; letter-spacing:-.055em; transition:transform .6s var(--out)}
+.cs-next:hover strong{transform:translateX(16px)}
+.cs-next img{border-radius:10px; aspect-ratio:4/3; object-fit:cover}
+.case.open .rv{animation:rise 1s var(--out) both; animation-delay:calc(var(--d,0) * 70ms + 300ms)}
+@keyframes rise{from{opacity:0; transform:translateY(46px)}}
+.flip{position:fixed; z-index:95; object-fit:cover; pointer-events:none; transition:left .95s var(--ease), top .95s var(--ease), width .95s var(--ease), height .95s var(--ease), border-radius .95s var(--ease)}
+
+/* responsive */
+@media (max-width:900px){
+  .ab-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rail{display:none}
+  .cs-head{grid-template-columns:1fr}
+  .cs-row{grid-template-columns:1fr; gap:14px}
+  .cs-st{grid-template-columns:1fr}
+  .cs-dec li{grid-template-columns:32px minmax(0,1fr)}
+  .cs-dec li b{grid-column:2}
+  .cs-dec li em{grid-column:2}
+  .cs-next{grid-template-columns:1fr}
+  .case.split .cs{width:100%}
+  .s-ui{grid-template-columns:1fr}
+  .s-list{display:none}
+  .p-grid{grid-template-columns:1fr; gap:0}
+  .p-stick{top:64px; z-index:0; order:-1}
+  .p-slot.img{height:30vh}
+  .p-list{padding-block:2vh 20vh}
+  .g-map{display:none}
+}
+@media (max-width:560px){
+  .ab-steps{grid-template-columns:1fr}
+  .sw button{padding:8px 11px}
+  .sw .lb{display:none}
+  .why{bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+  .g-hud{bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+  .cs-slots{grid-template-columns:1fr; grid-auto-rows:120px}
+  .cs-slots div:first-child{grid-row:auto}
+  .top .mono{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s !important; transition-duration:.001s !important}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#" id="brand">Katherine Lin <em>— next step</em></a>
+  <span class="mono" id="clock">Sydney</span>
+</header>
+
+<div class="intro" id="intro"><div class="c">
+  <p class="nm"><span>Katherine Lin</span></p>
+  <div class="ln"><i id="inBar"></i></div>
+  <p class="lab mono" id="inLab">Resuming your last visit</p>
+</div></div>
+<div class="veil" id="veil"><div class="c"><p class="mono eyebrow" id="vRef"></p><h2 id="vName"></h2><p class="mono" id="vNote"></p></div></div>
+
+<nav class="rail" id="rail" aria-label="Flow">
+  <button type="button" data-step="intro"><span>Intro</span><i></i></button>
+  <button type="button" data-step="hero"><span>Hero</span><i></i></button>
+  <button type="button" data-step="work"><span>Work</span><i></i></button>
+  <button type="button" data-step="case"><span>Case</span><i></i></button>
+  <button type="button" data-step="about"><span>Process</span><i></i></button>
+  <button type="button" data-step="contact"><span>Contact</span><i></i></button>
+</nav>
+
+<main id="stage"></main>
+
+<div class="case" id="case" role="dialog" aria-modal="true" aria-label="Case study"></div>
+
+<aside class="why min" id="why" aria-live="polite">
+  <button type="button" id="whyBtn" aria-expanded="false">Why this design</button>
+  <div class="wb" id="whyBody"></div>
+</aside>
+
+<div class="sw" role="group" aria-label="Motion study">
+  <button type="button" data-w="gallery"><b>A</b><span class="lb">Gallery</span></button>
+  <button type="button" data-w="studio"><b>B</b><span class="lb">Studio</span></button>
+  <button type="button" data-w="canvas"><b>C</b><span class="lb">Canvas</span></button>
+  <button type="button" data-w="particles"><b>D</b><span class="lb">Particles</span></button>
+</div>
+<div class="cursor" id="cursor"><span id="curLab">View</span></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const IMG = "../../assets/previews/";
+const P = [
+ {id:"circleu", title:"CircleU", line:"Private reflection, followed by words you can use.", cat:"AI product · native iOS", lens:"ai",
+  role:"Team project · product, research, design, development", tools:"SwiftUI · SwiftData · Apple Foundation Models", stage:"TestFlight; redesign in Simulator testing", img:"circleu.jpg", live:"https://katherine0292.github.io/CircleU/",
+  problem:"People can replay a difficult conversation and still be unsure what to say next. CircleU links journaling to communication: Write → Reflect → Talk → How did it go?",
+  decisions:[["Privacy","Keep sensitive reflection on the phone"],["Fallback","Keep the core task available when the model is not"],["Agency","Keep interpretation with the person"]],
+  stats:[["6→9","of 10 completed reflection after revision"],["311","unit tests reported by the source"],["20","discovery participants"]],
+  limit:"Small usability sessions. A team project: the case describes my contribution."},
+ {id:"wildling", title:"Wildling", line:"Meet a creature whose choices you can understand.", cat:"Creative interaction · explainable behaviour", lens:"ai",
+  role:"AI product and interaction designer, developer", tools:"p5.js · MediaPipe · Web Audio", stage:"Playable V3.1 browser build", img:"wildling.webp", live:"https://katherine0292.github.io/wildling/",
+  problem:"A visitor needs to understand both how to interact and why a creature responds. When tracking fails, a refusal can look like a broken interface.",
+  decisions:[["Input","One interaction contract for hand and mouse"],["Refusal","A tired or hungry kitten gives a reason"],["Truth","Show the recorded decision, not a story told afterwards"]],
+  stats:[["119","deterministic replay tests"],["19","test suites"],["3","kittens with their own needs"]],
+  limit:"Recognition with real hands at venue lighting and distance is not yet measured."},
+ {id:"musictag", title:"MusicTag", line:"Familiar music, within reach.", cat:"Accessibility · connected product", lens:"recovery",
+  role:"Independent UX and interaction commission", tools:"HTML · CSS · JavaScript · Voice interaction", stage:"Browser prototype, 24 design states", img:"musictag.webp", live:"https://katherine0292.github.io/MusicTag/",
+  problem:"Familiar listening routines break when saved songs become hard to find, controls change, or a voice request is misunderstood.",
+  decisions:[["Return","Always a stable place to come back to"],["Choice","Voice proposes matches; the listener picks"],["Failure","Retry, typing and Library stay available"]],
+  stats:[["24","design states"],["5","controls on the remote"],["65+","intended listeners"]],
+  limit:"Voice, Bluetooth and speaker switching are simulations. Usability with intended listeners is next."},
+ {id:"transfer-coach", title:"Transfer Coach", line:"A next step when the journey changes.", cat:"Transport UX · decision support", lens:"recovery",
+  role:"Commissioned UX researcher and interaction designer", tools:"Interactive HTML · UX research", stage:"38-screen prototype, three-method evaluation", img:"transfer-coach.webp", live:"https://katherine0292.github.io/Transfer-Coach/portfolio/",
+  problem:"A route plan made at home gives little help when a service is late. Transfer Coach answers: Can I catch it? Will I arrive on time? What should I do now?",
+  decisions:[["Delay","An explicit delayed state with old and new times"],["Honesty","“You're at Stand C”, not “Transfer complete”"],["Recovery","Choosing an alternative starts guidance"]],
+  stats:[["7","moderated usability sessions"],["8/13","recommendations fully implemented"],["38","prototype screens"]],
+  limit:"All routes and disruptions use sample data. No live feed or prediction model."},
+ {id:"who-said-what-when", title:"Who Said What When", line:"Link an answer to its speaker and evidence.", cat:"Audio AI · benchmark design", lens:"ai",
+  role:"Task framing, annotation workflow, scoring tooling", tools:"Python · JSONL · JSON Schema", stage:"0.1.0 pilot, 25 items", img:"who-said-what-when-benchmark.png", live:"https://katherine0292.github.io/who-said-what-when-benchmark/",
+  problem:"An answer can sound plausible while giving a guest's claim to the host, dropping a qualification, or pointing to the wrong passage.",
+  decisions:[["Process","Annotate in two rounds: turns, then questions"],["Scoring","Temporal IoU over the real interval set"],["Pass","Joint Pass needs speaker, time and meaning"]],
+  stats:[["25","pilot items"],["18","in default evaluation"],["0","gold items so far"]],
+  limit:"No gold items and no held-out test set yet. Baselines check reproducibility only."},
+ {id:"foodsense", title:"FoodSense", line:"From what is in the fridge to what to cook.", cat:"AI interaction · iOS concept", lens:"recovery",
+  role:"Independent client commission", tools:"AI interaction design · iOS UX · Browser prototypes", stage:"25 iOS states, 10 paper screens, 3 prototypes", img:"foodsense.jpg", live:"https://katherine0292.github.io/FoodSense/",
+  problem:"In a shared fridge, groceries disappear behind other items and manual inventory becomes another chore.",
+  decisions:[["Review","Confirm detections before adding"],["Action","“Use first” links straight to feasible recipes"],["Uncertainty","Dates and sensor cues stay separate"]],
+  stats:[["25","iOS states"],["10","paper screens"],["3","prototypes"]],
+  limit:"The recognition model and device sync were not built. Waste reduction is an unmeasured hypothesis."},
+ {id:"hci-research", title:"Remembering in Motion", line:"What helps us resume after an interruption?", cat:"HCI research · field probe", lens:"research",
+  role:"Framing, interviews, analysis, probe design, synthesis", tools:"Interviews · Affinity analysis · Field probe", stage:"Two phases complete; evaluation proposed", img:"hci-research.jpg", live:"https://katherine0292.github.io/HCI-Research/",
+  problem:"How do people remember belongings while moving between places, and how do they recover when an interruption displaces a familiar check?",
+  decisions:[["Framing","Separate a lost location from lost progress"],["Method","Use counterexamples to sharpen the question"],["Field","Move from interviews to an in-context probe"]],
+  stats:[["15","interview participants"],["356","coded entries"],["10","field incidents"]],
+  limit:"The field probe followed one participant: depth, with limited generalisation."},
+ {id:"data-visualisation", title:"The Price of Arrival", line:"Turn a headline into a decision someone can make.", cat:"Data storytelling · Tableau", lens:"research",
+  role:"Data visualisation designer and storyteller", tools:"Tableau · Data preparation · HTML", stage:"6 figures, 19-slide story, film", img:"data-visualisation.png", live:"https://katherine0292.github.io/Data-Visualisation/",
+  problem:"A record enrolment headline says little about a student's intake, campus or budget. The story follows Mei, a prospective Master's student.",
+  decisions:[["Counts","Enrolments and commencements answer different questions"],["Restraint","Replaced a Sankey the data could not support"],["Scope","Removed a budget calculator CPI could not back"]],
+  stats:[["5","public datasets"],["6","figures"],["19","slides with 10 scenes"]],
+  limit:"Price indices describe change, not personal dollar estimates."}
+];
+const WORLDS = {
+  gallery:  {name:"Gallery",   ref:"After David Heckhoff · spatial", note:"Scrolling walks a camera through a white gallery"},
+  studio:   {name:"Studio",    ref:"After David Heckhoff · objects", note:"Eight sculptural objects on a turntable · real-time 3D"},
+  canvas:   {name:"Canvas",    ref:"After Jason Yuan · layout", note:"One continuous space · fly between projects"},
+  particles:{name:"Particles", ref:"After Jason Yuan · editorial index", note:"Thousands of particles rebuild each project"}
+};
+const WHY = {
+  gallery:{
+    intro:[["spinner","interrupted resume"],"The load stops at 62% and resumes. It is the HCI research finding, staged in two seconds."],
+    hero:[["hero image","video","walk-in gallery"],"Scrolling moves a camera, not a page. The first thing you learn is that this portfolio is a place."],
+    work:[["grid","carousel","free-standing panels"],"Panels alternate left and right so the camera weaves. Distance fog keeps only the next work in focus."],
+    case:[["new page","image zoom"],"The panel image flies out of 3D space and becomes the case cover. You never lose your place."],
+    about:[["timeline","4-step sequence"],"Numbered because it is a real order: research, decide, prototype, evidence."],
+    contact:[["form","one button"],"One obvious next step."]},
+  studio:{
+    intro:[["spinner","interrupted resume"],"Same interruption, then the objects drop onto the turntable."],
+    hero:[["mascot","product shots","abstract objects"],"Each project becomes a sculpture: a ring for CircleU, a vinyl disc for MusicTag, a route ribbon for Transfer Coach, a broken ring with one blue sphere for the next step."],
+    work:[["list","turntable"],"Drag to spin. The index on the right and the objects stay in sync, so 3D is never the only way in."],
+    case:[["full page","split view"],"The case slides in from the right while the object keeps turning on the left. Object and evidence sit side by side."],
+    about:[["4-step sequence"],"Kept identical across studies so you compare motion, not content."],
+    contact:[["one button"],"Quiet ending after a loud opening."]},
+  canvas:{
+    intro:[["spinner","interrupted resume"],"After the intro, the camera pulls back from the name to reveal the whole map."],
+    hero:[["headline","zoomable canvas"],"Jason Yuan's layout idea: dense, editorial modules that read as texture from afar and as a page up close."],
+    work:[["grid","spatial map"],"Every project, its decisions and its evidence live on one plane. Flights zoom out, travel, then zoom in."],
+    case:[["overlay","zoom to module"],"The case is already there on the canvas. Zoom in to read it, or open the full case."],
+    about:[["separate page","region of the map"],"Process sits on the same map, to the right of the work."],
+    contact:[["footer","region of the map"],"Contact is a place you can fly to."]},
+  particles:{
+    intro:[["spinner","interrupted resume"],"Particles start scattered, then gather into the name."],
+    hero:[["static type","particle type"],"The name is made of particles that move out of the cursor's way and settle back."],
+    work:[["thumbnails","particle morph"],"Jason Yuan's editorial index on the left. On the right, the same particles rebuild each project's image."],
+    case:[["fade","explode and fly"],"The particles burst, and the real image flies into place as the cover."],
+    about:[["4-step sequence"],"Particles drift back while you read."],
+    contact:[["static heading","particle heading"],"The particles gather one last time to say hello."]}
+};
+
+const $ = (s,r=document) => r.querySelector(s);
+const $$ = (s,r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const clamp = (v,a=0,b=1) => Math.max(a, Math.min(b, v));
+const lerp = (a,b,t) => a + (b-a)*t;
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const fine = matchMedia("(pointer:fine)").matches;
+const pad = n => String(n).padStart(2,"0");
+let world = "gallery", step = "", caseIdx = -1, onCaseClose = null, ac = null, cur = null, introDone = false;
+
+/* ── shared section markup ── */
+const aboutHTML = (cls="") => `<section class="ab wrap ${cls}" data-step="about" id="s-about"><div class="inner">
+  <p class="mono eyebrow">Process</p>
+  <p class="ab-lead">I design for the moment information is uncertain, an interface gets in the way, or a routine <em>breaks</em>.</p>
+  <ol class="ab-steps">
+    <li><span>01</span><h3>Research</h3><p>Find where the routine breaks and which cue helps people resume.</p><small>15 interviews · 356 coded entries</small></li>
+    <li><span>02</span><h3>Decide</h3><p>Turn evidence into a decision a person can make on the spot.</p><small>“Stay or switch?” at Central</small></li>
+    <li><span>03</span><h3>Prototype</h3><p>Build it for real, from SwiftUI to p5.js to Python tooling.</p><small>119 replay tests · 38 screens</small></li>
+    <li><span>04</span><h3>Show the evidence</h3><p>Report what was measured, and name what is not proven yet.</p><small>“0 gold items”, stated plainly</small></li>
+  </ol></div></section>`;
+const contactHTML = (slot=false) => `<section class="ct wrap" data-step="contact" id="s-contact"><div class="inner">
+  <p class="mono eyebrow">Contact</p>
+  ${slot ? `<div class="p-slot ct" data-slot="contact" aria-label="Say hello"></div>` : `<h2 class="ct-h" style="margin-top:20px">Let’s talk about<br><em>the next step.</em></h2>`}
+  <div class="ct-row"><a class="ct-btn mag" href="https://github.com/katherine0292" target="_blank" rel="noopener"><i></i>Get in touch</a>
+    <a class="ct-link" href="https://github.com/katherine0292" target="_blank" rel="noopener">GitHub ↗</a>
+    <button class="ct-link" type="button" data-replay>Replay intro ↺</button></div>
+  <div class="ct-foot mono"><span>Shangcheng Lin (Katherine)</span><span>AI product design · UX research · Interaction</span><span>Motion study · ${WORLDS[world].name}</span></div>
+</div></section>`;
+
+/* ── case ── */
+function caseHTML(i){
+  const p = P[i], n = P[(i+1)%P.length];
+  return `<div class="cs"><div class="cs-in">
+  <div class="cs-bar"><span class="mono">${pad(i+1)} / 08 · ${esc(p.cat)}</span>
+    <div class="nav"><button type="button" data-go="${(i+7)%8}" aria-label="Previous project">←</button><button type="button" data-go="${(i+1)%8}" aria-label="Next project">→</button><button type="button" data-close>Close · Esc</button></div></div>
+  <figure class="cs-cover"><img src="${IMG+p.img}" alt="${esc(p.title)}"></figure>
+  <header class="cs-head"><div><h1 class="rv">${esc(p.title)}</h1><p class="ln rv" style="--d:1">${esc(p.line)}</p></div>
+    <dl class="cs-meta rv" style="--d:2"><div><dt>Role</dt><dd>${esc(p.role)}</dd></div><div><dt>Tools</dt><dd>${esc(p.tools)}</dd></div><div><dt>Stage</dt><dd>${esc(p.stage)}</dd></div></dl></header>
+  <section class="cs-row rv" style="--d:3"><h4>01 · Problem</h4><p class="big">${esc(p.problem)}</p></section>
+  <section class="cs-row rv" style="--d:4"><h4>02 · Decisions</h4><ol class="cs-dec">${p.decisions.map((d,k)=>`<li><span>${pad(k+1)}</span><b>${esc(d[0])}</b><em style="font-family:var(--sans);font-style:normal">${esc(d[1])}</em></li>`).join("")}</ol></section>
+  <section class="cs-row rv" style="--d:5"><h4>03 · Evidence</h4><div class="cs-st">${p.stats.map(s=>`<div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join("")}</div></section>
+  <section class="cs-row rv" style="--d:6"><h4>04 · Not yet proven</h4><p class="cs-lim">${esc(p.limit)}</p></section>
+  <section class="cs-row rv" style="--d:7"><h4>05 · Media slots</h4><div style="display:grid;gap:16px"><div class="cs-slots"><div>Prototype film<br>16:9 autoplay, muted</div><div>Before / after</div><div>Process wall</div></div><a class="cs-live" href="${p.live}" target="_blank" rel="noopener">Open the live project ↗</a></div></section>
+  <button class="cs-next" type="button" data-go="${(i+1)%8}"><span><small>Next project</small><strong>${esc(n.title)} →</strong></span><img src="${IMG+n.img}" alt=""></button>
+  </div></div>`;
+}
+function openCase(i, o={}){
+  caseIdx = i; const c = $("#case");
+  c.className = "case" + (o.split ? " split" : "");
+  c.innerHTML = caseHTML(i); c.scrollTop = 0;
+  onCaseClose = o.onClose || null;
+  document.documentElement.classList.add("lock");
+  setStep("case");
+  requestAnimationFrame(() => {
+    c.classList.add("open");
+    const cover = $(".cs-cover img", c);
+    if (o.rect && !o.split && !reduce){
+      cover.style.opacity = 0;
+      const r2 = cover.getBoundingClientRect(), r = o.rect;
+      const fl = new Image(); fl.src = IMG + P[i].img; fl.className = "flip"; fl.alt = "";
+      Object.assign(fl.style, {left:r.left+"px", top:r.top+"px", width:r.width+"px", height:r.height+"px", borderRadius:(o.radius||0)+"px"});
+      document.body.appendChild(fl); fl.getBoundingClientRect();
+      Object.assign(fl.style, {left:r2.left+"px", top:r2.top+"px", width:r2.width+"px", height:r2.height+"px", borderRadius:"16px"});
+      setTimeout(() => { cover.style.opacity = 1; fl.remove(); }, 980);
+    }
+    setTimeout(() => $("[data-close]", c)?.focus({preventScroll:true}), 60);
+  });
+  cursor(false);
+}
+function closeCase(){
+  if (caseIdx < 0) return;
+  const c = $("#case"); c.classList.remove("open");
+  document.documentElement.classList.toggle("lock", world === "canvas");
+  const f = onCaseClose; onCaseClose = null; caseIdx = -1; f?.();
+  setStep("work");
+}
+$("#case").addEventListener("click", e => {
+  const g = e.target.closest("[data-go]");
+  if (g){ const i = +g.dataset.go; caseIdx = i; $("#case").innerHTML = caseHTML(i); $("#case").scrollTop = 0; cur?.focus?.(i); return; }
+  if (e.target.closest("[data-close]")) closeCase();
+});
+
+/* ── step / rail / why ── */
+function setStep(s){
+  if (s === step) return; step = s;
+  $$("#rail button").forEach(b => b.classList.toggle("on", b.dataset.step === s));
+  const w = WHY[world][s]; if (!w) return;
+  const ch = w[0].map((c,k) => k === w[0].length-1 ? `<b>${esc(c)}</b>` : `<s>${esc(c)}</s>`).join(" ");
+  $("#whyBody").innerHTML = `<span class="mono" style="color:var(--muted)">${esc(WORLDS[world].name)} · ${esc(s)}</span><div class="ch">${ch}</div><p>${esc(w[1])}</p>`;
+}
+$("#whyBtn").addEventListener("click", () => { const w = $("#why"); w.classList.toggle("min"); $("#whyBtn").setAttribute("aria-expanded", !w.classList.contains("min")); });
+$$("#rail button").forEach(b => b.addEventListener("click", () => {
+  const s = b.dataset.step;
+  if (s === "intro") return runIntro();
+  if (s === "case") return caseIdx >= 0 ? null : (cur?.openFirst ? cur.openFirst() : openCase(0));
+  if (caseIdx >= 0) closeCase();
+  if (cur?.goStep) return cur.goStep(s);
+  const el = s === "hero" ? $("#stage") : s === "work" ? $("#s-work") : $("#s-"+s);
+  if (s === "hero") scrollTo({top:0, behavior:reduce?"auto":"smooth"}); else el?.scrollIntoView({behavior:reduce?"auto":"smooth"});
+}));
+
+/* ── cursor ── */
+const curEl = $("#cursor"); let mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my;
+addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; }, {passive:true});
+function cursor(big, label){ curEl.classList.toggle("big", !!big); if (label) $("#curLab").textContent = label; }
+(function loop(){ cx += (mx-cx)*.3; cy += (my-cy)*.3; curEl.style.transform = `translate(${cx}px,${cy}px)`; requestAnimationFrame(loop); })();
+
+/* ── mount ── */
+function mount(){
+  cur?.destroy?.(); ac?.abort(); ac = new AbortController(); const signal = ac.signal;
+  document.documentElement.dataset.world = world;
+  document.documentElement.classList.toggle("lock", world === "canvas");
+  $$(".sw button").forEach(b => b.setAttribute("aria-pressed", b.dataset.w === world));
+  $("#stage").innerHTML = W[world].html();
+  cur = W[world].init(signal) || {};
+  const io = new IntersectionObserver(es => { if (caseIdx >= 0 || !introDone) return; es.forEach(e => { if (e.isIntersecting) setStep(e.target.dataset.step); }); }, {rootMargin:"-45% 0px -45% 0px"});
+  $$("#stage [data-step]").forEach(s => io.observe(s));
+  signal.addEventListener("abort", () => io.disconnect());
+  $$("[data-replay]").forEach(b => b.addEventListener("click", runIntro, {signal}));
+  $$("#stage [data-hover]").forEach(el => { el.addEventListener("pointerenter", () => cursor(true, el.dataset.hover), {signal}); el.addEventListener("pointerleave", () => cursor(false), {signal}); });
+  $$(".mag").forEach(m => { if (!fine) return; m.addEventListener("pointermove", e => { const r = m.getBoundingClientRect(); m.style.transform = `translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.4}px)`; }, {signal}); m.addEventListener("pointerleave", () => m.style.transform = "", {signal}); });
+  const s = step; step = ""; setStep(introDone ? "hero" : (s || "intro"));
+  if (introDone) cur.enter?.();
+}
+function switchWorld(w){
+  if (w === world || !WORLDS[w]) return;
+  if (caseIdx >= 0) closeCase();
+  $("#vName").textContent = WORLDS[w].name; $("#vRef").textContent = WORLDS[w].ref; $("#vNote").textContent = WORLDS[w].note;
+  const v = $("#veil");
+  if (reduce){ world = w; scrollTo(0,0); mount(); return; }
+  v.classList.remove("out"); v.classList.add("in");
+  setTimeout(() => { world = w; scrollTo(0,0); mount(); try{ history.replaceState(null, "", "#"+w); }catch(e){}
+    setTimeout(() => { v.classList.add("out"); v.classList.remove("in"); setTimeout(() => v.classList.remove("out"), 850); }, 450); }, 850);
+}
+$$(".sw button").forEach(b => b.addEventListener("click", () => switchWorld(b.dataset.w)));
+addEventListener("hashchange", () => { const h = location.hash.slice(1); if (WORLDS[h]) switchWorld(h); });
+addEventListener("keydown", e => {
+  if (e.key === "Escape") closeCase();
+  if (/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  const k = "abcd".indexOf(e.key.toLowerCase()); if (k >= 0 && !e.metaKey && !e.ctrlKey) switchWorld(Object.keys(WORLDS)[k]);
+  if (caseIdx >= 0 && (e.key === "ArrowRight" || e.key === "ArrowLeft")){ const i = (caseIdx + (e.key === "ArrowRight" ? 1 : 7)) % 8; caseIdx = i; $("#case").innerHTML = caseHTML(i); cur?.focus?.(i); }
+  else if (cur?.key) cur.key(e);
+});
+$("#brand").addEventListener("click", e => { e.preventDefault(); closeCase(); if (cur?.goStep) cur.goStep("hero"); else scrollTo({top:0, behavior:reduce?"auto":"smooth"}); });
+
+/* ── intro ── */
+function runIntro(){
+  closeCase(); introDone = false; step = ""; setStep("intro");
+  const it = $("#intro"), bar = $("#inBar"), lab = $("#inLab");
+  it.classList.remove("out","go","cut"); bar.style.width = "0";
+  lab.textContent = "Resuming your last visit";
+  const fin = () => { it.classList.add("out"); introDone = true; step = ""; setStep("hero"); cur?.enter?.(); };
+  if (reduce){ bar.style.width = "100%"; it.classList.add("go"); setTimeout(fin, 300); return; }
+  setTimeout(() => { it.classList.add("go"); bar.style.width = "62%"; }, 120);
+  setTimeout(() => { it.classList.add("cut"); lab.textContent = "Interrupted at 62% · where was I?"; }, 950);
+  setTimeout(() => { it.classList.remove("cut"); lab.textContent = "Next step: the work"; bar.style.width = "100%"; }, 1750);
+  setTimeout(fin, 2450);
+}
+
+/* ═════════════ WORLDS ═════════════ */
+const W = {};
+
+/* A · GALLERY — scroll walks a camera through a white gallery */
+W.gallery = {
+  html(){
+    const SP = 1300, Z0 = 900, L = Z0 + 8*SP + 500, CH = 760, HW = 1000;
+    const arts = P.map((p,i) => `<div class="g-shade" data-i="${i}"></div><div class="g-art" data-i="${i}" data-hover="Enter" role="button" tabindex="0" aria-label="Open ${esc(p.title)}">
+      <div class="g-board"><img src="${IMG+p.img}" alt="${esc(p.title)}"><div class="g-cap"><span class="mono" style="color:var(--muted)">${pad(i+1)} · ${esc(p.cat)}</span><h3>${esc(p.title)}</h3><p>${esc(p.line)}</p></div></div></div>`).join("");
+    const ticks = P.map((p,i) => `<b style="top:${8 + i/7*84}%;${i%2?'right:4px':'left:4px'}"></b>`).join("");
+    return `<section class="g-scroll" id="s-work" data-step="work" data-l="${L}">
+      <div class="g-sticky" id="gSticky">
+        <div class="g-yaw" id="gYaw"><div class="g-cam" id="gCam">
+          <div class="g-floor" style="width:${HW*2}px;height:${L}px;margin:${-L/2}px 0 0 ${-HW}px;transform:translate3d(0,${CH/2}px,${-L/2}px) rotateX(90deg)"></div>
+          <div class="g-ceil"  style="width:${HW*2}px;height:${L}px;margin:${-L/2}px 0 0 ${-HW}px;transform:translate3d(0,${-CH/2}px,${-L/2}px) rotateX(-90deg)"></div>
+          <div class="g-wall"  style="width:${L}px;height:${CH}px;margin:${-CH/2}px 0 0 ${-L/2}px;transform:translate3d(${-HW}px,0,${-L/2}px) rotateY(90deg)"></div>
+          <div class="g-wall"  style="width:${L}px;height:${CH}px;margin:${-CH/2}px 0 0 ${-L/2}px;transform:translate3d(${HW}px,0,${-L/2}px) rotateY(-90deg)"></div>
+          <div class="g-end"   style="width:${HW*2}px;height:${CH}px;margin:${-CH/2}px 0 0 ${-HW}px;transform:translate3d(0,0,${-L}px)"><p>Process, <em>next</em> →</p></div>
+          <div class="g-title" id="gTitle" style="transform:translate3d(0,-260px,-300px)"><p class="mono eyebrow" style="font-size:16px">Selected work · 2024 – 2026 · Sydney</p><h1>Katherine Lin</h1><p>AI product design, UX research and interaction.<br>Scroll to walk in.</p></div>
+          ${arts}
+        </div></div>
+        <p class="g-hint mono">Scroll to walk · move to look · click a work</p>
+        <div class="g-hud">
+          <div class="g-now"><span class="mono" id="gIdx" style="color:var(--muted)">Entrance</span><h2 id="gNow">Eight works</h2><button type="button" id="gEnter">Enter this work →</button></div>
+          <div class="g-map" aria-hidden="true">${ticks}<i id="gDot"></i></div>
+        </div>
+      </div>
+    </section>${aboutHTML()}${contactHTML()}`;
+  },
+  init(signal){
+    const SP = 1300, Z0 = 900, sec = $(".g-scroll"), L = +sec.dataset.l;
+    const camEl = $("#gCam"), yawEl = $("#gYaw"), arts = $$(".g-art"), shades = $$(".g-shade"), title = $("#gTitle");
+    const mob = innerWidth < 700, X = mob ? 170 : 380, SW = mob ? 50 : 130;
+    $("#gSticky").style.perspective = mob ? "620px" : "900px";
+    const zs = P.map((p,i) => Z0 + i*SP);
+    const place = () => arts.forEach((a,i) => {
+      const side = i%2 ? 1 : -1, h = a.offsetHeight, z = zs[i];
+      a.style.transform = `translate3d(${side*X}px,${200-h}px,${-z}px) rotateY(${-side*14}deg)`;
+      shades[i].style.transform = `translate3d(${side*X}px,380px,${-z}px) rotateX(90deg)`;
+    });
+    place(); document.fonts?.ready.then(place);
+    const maxCam = L - 1300;
+    let camZ = 0, target = 0, yaw = 0, pitch = 0, raf, idx = -1;
+    const onScroll = () => { const r = sec.getBoundingClientRect(); target = clamp(-r.top / (sec.offsetHeight - innerHeight)) * maxCam; };
+    addEventListener("scroll", onScroll, {signal, passive:true}); onScroll();
+    const open = i => openCase(i, {rect: $("img", arts[i]).getBoundingClientRect()});
+    arts.forEach((a,i) => { a.addEventListener("click", () => open(i), {signal}); a.addEventListener("keydown", e => { if (e.key === "Enter") open(i); }, {signal}); });
+    $("#gEnter").addEventListener("click", () => idx >= 0 ? open(idx) : scrollTo({top: sec.offsetTop + (sec.offsetHeight-innerHeight) * ((Z0-650)/maxCam), behavior:"smooth"}), {signal});
+    const frame = () => {
+      camZ += (target - camZ) * (reduce ? 1 : .075);
+      const ph = (camZ - (Z0 - 760)) / SP;
+      const ease = clamp((ph + .7) / .9);
+      const camX = -Math.cos(clamp(ph,0,7) * Math.PI) * SW * ease;
+      const nx = fine ? (mx / innerWidth - .5) : 0, ny = fine ? (my / innerHeight - .5) : 0;
+      yaw += ((camX / SW) * 4 * ease + nx * 7 - yaw) * .06;
+      pitch += (-ny * 4 - pitch) * .06;
+      yawEl.style.transform = `rotateX(${pitch}deg) rotateY(${yaw}deg)`;
+      camEl.style.transform = `translate3d(${-camX}px,0,${camZ}px)`;
+      arts.forEach((a,i) => { const d = zs[i] - camZ; const op = d < -60 ? 0 : d < 260 ? (d + 60) / 320 : 1; a.style.opacity = op; a.style.visibility = op <= .01 ? "hidden" : "visible"; shades[i].style.opacity = op; });
+      const dt = 300 - camZ; title.style.opacity = dt < -40 ? 0 : clamp((dt + 40) / 340);
+      const ni = ph < -.45 ? -1 : Math.round(clamp(ph, 0, 7));
+      if (ni !== idx){ idx = ni;
+        $("#gIdx").textContent = ni < 0 ? "Entrance" : `${pad(ni+1)} / 08 · ${P[ni].cat}`;
+        $("#gNow").textContent = ni < 0 ? "Eight works" : P[ni].title;
+        $("#gEnter").textContent = ni < 0 ? "Walk in →" : "Enter this work →"; }
+      $("#gDot").style.top = (8 + clamp(ph/7) * 84) + "%";
+      $("#gDot").style.left = (50 + (camX / SW) * 30) + "%";
+      if (introDone && caseIdx < 0){ const r = sec.getBoundingClientRect(); if (r.bottom > innerHeight*.55) setStep(camZ < 380 ? "hero" : "work"); }
+      raf = requestAnimationFrame(frame);
+    };
+    frame();
+    addEventListener("resize", place, {signal});
+    return { destroy(){ cancelAnimationFrame(raf); },
+      goStep(s){ if (s === "hero") scrollTo({top:0, behavior:"smooth"}); else if (s === "work") scrollTo({top: sec.offsetTop + (sec.offsetHeight-innerHeight)*.12, behavior:"smooth"}); else $("#s-"+s)?.scrollIntoView({behavior:"smooth"}); },
+      openFirst(){ open(Math.max(0, idx)); } };
+  }
+};
+
+/* B · STUDIO — real-time 3D objects on a turntable */
+W.studio = {
+  html(){
+    const list = P.map((p,i) => `<button type="button" data-i="${i}"><span>${esc(p.title)}</span><span class="mono">${pad(i+1)}</span></button>`).join("");
+    return `<section class="s-wrap" id="s-work" data-step="work">
+      <canvas id="sCv" aria-label="Eight project objects on a turntable"></canvas>
+      <div class="s-fallback">3D needs WebGL. The index on the right still opens every project.</div>
+      <div class="s-label" id="sLab"><b id="sLabT"></b><span id="sLabC"></span></div>
+      <div class="s-ui">
+        <div class="s-head"><p class="mono eyebrow">Katherine Lin · selected objects</p><h1 style="margin-top:14px">Eight problems,<br>made <em>tangible</em>.</h1><p>Each project is an object from its own world. Drag to turn the table. Click an object to open it.</p></div>
+        <nav class="s-list" aria-label="Projects">${list}</nav>
+        <div class="s-foot"><span class="big" id="sNow">CircleU</span><span class="mono" style="color:var(--muted)">Drag ⟲ · click to open</span></div>
+      </div>
+    </section>${aboutHTML()}${contactHTML()}`;
+  },
+  init(signal){
+    const wrap = $(".s-wrap"), cv = $("#sCv");
+    const listBtns = $$(".s-list button");
+    const openPlain = i => openCase(i, {rect: null});
+    listBtns.forEach(b => b.addEventListener("click", () => api.open ? api.open(+b.dataset.i) : openPlain(+b.dataset.i), {signal}));
+    const api = {};
+    if (!window.THREE){ wrap.classList.add("nogl"); return {destroy(){}, openFirst(){ openPlain(0); }}; }
+    const T = THREE;
+    let renderer;
+    try { renderer = new T.WebGLRenderer({canvas:cv, antialias:true, alpha:true}); } catch(e){ wrap.classList.add("nogl"); return {}; }
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
+    renderer.outputEncoding = T.sRGBEncoding;
+    const scene = new T.Scene();
+    const cam = new T.PerspectiveCamera(30, 1, .1, 200);
+    scene.add(new T.HemisphereLight(0xffffff, 0xd6d6d2, .95));
+    const key = new T.DirectionalLight(0xffffff, 1.05); key.position.set(6, 12, 8); key.castShadow = true;
+    key.shadow.mapSize.set(2048, 2048); Object.assign(key.shadow.camera, {left:-9, right:9, top:9, bottom:-9, near:1, far:40}); key.shadow.bias = -.0004; key.shadow.radius = 5;
+    scene.add(key);
+    const rim = new T.DirectionalLight(0xffffff, .4); rim.position.set(-8, 6, -7); scene.add(rim);
+    const ground = new T.Mesh(new T.PlaneGeometry(80, 80), new T.ShadowMaterial({opacity:.07})); ground.rotation.x = -Math.PI/2; ground.position.y = -.5; ground.receiveShadow = true; scene.add(ground);
+    const plinth = new T.Mesh(new T.CylinderGeometry(5.3, 5.4, .5, 128), new T.MeshStandardMaterial({color:0xEAEAE6, roughness:.92})); plinth.position.y = -.25; plinth.receiveShadow = true; plinth.castShadow = true; scene.add(plinth);
+    const table = new T.Group(); scene.add(table);
+    const M = (c, o={}) => new T.MeshPhysicalMaterial(Object.assign({color:c, roughness:.4, metalness:0, clearcoat:.5, clearcoatRoughness:.35}, o));
+    const mesh = (g, m) => new T.Mesh(g, m);
+    const make = {
+      "circleu": () => { const g = new T.Group(); const t = mesh(new T.TorusGeometry(.62, .22, 48, 120), M(0xE6D2C6)); t.position.y = .84; g.add(t); return g; },
+      "wildling": () => { const geo = new T.SphereGeometry(.72, 96, 64); const pa = geo.attributes.position, v = new T.Vector3();
+        for (let k = 0; k < pa.count; k++){ v.fromBufferAttribute(pa, k); const n = 1 + .09*Math.sin(v.x*4.2+1)*Math.sin(v.y*5.1)*Math.cos(v.z*3.7) + .04*Math.sin(v.y*11); v.multiplyScalar(n); pa.setXYZ(k, v.x, v.y, v.z); }
+        geo.computeVertexNormals(); const g = new T.Group(); const s = mesh(geo, M(0xAFC1A3, {roughness:.55})); s.scale.y = .92; s.position.y = .68; g.add(s); return g; },
+      "musictag": () => { const g = new T.Group(); const d = mesh(new T.CylinderGeometry(.88, .88, .07, 120), M(0x1E1E20, {roughness:.22, clearcoat:1})); d.rotation.x = Math.PI/2; d.rotation.y = .25; d.position.y = .9;
+        const l = mesh(new T.CylinderGeometry(.3, .3, .075, 64), M(0xCBB9E3)); l.rotation.copy(d.rotation); l.position.copy(d.position); g.add(d, l);
+        const st = mesh(new T.BoxGeometry(.9, .08, .5), M(0xEDEDEA)); st.position.y = .04; g.add(st); return g; },
+      "transfer-coach": () => { const c = new T.CatmullRomCurve3([[-.75,.14,.2],[-.35,.14,.6],[.25,.3,.45],[.55,.75,-.1],[.15,1.15,-.45],[-.35,1.25,-.1],[-.2,1.45,.35]].map(a => new T.Vector3(...a)));
+        const g = new T.Group(); g.add(mesh(new T.TubeGeometry(c, 160, .14, 32), M(0xD8743F, {roughness:.35}))); return g; },
+      "who-said-what-when": () => { const g = new T.Group(); [.35,.7,1.2,.6,1.55,.95,.45,1.05,.3].forEach((h,k) => { const b = mesh(new T.BoxGeometry(.11, h, .26), M(k>=3 && k<=6 ? 0xB7C3DA : 0xF3F3F0)); b.position.set((k-4)*.17, h/2, 0); g.add(b); }); return g; },
+      "foodsense": () => { const pts = [[0,0],[.48,0],[.6,.12],[.62,.95],[.5,1.1],[.46,1.12],[.46,1.24],[0,1.24]].map(a => new T.Vector2(...a));
+        const g = new T.Group(); g.add(mesh(new T.LatheGeometry(pts, 96), M(0xC6D5DE, {roughness:.25, clearcoat:.9})));
+        const lid = mesh(new T.CylinderGeometry(.5, .5, .14, 96), M(0xEFEDE8)); lid.position.y = 1.3; g.add(lid); return g; },
+      "hci-research": () => { const g = new T.Group(); const t = mesh(new T.TorusGeometry(.66, .14, 40, 140, Math.PI*1.66), M(0x7A746D)); t.rotation.x = -Math.PI/2; t.position.y = .14; g.add(t);
+        const th = Math.PI*1.83; const s = mesh(new T.SphereGeometry(.2, 48, 32), M(0x2B3FE0, {roughness:.25, clearcoat:1})); s.position.set(.66*Math.cos(th), .2, -.66*Math.sin(th)); g.add(s); return g; },
+      "data-visualisation": () => { const g = new T.Group(); [[.6,0xE2D3AE],[1.25,0xCBAA5E],[.9,0xA98A47]].forEach(([h,c],k) => { const b = mesh(new T.CylinderGeometry(.21, .21, h, 64), M(c)); b.position.set((k-1)*.5, h/2, 0); g.add(b); }); return g; }
+    };
+    const R = 3.55;
+    const objs = P.map((p,i) => { const g = make[p.id](); const a = i/8 * Math.PI*2; g.position.set(Math.sin(a)*R, 0, Math.cos(a)*R); g.rotation.y = a;
+      g.userData = {i, a, y:0, drop:0}; g.traverse(m => { if (m.isMesh){ m.castShadow = true; m.receiveShadow = true; m.userData.i = i; } }); table.add(g); return g; });
+    const mob = () => innerWidth / Math.max(1, wrap.clientHeight) < .9;
+    const home = () => mob() ? {p:new T.Vector3(0, 8.5, 21), l:new T.Vector3(0, .4, 0)} : {p:new T.Vector3(0, 4.4, 12), l:new T.Vector3(0, .85, 0)};
+    const camP = new T.Vector3(0, 13, 30), look = new T.Vector3(0, .5, 0);
+    let tgt = home();
+    const size = () => { const w = wrap.clientWidth, h = wrap.clientHeight; renderer.setSize(w, h, false); cam.aspect = w/h; cam.updateProjectionMatrix(); if (api.focus == null) tgt = home(); };
+    size(); addEventListener("resize", size, {signal});
+    const ray = new T.Raycaster(), ndc = new T.Vector2(-9, -9);
+    let hov = -1, rot = 0, vel = 0, drag = null, rotTarget = null, t0 = performance.now(), raf, entered = false, shown = 0;
+    const lab = $("#sLab");
+    cv.addEventListener("pointermove", e => { const r = cv.getBoundingClientRect(); ndc.set((e.clientX-r.left)/r.width*2-1, -(e.clientY-r.top)/r.height*2+1);
+      if (drag){ const dx = e.clientX - drag.x; if (Math.abs(dx) > 3) drag.moved = true; vel = dx * .0035; rot += vel; drag.x = e.clientX; } }, {signal});
+    cv.addEventListener("pointerleave", () => { ndc.set(-9,-9); }, {signal});
+    cv.addEventListener("pointerdown", e => { drag = {x:e.clientX, moved:false, hit:hov}; cv.setPointerCapture(e.pointerId); }, {signal});
+    cv.addEventListener("pointerup", () => { if (drag && !drag.moved && drag.hit >= 0) api.open(drag.hit); drag = null; }, {signal});
+    listBtns.forEach(b => { b.addEventListener("pointerenter", () => { hov = +b.dataset.i; b.dataset.pin = 1; }, {signal}); b.addEventListener("pointerleave", () => { b.dataset.pin = ""; }, {signal}); });
+    const v3 = new T.Vector3();
+    api.focus = null;
+    api.open = i => {
+      api.focus = i; const a = objs[i].userData.a; let rt = -a; while (rt - rot > Math.PI) rt -= Math.PI*2; while (rt - rot < -Math.PI) rt += Math.PI*2; rotTarget = rt;
+      const sx = mob() ? 0 : 1.9; tgt = {p:new T.Vector3(sx, 3.1, R + 8.2), l:new T.Vector3(sx, .75, R)}; wrap.classList.add("focus");
+      openCase(i, {split:true, onClose(){ api.focus = null; rotTarget = null; tgt = home(); wrap.classList.remove("focus"); }});
+    };
+    api.enter = () => { entered = true; t0 = performance.now(); camP.set(0, 13, 30); };
+    const easeBack = t => { const c = 1.6; t -= 1; return 1 + (c+1)*t*t*t + c*t*t; };
+    let last = performance.now();
+    const frame = now => {
+      raf = requestAnimationFrame(frame);
+      const el = (now - t0) / 1000, dt = Math.min(.1, (now - last) / 1000) * 60; last = now;
+      const k = b => 1 - Math.pow(1 - b, dt);
+      if (rotTarget !== null){ rot += (rotTarget - rot) * k(.06); vel = 0; }
+      else if (!drag){ vel *= .95; rot += vel + (reduce ? 0 : .0016); }
+      table.rotation.y = rot;
+      if (!drag && api.focus === null && !$$(".s-list button").some(b => b.dataset.pin)){ ray.setFromCamera(ndc, cam); const hit = ray.intersectObjects(table.children, true)[0]; hov = hit ? hit.object.userData.i : -1; }
+      cv.style.cursor = hov >= 0 ? "pointer" : "";
+      objs.forEach((g,i) => {
+        const d = clamp((el - .15 - i*.09) / .9); const drop = entered || reduce ? (reduce ? 1 : easeBack(d)) : 0;
+        const lift = (hov === i || api.focus === i) ? .35 : 0; g.userData.y += (lift - g.userData.y) * k(.1);
+        g.position.y = (1 - drop) * 6 + g.userData.y;
+        g.rotation.y = g.userData.a + Math.sin(el*.6 + i) * .25 + (api.focus === i ? el*.4 : 0);
+        const s = api.focus !== null && api.focus !== i ? .85 : 1; g.scale.setScalar(lerp(g.scale.x, s, k(.08)));
+      });
+      camP.lerp(tgt.p, entered ? k(.04) : 0); look.lerp(tgt.l, k(.05)); cam.position.copy(camP); cam.lookAt(look);
+      renderer.render(scene, cam);
+      const show = hov >= 0 ? hov : -1;
+      if (show >= 0 && api.focus === null){ objs[show].getWorldPosition(v3); v3.y += 1.9; v3.project(cam);
+        lab.style.left = ((v3.x+1)/2 * cv.clientWidth) + "px"; lab.style.top = ((1-v3.y)/2 * cv.clientHeight) + "px";
+        if (shown !== show + 1){ $("#sLabT").textContent = P[show].title; $("#sLabC").textContent = P[show].cat; }
+        lab.classList.add("on"); } else lab.classList.remove("on");
+      shown = show + 1;
+      const now8 = api.focus !== null ? api.focus : show >= 0 ? show : ((Math.round(-rot / (Math.PI/4)) % 8) + 8) % 8;
+      if ($("#sNow").dataset.i != now8){ $("#sNow").dataset.i = now8; $("#sNow").textContent = P[now8].title; listBtns.forEach((b,k) => b.classList.toggle("on", k === now8)); }
+    };
+    raf = requestAnimationFrame(frame);
+    if (introDone) api.enter();
+    return { destroy(){ cancelAnimationFrame(raf); scene.traverse(o => { o.geometry?.dispose?.(); o.material?.dispose?.(); }); renderer.dispose(); renderer.forceContextLoss?.(); },
+      enter: api.enter, openFirst(){ api.open(0); }, focus(i){ if (api.focus !== null){ api.focus = i; const a = objs[i].userData.a; let rt = -a; while (rt - rot > Math.PI) rt -= Math.PI*2; while (rt - rot < -Math.PI) rt += Math.PI*2; rotTarget = rt; } } };
+  }
+};
+
+/* C · CANVAS — one continuous space, fly between projects */
+W.canvas = {
+  layout: [[0,1000,1150],[2000,1250,950],[200,2300,1000],[2000,2550,1150],[0,3600,1150],[2150,3850,900],[250,4900,950],[2000,5150,1150]],
+  html(){
+    const proj = P.map((p,i) => { const [x,y,w] = this.layout[i];
+      return `<article class="cb cb-p" data-i="${i}" data-hover="Fly" style="left:${x}px;top:${y}px">
+        <figure style="width:${w}px"><img src="${IMG+p.img}" alt="${esc(p.title)}"></figure>
+        <div class="cb-t"><p class="mono">${pad(i+1)} — ${esc(p.cat)}</p><h2>${esc(p.title)}</h2><p class="ln">${esc(p.line)}</p><p class="pr">${esc(p.problem)}</p>
+          <ol>${p.decisions.map(d => `<li><span>${esc(d[0])}</span>${esc(d[1])}</li>`).join("")}</ol>
+          <div class="cb-st">${p.stats.map(s => `<div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join("")}</div>
+          <p class="cb-lim">${esc(p.limit)}</p><button class="cb-open" type="button" data-open="${i}">Open full case ↗</button></div></article>`; }).join("");
+    return `<section class="cv-view" id="cvView" data-step="work" aria-label="Zoomable map of the work"><div class="cv-plane" id="cvPlane">
+      <div class="cb cb-title" data-b="hero" style="left:0;top:0"><p class="mono eyebrow">AI product design · UX research · interaction · Sydney</p>
+        <h1>Katherine Lin<br><em>designs the next step.</em></h1>
+        <p class="l">When information is uncertain, an interface gets in the way, or a routine breaks. Eight projects, laid out on one map.</p>
+        <button class="cb-go" type="button" id="cvGo">See everything ↘</button></div>
+      ${proj}
+      <div class="cb cb-ab" data-b="about" style="left:4300px;top:1000px">${aboutHTML().replace(/class="ab wrap[^"]*"/,'class="ab"').replace(/data-step="about" id="s-about"/,"")}</div>
+      <div class="cb cb-ct" data-b="contact" style="left:4300px;top:4700px">${contactHTML().replace(/class="ct wrap"/,'class="ct"').replace(/data-step="contact" id="s-contact"/,"")}</div>
+    </div></section>
+    <p class="cv-hint mono" id="cvHint">Scroll or drag to pan · pinch or ⌘ + scroll to zoom · click a project to fly</p>
+    <div class="cv-ui"><div class="cv-map" id="cvMap" aria-hidden="true"></div>
+      <div class="cv-ctl"><button type="button" id="cvOut" aria-label="Zoom out">−</button><button type="button" id="cvFit">Fit</button><button type="button" id="cvIn" aria-label="Zoom in">+</button><button type="button" id="cvPrev" aria-label="Previous project">←</button><button type="button" id="cvNext" aria-label="Next project">→</button></div></div>`;
+  },
+  init(signal){
+    const view = $("#cvView"), plane = $("#cvPlane"), map = $("#cvMap");
+    const blocks = $$(".cb", plane).map(el => ({el, x:el.offsetLeft, y:el.offsetTop, w:el.offsetWidth, h:el.offsetHeight, i: el.dataset.i != null ? +el.dataset.i : -1, b: el.dataset.b || "work"}));
+    const measure = () => blocks.forEach(b => { b.w = b.el.offsetWidth; b.h = b.el.offsetHeight; });
+    document.fonts?.ready.then(() => { measure(); drawMap(); });
+    const bounds = () => { let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; blocks.forEach(b => { x0=Math.min(x0,b.x); y0=Math.min(y0,b.y); x1=Math.max(x1,b.x+b.w); y1=Math.max(y1,b.y+b.h); }); return {x:x0,y:y0,w:x1-x0,h:y1-y0}; };
+    const fit = (r, padK=.86) => ({x:r.x + r.w/2, y:r.y + r.h/2, s: Math.min(innerWidth*padK / r.w, innerHeight*padK / r.h)});
+    const hero = blocks.find(b => b.b === "hero");
+    let cam = fit(hero, .8), anim = null, focusI = -1, interacted = false, raf;
+    const apply = () => {
+      plane.style.transform = `translate(${innerWidth/2 - cam.x*cam.s}px,${innerHeight/2 - cam.y*cam.s}px) scale(${cam.s})`;
+      let g = 48 * cam.s; while (g < 14) g *= 4;
+      view.style.backgroundSize = `${g}px ${g}px`;
+      view.style.backgroundPosition = `${innerWidth/2 - cam.x*cam.s}px ${innerHeight/2 - cam.y*cam.s}px`;
+      const B = bounds(), k = Math.min(150 / B.w, 164 / B.h), ox = (150 - B.w*k)/2, oy = (164 - B.h*k)/2;
+      const vw = innerWidth / cam.s, vh = innerHeight / cam.s;
+      Object.assign(vp.style, {left:(ox + (cam.x - vw/2 - B.x)*k)+"px", top:(oy + (cam.y - vh/2 - B.y)*k)+"px", width:(vw*k)+"px", height:(vh*k)+"px"});
+      // step
+      if (introDone && caseIdx < 0){
+        let best = null, bd = 1e18; blocks.forEach(b => { const d = (b.x+b.w/2-cam.x)**2 + (b.y+b.h/2-cam.y)**2; if (d < bd){ bd = d; best = b; } });
+        const zoomed = cam.s > fit(bounds(), .9).s * 2.2;
+        setStep(!zoomed ? "work" : best.b === "hero" ? "hero" : best.b === "about" ? "about" : best.b === "contact" ? "contact" : "case");
+        if (zoomed && best.i >= 0) focusI = best.i;
+        $$("i", map).forEach((m,k) => m.classList.toggle("on", zoomed && blocks[k] === best));
+      }
+    };
+    let vp;
+    const drawMap = () => { const B = bounds(), k = Math.min(150 / B.w, 164 / B.h), ox = (150 - B.w*k)/2, oy = (164 - B.h*k)/2;
+      map.innerHTML = blocks.map(b => `<i style="left:${ox+(b.x-B.x)*k}px;top:${oy+(b.y-B.y)*k}px;width:${b.w*k}px;height:${b.h*k}px"></i>`).join("") + `<b></b>`; vp = $("b", map); apply(); };
+    drawMap();
+    const fly = (to, dur) => {
+      const from = {...cam}; const dist = Math.hypot(to.x-from.x, to.y-from.y);
+      const k = clamp(dist * Math.min(from.s, to.s) / Math.min(innerWidth, innerHeight), 0, 4);
+      dur = reduce ? 0 : (dur || 1100 + Math.min(700, dist * .12));
+      const t0 = performance.now(); plane.classList.add("moving");
+      anim = now => { const t = dur ? clamp((now - t0) / dur) : 1; const e = t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+        cam.x = lerp(from.x, to.x, e); cam.y = lerp(from.y, to.y, e);
+        cam.s = Math.exp(lerp(Math.log(from.s), Math.log(to.s), e)) / (1 + k * .55 * Math.sin(Math.PI * t));
+        if (t >= 1){ anim = null; plane.classList.remove("moving"); } };
+    };
+    const overview = () => fly(fit(bounds(), .92));
+    const focus = i => { focusI = i; const b = blocks.find(x => x.i === i); fly(fit(b, .88)); };
+    const loop = now => { raf = requestAnimationFrame(loop); if (anim) anim(now); apply(); };
+    raf = requestAnimationFrame(loop);
+    const stopAuto = () => { interacted = true; $("#cvHint")?.classList.add("gone"); };
+    // wheel: pan, ctrl/⌘ zoom
+    view.addEventListener("wheel", e => { e.preventDefault(); stopAuto(); anim = null;
+      if (e.ctrlKey || e.metaKey){ const f = Math.exp(-e.deltaY * .01); zoomAt(e.clientX, e.clientY, f); }
+      else { cam.x += e.deltaX / cam.s; cam.y += e.deltaY / cam.s; } }, {signal, passive:false});
+    const zoomAt = (px, py, f) => { const wx = cam.x + (px - innerWidth/2) / cam.s, wy = cam.y + (py - innerHeight/2) / cam.s;
+      const ns = clamp(cam.s * f, .04, 2.5); cam.x = wx - (px - innerWidth/2) / ns; cam.y = wy - (py - innerHeight/2) / ns; cam.s = ns; };
+    // drag + pinch
+    const pts = new Map(); let moved = 0, pinch = null;
+    view.addEventListener("pointerdown", e => { if (e.target.closest("button,a")) return; pts.set(e.pointerId, {x:e.clientX, y:e.clientY}); view.setPointerCapture(e.pointerId); moved = 0; anim = null; stopAuto(); view.classList.add("drag");
+      if (pts.size === 2){ const [a,b] = [...pts.values()]; pinch = {d:Math.hypot(a.x-b.x, a.y-b.y)}; } }, {signal});
+    view.addEventListener("pointermove", e => { const p = pts.get(e.pointerId); if (!p) return;
+      if (pts.size === 2 && pinch){ pts.set(e.pointerId, {x:e.clientX, y:e.clientY}); const [a,b] = [...pts.values()]; const d = Math.hypot(a.x-b.x, a.y-b.y); zoomAt((a.x+b.x)/2, (a.y+b.y)/2, d / pinch.d); pinch.d = d; moved = 99; return; }
+      const dx = e.clientX - p.x, dy = e.clientY - p.y; moved += Math.abs(dx) + Math.abs(dy); cam.x -= dx / cam.s; cam.y -= dy / cam.s; pts.set(e.pointerId, {x:e.clientX, y:e.clientY}); }, {signal});
+    const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (!pts.size) view.classList.remove("drag");
+      if (moved < 6 && e.type === "pointerup"){ const el = document.elementFromPoint(e.clientX, e.clientY)?.closest(".cb-p"); if (el){ const i = +el.dataset.i;
+        if (focusI === i && cam.s > fit(bounds(), .9).s * 2.2) openCase(i, {rect: $("img", el).getBoundingClientRect(), radius:18*cam.s}); else focus(i); } } };
+    view.addEventListener("pointerup", up, {signal}); view.addEventListener("pointercancel", up, {signal});
+    $$("[data-open]", plane).forEach(b => b.addEventListener("click", e => { e.stopPropagation(); const i = +b.dataset.open; openCase(i, {rect: $("img", blocks.find(x => x.i === i).el).getBoundingClientRect(), radius:18*cam.s}); }, {signal}));
+    $("#cvGo").addEventListener("click", () => { stopAuto(); overview(); }, {signal});
+    $("#cvFit").addEventListener("click", () => { stopAuto(); overview(); }, {signal});
+    $("#cvIn").addEventListener("click", () => { stopAuto(); const t = {...cam, s:cam.s*1.6}; fly(t, 500); }, {signal});
+    $("#cvOut").addEventListener("click", () => { stopAuto(); const t = {...cam, s:cam.s/1.6}; fly(t, 500); }, {signal});
+    $("#cvNext").addEventListener("click", () => { stopAuto(); focus((focusI + 1) % 8); }, {signal});
+    $("#cvPrev").addEventListener("click", () => { stopAuto(); focus((focusI + 7) % 8); }, {signal});
+    map.addEventListener("click", e => { stopAuto(); const r = map.getBoundingClientRect(), B = bounds(), k = Math.min(150 / B.w, 164 / B.h), ox = (150 - B.w*k)/2, oy = (164 - B.h*k)/2;
+      fly({x:B.x + (e.clientX - r.left - ox)/k, y:B.y + (e.clientY - r.top - oy)/k, s:Math.max(cam.s, fit(B,.9).s*3)}); }, {signal});
+    addEventListener("resize", () => apply(), {signal});
+    let auto;
+    return {
+      enter(){ cam = fit(hero, .8); clearTimeout(auto); auto = setTimeout(() => { if (!interacted && caseIdx < 0) overview(); }, 2200); },
+      destroy(){ cancelAnimationFrame(raf); clearTimeout(auto); },
+      goStep(s){ stopAuto(); if (s === "hero") fly(fit(hero, .8)); else if (s === "work") overview(); else { const b = blocks.find(x => x.b === s); if (b) fly(fit(b, .85)); } },
+      openFirst(){ focus(focusI < 0 ? 0 : focusI); },
+      focus(i){ focusI = i; },
+      key(e){ if (e.key === "ArrowRight"){ stopAuto(); focus((focusI + 1) % 8); } if (e.key === "ArrowLeft"){ stopAuto(); focus((focusI + 7) % 8); } if (e.key === "0" || e.key === "f"){ overview(); } }
+    };
+  }
+};
+
+/* D · PARTICLES — editorial index, particles rebuild each project */
+W.particles = {
+  html(){
+    const rows = P.map((p,i) => `<button class="p-row" type="button" data-i="${i}" data-hover="Open"><span class="mono">${pad(i+1)}</span><span class="t">${esc(p.title)}</span><span class="c mono">${esc(p.cat)}</span></button>`).join("");
+    return `<canvas class="p-cv" id="pCv" aria-hidden="true"></canvas>
+    <section class="p-hero wrap" data-step="hero" id="s-hero">
+      <p class="mono eyebrow">AI product design · UX research · interaction · Sydney</p>
+      <div class="p-slot hero" data-slot="hero" role="img" aria-label="Katherine Lin"></div>
+      <div class="p-bot"><p class="p-tag">Designing the <em>next step</em> when a routine breaks.</p><p class="mono" style="color:var(--muted)">Move through the name · scroll ↓</p></div>
+    </section>
+    <section class="p-work wrap" data-step="work" id="s-work"><div class="inner p-grid">
+      <div class="p-list" id="pList"><p class="mono eyebrow" style="padding-bottom:14px">Selected work · 08</p>${rows}</div>
+      <div class="p-stick"><div class="p-slot img" data-slot="work"></div><div class="p-cap mono"><span id="pCapT">01 · CircleU</span><span id="pCapL">Private reflection, followed by words you can use.</span></div></div>
+    </div></section>${aboutHTML()}${contactHTML(true)}`;
+  },
+  init(signal){
+    const cv = $("#pCv"), ctx = cv.getContext("2d");
+    const N = innerWidth < 700 ? 1600 : 3600;
+    let dpr = 1, VW = 0, VH = 0;
+    const size = () => { dpr = Math.min(devicePixelRatio, 2); VW = innerWidth; VH = innerHeight; cv.width = VW*dpr; cv.height = VH*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); };
+    size(); addEventListener("resize", () => { size(); cache = {}; mode = ""; }, {signal});
+    const ps = Array.from({length:N}, (_,k) => ({x:Math.random()*innerWidth, y:Math.random()*innerHeight, vx:0, vy:0, r:21, g:21, b:21, s:2, k:.035 + Math.random()*.05, j:Math.random()}));
+    const imgs = P.map(p => { const im = new Image(); im.src = IMG + p.img; return im; });
+    let cache = {}, mode = "", active = 0, pts = null, dot = 2, slot = null, burst = 0, lastHover = 0, raf;
+    const slots = {hero:$('[data-slot="hero"]'), work:$('[data-slot="work"]'), contact:$('[data-slot="contact"]')};
+    const textPts = (key, lines, rect) => {
+      if (cache[key]) return cache[key];
+      const sc = 4, w = Math.max(10, Math.round(rect.width/sc)), h = Math.max(10, Math.round(rect.height/sc));
+      const oc = document.createElement("canvas"); oc.width = w; oc.height = h; const c = oc.getContext("2d");
+      let fs = h / lines.length * .92; c.font = `500 ${fs}px Geist, Helvetica, sans-serif`;
+      const maxW = Math.max(...lines.map(l => c.measureText(l).width)); if (maxW > w*.98){ fs *= w*.98 / maxW; }
+      c.font = `500 ${fs}px Geist, Helvetica, sans-serif`; c.textBaseline = "middle"; c.fillStyle = "#000";
+      lines.forEach((l,k) => c.fillText(l, 0, h/2 + (k - (lines.length-1)/2) * fs * .98));
+      const d = c.getImageData(0, 0, w, h).data, out = [];
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d[(y*w+x)*4+3] > 120) out.push([(x+.5)/w, (y+.5)/h, 21, 21, 21]);
+      for (let k = out.length-1; k > 0; k--){ const r = Math.floor(Math.random()*(k+1)); [out[k], out[r]] = [out[r], out[k]]; }
+      out.forEach((p,k) => { if (k % 41 === 0){ p[2] = 43; p[3] = 63; p[4] = 224; } });
+      return cache[key] = {pts:out, dot:sc*.62};
+    };
+    const imgPts = (i, rect) => {
+      const key = "i"+i; if (cache[key]) return cache[key];
+      const im = imgs[i], asp = rect.width / rect.height, gw = Math.round(Math.sqrt(N*asp)), gh = Math.max(1, Math.floor(N/gw));
+      const oc = document.createElement("canvas"); oc.width = gw; oc.height = gh; const c = oc.getContext("2d");
+      let out = [];
+      try {
+        if (!im.complete || !im.naturalWidth) throw 0;
+        const ia = im.naturalWidth / im.naturalHeight; let sw = im.naturalWidth, sh = im.naturalHeight, sx = 0, sy = 0;
+        if (ia > asp){ sw = sh*asp; sx = (im.naturalWidth - sw)/2; } else { sh = sw/asp; sy = (im.naturalHeight - sh)/2; }
+        c.drawImage(im, sx, sy, sw, sh, 0, 0, gw, gh);
+        const d = c.getImageData(0, 0, gw, gh).data;
+        for (let y = 0; y < gh; y++) for (let x = 0; x < gw; x++){ const o = (y*gw+x)*4; out.push([(x+.5)/gw, (y+.5)/gh, d[o], d[o+1], d[o+2]]); }
+      } catch(e){
+        for (let y = 0; y < gh; y++) for (let x = 0; x < gw; x++){ const t = x/gw; out.push([(x+.5)/gw, (y+.5)/gh, lerp(43,230,t)|0, lerp(63,200,y/gh)|0, lerp(224,190,t)|0]); }
+        if (!im.complete) im.addEventListener("load", () => { delete cache[key]; mode = ""; }, {once:true});
+        else return {pts:out, dot:rect.width/gw*.64};
+      }
+      return cache[key] = {pts:out, dot:rect.width/gw*.64};
+    };
+    const assign = t => { pts = t.pts; dot = t.dot; const n = pts.length; const off = Math.floor(Math.random()*n); ps.forEach((p,k) => { p.t = pts[(k*7919 + off) % n]; }); };
+    const vis = el => { if (!el) return 0; const r = el.getBoundingClientRect(); const v = Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)); return v / Math.max(1, Math.min(r.height, innerHeight)); };
+    const caption = i => { $("#pCapT").textContent = `${pad(i+1)} · ${P[i].title}`; $("#pCapL").textContent = P[i].line; $$(".p-row").forEach((r,k) => r.classList.toggle("on", k === i)); };
+    const setActive = i => { if (i === active && mode === "work") return; active = i; caption(i); if (mode === "work") assign(imgPts(i, slots.work.getBoundingClientRect())); };
+    caption(0);
+    const list = $("#pList");
+    $$(".p-row").forEach(r => {
+      r.addEventListener("pointerenter", () => { lastHover = Date.now(); list.classList.add("hov"); setActive(+r.dataset.i); }, {signal});
+      r.addEventListener("focus", () => setActive(+r.dataset.i), {signal});
+      r.addEventListener("click", () => { const i = +r.dataset.i; setActive(i); const rect = slots.work.getBoundingClientRect();
+        if (reduce) return openCase(i, {rect, radius:16});
+        burst = performance.now(); ps.forEach(p => { const a = Math.random()*Math.PI*2, v = 10 + Math.random()*26; p.vx += Math.cos(a)*v; p.vy += Math.sin(a)*v; });
+        setTimeout(() => openCase(i, {rect, radius:16}), 380); }, {signal});
+    });
+    list.addEventListener("pointerleave", () => list.classList.remove("hov"), {signal});
+    addEventListener("scroll", () => { if (Date.now() - lastHover < 1500) return; const rows = $$(".p-row"); let best = -1, bd = 1e9; rows.forEach((r,k) => { const b = r.getBoundingClientRect(); const d = Math.abs(b.top + b.height/2 - innerHeight*.55); if (d < bd){ bd = d; best = k; } }); if (best >= 0 && vis(slots.work) > .5) setActive(best); }, {signal, passive:true});
+    const pick = () => { const v = {hero:vis(slots.hero), work:vis(slots.work), contact:vis(slots.contact)}; const best = Object.entries(v).sort((a,b) => b[1]-a[1])[0]; return best[1] > .35 ? best[0] : "drift"; };
+    let entered = false;
+    const frame = now => {
+      raf = requestAnimationFrame(frame);
+      if (caseIdx >= 0 && now - burst > 1200) return;
+      const m = entered ? pick() : "none";
+      if (m !== mode){ mode = m; slot = slots[m] || null;
+        if (m === "hero"){ const r = slot.getBoundingClientRect(); assign(textPts("h"+Math.round(r.width), innerWidth < 700 ? ["Katherine","Lin"] : ["Katherine Lin"], r)); }
+        else if (m === "work") assign(imgPts(active, slot.getBoundingClientRect()));
+        else if (m === "contact"){ const r = slot.getBoundingClientRect(); assign(textPts("c"+Math.round(r.width), ["Say hello"], r)); }
+      }
+      const r = slot ? slot.getBoundingClientRect() : null;
+      const exploding = now - burst < 420;
+      ctx.clearRect(0, 0, VW, VH);
+      const R2 = 110*110, img = mode === "work";
+      const alpha = mode === "drift" ? .22 : mode === "none" ? .5 : 1;
+      ctx.globalAlpha = alpha;
+      for (let k = 0; k < N; k++){
+        const p = ps[k];
+        if (r && p.t && !exploding){ const tx = r.left + p.t[0]*r.width, ty = r.top + p.t[1]*r.height;
+          p.vx += (tx - p.x) * p.k; p.vy += (ty - p.y) * p.k;
+          p.r += (p.t[2] - p.r) * .08; p.g += (p.t[3] - p.g) * .08; p.b += (p.t[4] - p.b) * .08; }
+        else if (!r){ p.vx += Math.sin(now*.0004 + p.j*20) * .05; p.vy += Math.cos(now*.0003 + p.j*30) * .05; }
+        if (fine && !img){ const dx = p.x - mx, dy = p.y - my, d2 = dx*dx + dy*dy; if (d2 < R2){ const f = (1 - d2/R2) * 3.2; const d = Math.sqrt(d2) || 1; p.vx += dx/d*f; p.vy += dy/d*f; } }
+        p.vx *= exploding ? .96 : .78; p.vy *= exploding ? .96 : .78; p.x += p.vx; p.y += p.vy;
+        if (p.y < -20 || p.y > VH + 20) continue;
+        ctx.fillStyle = `rgb(${p.r|0},${p.g|0},${p.b|0})`;
+        const s = img ? dot : dot;
+        ctx.fillRect(p.x - s/2, p.y - s/2, s, s);
+      }
+      ctx.globalAlpha = 1;
+    };
+    raf = requestAnimationFrame(frame);
+    const api = { enter(){ entered = true; mode = ""; }, destroy(){ cancelAnimationFrame(raf); }, openFirst(){ openCase(active, {rect: slots.work.getBoundingClientRect(), radius:16}); }, focus(i){ setActive(i); } };
+    if (introDone) api.enter();
+    return api;
+  }
+};
+
+/* clock */
+const clock = () => { try { $("#clock").textContent = "Sydney " + new Intl.DateTimeFormat("en-AU", {hour:"2-digit", minute:"2-digit", timeZone:"Australia/Sydney"}).format(new Date()); } catch(e){} };
+clock(); setInterval(clock, 30000);
+
+/* start */
+const h0 = location.hash.slice(1); if (WORLDS[h0]) world = h0;
+mount(); runIntro();
+</script>
+</body>
+</html>
