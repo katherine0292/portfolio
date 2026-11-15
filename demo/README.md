@@ -89,6 +89,12 @@
   - 展板向下拖动带惯性。
   - 翻页阈值调低，在底线处松手即翻页；展板末尾的“翻到下一页”也可以直接点击。
 
+## v8（[`demo/v8/index.html`](v8/index.html)）当前推荐
+
+- 作品链接跟随语言：点击时把所选语言写入对应项目网站的语言设置（各站点使用各自的 localStorage 键，例如 `wl-lang`、`tc-lang`、`poa-lang`），并在链接后附加 `?lang=`。只有当本作品集也部署在 `katherine0292.github.io` 下时才会生效，因为这些站点读不到 URL 参数，只能共享同一个域名下的浏览器存储。
+- Wildling 有两个按钮：“查看作品集”（`/wildling/portfolio/`）和“在线试玩”（`/wildling/`）；封面换成作品集首屏海报（`assets/previews/wildling-portfolio.webp`）。
+- The Price of Arrival 链接改为 `/Data-Visualisation/portfolio/`。
+
 ## 下一步建议
 
 1. 先选主世界：Departure 最适合招聘方快速浏览；Clay Island 记忆点最强。
