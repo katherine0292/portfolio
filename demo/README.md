@@ -95,6 +95,14 @@
 - Wildling 有两个按钮：“查看作品集”（`/wildling/portfolio/`）和“在线试玩”（`/wildling/`）；封面换成作品集首屏海报（`assets/previews/wildling-portfolio.webp`）。
 - The Price of Arrival 链接改为 `/Data-Visualisation/portfolio/`。
 
+## v9（[`demo/v9/index.html`](v9/index.html)）当前推荐
+
+- **定位**：产品经理，侧重 AI 产品与体验，兼顾 PM 求职。
+- **分类改为三类**：AI 产品（CircleU、Wildling、FoodSense）· 产品与体验 · 合作项目（Transfer Coach、MusicTag）· 研究与数据（Remembering in Motion、Who Said What When、The Price of Arrival）。
+- **项目性质标签**：每个项目名下方直接写出项目类型，例如“HCI 研究论文 · 田野研究”“论文 Benchmark · 音频 AI”“数据驱动可视化叙事 · Tableau”。
+- **措辞**：全部文案改为简洁、专业的表达，内容依据简历与各仓库。
+- **尾页**：改为“关于我”，内容取自简历（PM 版），包括简历照片的抠图、个人简介、关键数据、经历、教育背景与技能，不再重复项目回顾。
+
 ## 下一步建议
 
 1. 先选主世界：Departure 最适合招聘方快速浏览；Clay Island 记忆点最强。
