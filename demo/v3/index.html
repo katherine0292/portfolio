@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Next Step Exhibition</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+/*
+  NEXT STEP · v3 Exhibition
+  Layout: a lit runway gallery in three rooms (one per category), each work stops the camera and
+  a side card explains it; the last room folds every work onto one wall, then a flat overview board.
+  Palette: warm graphite interior lit by spotlights. The case pages stay on light paper.
+  Committed to one look, so colours are explicit rather than theme-switched.
+*/
+:root{
+  --room:#1F1D1B; --wall:#2A2724; --floor:#191816; --ceil:#141312;
+  --ink:#EEE9E1; --dim:#A39C92; --hair:rgba(238,233,225,.14);
+  --paper:#F5F2EC; --fg:#161514; --muted:#6E6A64; --line:rgba(22,21,20,.12);
+  --warm:255,222,176; --accent:#E9C38A;
+  --sans:"Geist", "Helvetica Neue", Arial, sans-serif;
+  --serif:"Instrument Serif", "Times New Roman", serif;
+  --mono:"Geist Mono", ui-monospace, Menlo, monospace;
+  --ease:cubic-bezier(.7,0,.2,1); --out:cubic-bezier(.2,.8,.2,1);
+  --gl:max(16px, env(safe-area-inset-left, 0px)); --gr:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--room); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.5; overflow-x:hidden}
+html.lock body{overflow:hidden}
+img{max-width:100%; display:block}
+a{color:inherit}
+button{font:inherit; color:inherit; cursor:pointer; background:none; border:0; padding:0}
+:focus-visible{outline:1.5px solid var(--accent); outline-offset:4px}
+h1,h2,h3,h4{margin:0; font-weight:500; text-wrap:balance}
+p,dl,dd{margin:0}
+em{font-family:var(--serif); font-style:italic; font-weight:400}
+.mono{font-family:var(--mono); font-size:12px; letter-spacing:.04em}
+.eyebrow{text-transform:uppercase; letter-spacing:.14em}
+.wrap{padding-left:var(--gl); padding-right:var(--gr)}
+.inner{max-width:1320px; margin:0 auto}
+.dot{display:inline-block; width:7px; height:7px; border-radius:50%; background:rgb(var(--l,var(--warm))); box-shadow:0 0 10px rgba(var(--l,var(--warm)),.8); flex:none}
+
+/* ── chrome ── */
+.top{position:fixed; z-index:50; inset:0 0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; padding:calc(14px + env(safe-area-inset-top,0px)) var(--gr) 14px var(--gl); pointer-events:none}
+.top > *{pointer-events:auto}
+.brand{font-size:14px; text-decoration:none; font-weight:500}
+.brand em{font-size:16px; color:var(--dim)}
+.where{display:flex; align-items:center; gap:8px; color:var(--dim); transition:opacity .4s}
+.top .clock{justify-self:end; color:var(--dim)}
+.rail{position:fixed; z-index:40; right:calc(18px + env(safe-area-inset-right,0px)); top:50%; transform:translateY(-50%); display:grid; gap:12px}
+.rail button{display:flex; align-items:center; justify-content:flex-end; gap:10px; font-family:var(--mono); font-size:11px; color:var(--dim)}
+.rail button span{opacity:0; transform:translateX(6px); transition:.3s var(--out)}
+.rail:hover button span{opacity:1; transform:none}
+.rail button i{width:16px; height:1.5px; background:currentColor; opacity:.4; transition:.4s var(--out)}
+.rail button.on{color:var(--ink)}
+.rail button.on i{width:32px; opacity:1; background:var(--accent)}
+.cursor{position:fixed; z-index:96; left:0; top:0; width:8px; height:8px; margin:-4px; border-radius:50%; background:var(--ink); pointer-events:none; transition:width .35s var(--out), height .35s var(--out), margin .35s var(--out); display:grid; place-items:center; color:var(--fg); font-family:var(--mono); font-size:11px}
+.cursor span{opacity:0; transition:opacity .2s}
+.cursor.big{width:84px; height:84px; margin:-42px}
+.cursor.big span{opacity:1}
+html.lock .cursor{background:var(--fg); color:var(--paper)}
+@media (pointer:coarse){.cursor{display:none}}
+
+/* ── intro: lights on, flicker, resume ── */
+.intro{position:fixed; inset:0; z-index:100; background:#100F0E; display:grid; place-items:center; transition:opacity 1.2s ease, visibility 0s 1.2s}
+.intro.out{opacity:0; visibility:hidden}
+.intro::before{content:""; position:absolute; left:50%; top:0; width:min(900px,140vw); height:100%; transform:translateX(-50%); background:radial-gradient(ellipse 40% 60% at 50% 0, rgba(var(--warm),.22), transparent 70%); opacity:0; transition:opacity .5s}
+.intro.on::before{opacity:1}
+.intro.flick::before{animation:flick .7s steps(1) 1}
+@keyframes flick{0%{opacity:.1}15%{opacity:1}30%{opacity:.05}45%{opacity:.8}60%{opacity:0}80%{opacity:.9}}
+.intro .c{position:relative; display:grid; gap:16px; justify-items:center; text-align:center; padding:0 16px}
+.intro .nm{font-family:var(--serif); font-size:clamp(52px,9vw,120px); line-height:1; opacity:.15; transition:opacity .8s}
+.intro.on .nm{opacity:1}
+.intro .ln{width:min(320px,70vw); height:1px; background:rgba(238,233,225,.15); position:relative}
+.intro .ln i{position:absolute; inset:0 auto 0 0; width:0; background:rgb(var(--warm)); transition:width .7s var(--ease)}
+.intro .lab{color:var(--dim); min-height:1.5em}
+
+/* ═══ GALLERY SCENE ═══ */
+.g-scroll{position:relative}
+.g-sticky{isolation:isolate; position:sticky; top:0; height:100vh; height:100dvh; overflow:hidden; perspective:1000px; perspective-origin:50% 46%; background:var(--room)}
+.g-sticky::before{content:""; position:absolute; inset:0; z-index:2; pointer-events:none; background:radial-gradient(circle at 50% 46%, rgba(26,24,22,1) 0, rgba(26,24,22,.8) 5%, rgba(26,24,22,0) 22%)}
+.g-sticky::after{content:""; position:absolute; inset:0; z-index:2; pointer-events:none; background:radial-gradient(ellipse 75% 70% at 50% 50%, transparent 55%, rgba(12,11,10,.55) 100%)}
+.flash{position:absolute; inset:0; z-index:3; pointer-events:none; opacity:0; background:radial-gradient(ellipse at 50% 30%, rgba(var(--fl,var(--warm)),.35), rgba(var(--fl,var(--warm)),.05) 70%)}
+.flash.go{animation:flash 1.1s ease-out}
+@keyframes flash{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
+.g-yaw{position:absolute; left:50%; top:50%; width:0; height:0; transform-style:preserve-3d; z-index:1}
+.g-cam{position:absolute; left:0; top:0; transform-style:preserve-3d; will-change:transform}
+.g-cam > *{position:absolute; left:0; top:0}
+.g-floor{background:
+  linear-gradient(90deg, transparent calc(50% - 452px), rgba(var(--warm),.55) calc(50% - 452px) calc(50% - 449px), transparent calc(50% - 449px) calc(50% + 449px), rgba(var(--warm),.55) calc(50% + 449px) calc(50% + 452px), transparent calc(50% + 452px)),
+  linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px) 0 0 / 100% 700px,
+  linear-gradient(90deg, #161513, #1C1A18 28%, #23211E 40%, #26231F 50%, #23211E 60%, #1C1A18 72%, #161513)}
+.g-ceil{background:
+  linear-gradient(90deg, transparent calc(50% - 402px), #2B2825 calc(50% - 402px) calc(50% - 396px), transparent calc(50% - 396px) calc(50% + 396px), #2B2825 calc(50% + 396px) calc(50% + 402px), transparent calc(50% + 402px)),
+  #121110}
+.g-wall{background:linear-gradient(0deg, rgba(var(--warm),.28) 0 2px, rgba(var(--warm),.06) 2px 40px, transparent 40px), linear-gradient(0deg, #1E1C19, #292623 60%, #24211E)}
+.g-endwall{background:radial-gradient(ellipse 60% 70% at 50% 40%, #3A3530, #2A2622 70%)}
+.g-title{width:1600px; margin-left:-800px; text-align:center; display:grid; gap:20px; justify-items:center}
+.g-title .mono{font-size:17px; color:var(--dim)}
+.g-title h1{font-family:var(--serif); font-weight:400; font-size:190px; line-height:.86; text-shadow:0 0 60px rgba(var(--warm),.25)}
+.g-title p.s{font-size:26px; color:var(--dim)}
+.g-portal{pointer-events:none}
+.g-portal .pc{position:absolute; background:linear-gradient(180deg,#34302B,#2A2622); box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}
+.g-portal .edge{position:absolute; box-shadow:0 0 0 2px rgba(var(--l),.65), 0 0 40px rgba(var(--l),.35), inset 0 0 60px rgba(var(--l),.15)}
+.g-portal .sign{position:absolute; left:0; right:0; text-align:center; display:grid; gap:6px; color:var(--ink)}
+.g-portal .sign .mono{font-size:18px; color:rgb(var(--l)); letter-spacing:.3em}
+.g-portal .sign h2{font-family:var(--serif); font-weight:400; font-size:76px; line-height:1}
+.g-portal .num{position:absolute; font-family:var(--serif); font-size:420px; line-height:.8; color:rgba(var(--l),.07); text-align:center}
+.g-cone{width:760px; margin-left:-380px; height:900px; clip-path:polygon(47% 0, 53% 0, 100% 100%, 0 100%); background:linear-gradient(180deg, rgba(var(--l),.30), rgba(var(--l),.07) 70%, rgba(var(--l),.02)); filter:blur(8px); pointer-events:none; transition:opacity 1.2s}
+.g-pool{width:1100px; height:560px; margin:-280px 0 0 -550px; background:radial-gradient(ellipse at center, rgba(var(--l),.30), rgba(var(--l),.08) 40%, transparent 68%); pointer-events:none; transition:opacity 1.2s}
+.g-fix{width:22px; height:22px; margin:-11px 0 0 -11px; border-radius:50%; background:rgb(var(--l)); box-shadow:0 0 30px 8px rgba(var(--l),.55); transition:opacity 1.2s}
+.scene:not(.lit) .g-cone, .scene:not(.lit) .g-pool, .scene:not(.lit) .g-fix{opacity:0 !important}
+.g-art{transform-origin:50% 0; transform-style:preserve-3d; cursor:pointer}
+.g-art .bd{background:var(--paper); color:var(--fg); padding:22px 22px 24px; position:relative; box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 50px 80px -30px rgba(0,0,0,.7), 0 -10px 80px -10px rgba(var(--l),.18); transition:transform .7s var(--out), box-shadow .7s}
+.g-art .bd::after{content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg, rgba(var(--l),.16), transparent 35%, transparent 70%, rgba(0,0,0,.10))}
+.g-art:hover .bd{transform:translateY(-14px); box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 70px 90px -30px rgba(0,0,0,.75), 0 -10px 100px -10px rgba(var(--l),.32)}
+.g-art img{width:100%; aspect-ratio:16/10; object-fit:cover}
+.g-art .cap{display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-top:16px}
+.g-art h3{font-family:var(--serif); font-weight:400; font-size:42px; line-height:1}
+.g-art .cap .mono{color:var(--muted); text-align:right}
+.g-art.feat h3{font-size:54px}
+.g-art .badge{position:absolute; top:-14px; left:22px; background:var(--fg); color:var(--paper); font-family:var(--mono); font-size:12px; padding:5px 10px; letter-spacing:.08em}
+.g-art .legs{position:absolute; top:100%; left:0; right:0; height:160px; pointer-events:none}
+.g-art .legs::before, .g-art .legs::after{content:""; position:absolute; top:0; bottom:0; width:2px; background:linear-gradient(#5A544C,#3A3631)}
+.g-art .legs::before{left:20%} .g-art .legs::after{right:20%}
+.g-art.board .legs{opacity:0}
+.g-head{width:400px; display:grid; gap:4px; pointer-events:none}
+.g-head .mono{color:rgb(var(--l)); font-size:13px; letter-spacing:.2em}
+.g-head h3{font-family:var(--serif); font-weight:400; font-size:34px; line-height:1}
+.g-head.sm h3{display:none}
+.g-head.sm .mono{font-size:22px; letter-spacing:.1em}
+.g-wash{width:700px; height:900px; margin-left:-350px; background:radial-gradient(ellipse 50% 60% at 50% 0, rgba(var(--l),.22), transparent 70%); pointer-events:none}
+
+/* HUD inside the sticky scene */
+.info{position:fixed; z-index:45; top:50%; width:min(390px, 34vw); transform:translateY(-46%); display:grid; gap:14px; padding:24px; border-radius:18px; background:rgba(24,22,20,.84); border:1px solid var(--hair); opacity:0; visibility:hidden; transition:opacity .45s, visibility 0s .45s, transform .7s var(--out)}
+.info.r{right:calc(72px + env(safe-area-inset-right,0px))} .info.l{left:calc(40px + env(safe-area-inset-left,0px))}
+.info.show{opacity:1; visibility:visible; transition:opacity .45s, transform .7s var(--out); transform:translateY(-50%)}
+.info .row1{display:flex; align-items:center; gap:10px; flex-wrap:wrap; color:var(--dim)}
+.info .feat{margin-left:auto; color:var(--fg); background:rgb(var(--l)); padding:2px 8px; border-radius:999px; font-size:11px}
+.info h2{font-family:var(--serif); font-weight:400; font-size:clamp(40px,4vw,58px); line-height:.95}
+.info .ln{color:var(--dim); font-size:16px}
+.info dl{display:grid; gap:0; border-top:1px solid var(--hair)}
+.info dl div{display:grid; grid-template-columns:78px minmax(0,1fr); gap:12px; padding:9px 0; border-bottom:1px solid var(--hair)}
+.info dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); padding-top:3px}
+.info dd{font-size:14.5px}
+.info .go{justify-self:start; display:inline-flex; gap:10px; align-items:center; background:var(--ink); color:var(--fg); padding:11px 18px; border-radius:999px; font-size:14px}
+.info .go:hover{background:rgb(var(--l))}
+.info > *{transition:opacity .5s, transform .6s var(--out)}
+.info:not(.show) > *{opacity:0; transform:translateY(10px)}
+.info.show > *:nth-child(2){transition-delay:.05s} .info.show > *:nth-child(3){transition-delay:.1s} .info.show > *:nth-child(4){transition-delay:.15s} .info.show > *:nth-child(5){transition-delay:.2s} .info.show > *:nth-child(6){transition-delay:.25s}
+.info.guide{left:calc(40px + env(safe-area-inset-left,0px)); top:auto; bottom:calc(40px + env(safe-area-inset-bottom,0px)); transform:translateY(10px); width:min(420px, calc(100vw - 32px))}
+.info.guide.show{transform:none}
+.guide ol{list-style:none; margin:0; padding:0; display:grid; border-top:1px solid var(--hair)}
+.guide li{display:grid; grid-template-columns:auto 34px minmax(0,1fr) auto; gap:10px; align-items:center; padding:10px 0; border-bottom:1px solid var(--hair); font-size:15px}
+.guide li small{color:var(--dim); font-family:var(--mono); font-size:11px}
+.guide li .f{grid-column:3 / 5; color:var(--dim); font-size:12.5px; margin-top:-4px}
+.info.roomc{left:50%; top:auto; bottom:calc(48px + env(safe-area-inset-bottom,0px)); transform:translate(-50%,10px); width:min(560px, calc(100vw - 32px)); text-align:center; justify-items:center}
+.info.roomc.show{transform:translate(-50%,0)}
+.info.boardc{left:50%; top:auto; bottom:calc(20px + env(safe-area-inset-bottom,0px)); transform:translate(-50%,10px); width:auto; padding:10px 18px; border-radius:999px}
+.info.boardc.show{transform:translate(-50%,0)}
+.plan{position:absolute; z-index:5; right:calc(18px + env(safe-area-inset-right,0px)); bottom:calc(24px + env(safe-area-inset-bottom,0px)); width:120px; display:grid; gap:6px; font-family:var(--mono); font-size:10.5px; color:var(--dim)}
+.plan .bar{position:relative; height:4px; display:grid; grid-template-columns:3fr 3fr 2fr 1fr; gap:3px}
+.plan .bar span{background:rgba(var(--l),.35); border-radius:2px}
+.plan .bar i{position:absolute; top:50%; width:10px; height:10px; margin:-5px; border-radius:50%; background:var(--ink); box-shadow:0 0 12px rgba(var(--warm),.9)}
+.plan .lb{display:grid; grid-template-columns:3fr 3fr 2fr 1fr; gap:3px}
+.hint{position:absolute; z-index:5; left:50%; bottom:calc(22px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); color:var(--dim); white-space:nowrap; transition:opacity .4s}
+
+/* ═══ OVERVIEW BOARD ═══ */
+.ov{position:relative; padding-block:120px 80px; background:linear-gradient(180deg, #2A2622 0, var(--room) 600px)}
+.ov-head{display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:32px; align-items:end}
+.ov-head h2{font-size:clamp(44px,6.4vw,96px); line-height:.92; letter-spacing:-.05em}
+.ov-head p{color:var(--dim); max-width:44ch}
+.ov-filter{display:flex; flex-wrap:wrap; gap:8px; margin-top:28px}
+.ov-filter button{border:1px solid var(--hair); border-radius:999px; padding:8px 14px; font-size:13px; color:var(--dim); display:inline-flex; gap:8px; align-items:center}
+.ov-filter button[aria-pressed="true"]{background:var(--ink); color:var(--fg); border-color:var(--ink)}
+.ov-cols{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; margin-top:56px; align-items:start}
+.ov-col{display:grid; gap:18px; align-content:start; position:relative; padding:24px 18px 18px; border-radius:20px; background:radial-gradient(ellipse 70% 260px at 50% 0, rgba(var(--l),.14), transparent 80%), rgba(255,255,255,.02); border:1px solid var(--hair); transition:opacity .5s, filter .5s}
+.ov-col.dim{opacity:.22; filter:grayscale(1)}
+.ov-col > header{display:grid; gap:6px; padding-bottom:8px}
+.ov-col > header .mono{color:rgb(var(--l)); letter-spacing:.2em; display:flex; align-items:center; gap:8px}
+.ov-col > header h3{font-family:var(--serif); font-weight:400; font-size:36px; line-height:1}
+.ov-col > header p{color:var(--dim); font-size:14px}
+.card{background:var(--paper); color:var(--fg); border-radius:12px; overflow:hidden; display:grid; text-align:left; transition:transform .5s var(--out), box-shadow .5s; box-shadow:0 30px 50px -30px rgba(0,0,0,.8)}
+.card:hover{transform:translateY(-6px); box-shadow:0 40px 60px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(var(--l),.6)}
+.card img{width:100%; aspect-ratio:16/9; object-fit:cover}
+.card .cb{padding:16px 16px 18px; display:grid; gap:8px}
+.card .k{display:flex; justify-content:space-between; gap:8px; color:var(--muted)}
+.card .k b{font-weight:500; color:var(--fg); background:rgba(var(--l),.9); padding:1px 8px; border-radius:999px}
+.card h4{font-size:24px; letter-spacing:-.03em; line-height:1.05}
+.card.feat h4{font-size:30px}
+.card .ln{font-size:14px; color:var(--muted)}
+.card dl{display:grid; border-top:1px solid var(--line); margin-top:4px}
+.card dl div{display:grid; grid-template-columns:62px minmax(0,1fr); gap:10px; padding:7px 0; border-bottom:1px solid var(--line); font-size:13px}
+.card dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; padding-top:2px}
+.card .open{font-family:var(--mono); font-size:12px; margin-top:4px}
+.caps{margin-top:72px; border-top:1px solid var(--hair)}
+.caps h3{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); font-weight:400; padding:20px 0 8px}
+.caps .r{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.4fr); gap:20px; padding:14px 0; border-bottom:1px solid var(--hair); align-items:center}
+.caps .r p{font-size:18px; letter-spacing:-.01em}
+.caps .r div{display:flex; flex-wrap:wrap; gap:8px}
+.caps .r button{border:1px solid var(--hair); border-radius:999px; padding:5px 12px; font-size:13px; display:inline-flex; align-items:center; gap:8px}
+.caps .r button:hover{border-color:var(--ink)}
+
+/* process + contact */
+.ab{padding-block:120px 60px}
+.ab-lead{font-size:clamp(28px,4vw,56px); line-height:1.06; letter-spacing:-.035em; max-width:21ch; margin-top:22px}
+.ab-steps{list-style:none; margin:64px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px}
+.ab-steps li{border-top:1px solid var(--ink); padding-top:16px; display:grid; gap:8px; align-content:start}
+.ab-steps span{font-family:var(--mono); font-size:12px; color:var(--dim)}
+.ab-steps h3{font-size:22px; letter-spacing:-.02em}
+.ab-steps p{color:var(--dim); font-size:15px}
+.ab-steps small{font-family:var(--mono); font-size:11.5px; color:var(--accent)}
+.ct{padding-block:80px 120px}
+.ct-h{font-size:clamp(52px,10vw,160px); line-height:.9; letter-spacing:-.055em; margin-top:20px}
+.ct-row{display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px; margin-top:44px}
+.ct-btn{display:inline-flex; align-items:center; gap:12px; background:var(--ink); color:var(--fg); text-decoration:none; padding:18px 26px; border-radius:999px; transition:transform .4s var(--out)}
+.ct-btn i{width:8px; height:8px; border-radius:50%; background:#C48A3A}
+.ct-link{font-family:var(--mono); font-size:13px; text-decoration:none; border-bottom:1px solid var(--hair); padding-bottom:2px}
+.ct-foot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:90px; color:var(--dim); border-top:1px solid var(--hair); padding-top:16px}
+
+/* ═══ CASE · light paper, same template for every project ═══ */
+.case{position:fixed; inset:0; z-index:70; overflow-y:auto; overscroll-behavior:contain; background:var(--paper); color:var(--fg); opacity:0; visibility:hidden; transition:opacity .5s, visibility 0s .6s; color-scheme:light}
+.case.open{opacity:1; visibility:visible; transition:opacity .5s}
+.cs{padding:0 var(--gr) 0 var(--gl)}
+.cs-in{max-width:1180px; margin:0 auto}
+.cs-bar{position:sticky; top:0; z-index:3; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:calc(14px + env(safe-area-inset-top,0px)) 0 14px; background:var(--paper)}
+.cs-bar .mono{color:var(--muted); display:flex; align-items:center; gap:8px}
+.cs-bar .nav{display:flex; gap:6px}
+.cs-bar button{border:1px solid var(--line); border-radius:999px; height:36px; min-width:36px; padding:0 14px; font-family:var(--mono); font-size:12px}
+.cs-bar button:hover{background:var(--fg); color:var(--paper)}
+.cs-cover{margin:18px 0 0; border-radius:16px; overflow:hidden; background:#ddd}
+.cs-cover img{width:100%; aspect-ratio:2/1; object-fit:cover}
+.cs-head{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:40px; align-items:end; padding:48px 0 40px}
+.cs-head h1{font-size:clamp(56px,9vw,150px); line-height:.86; letter-spacing:-.065em}
+.cs-head .ln{font-family:var(--serif); font-size:clamp(26px,2.8vw,40px); line-height:1.1; margin-top:20px; max-width:20ch}
+.cs-meta div{display:grid; grid-template-columns:90px minmax(0,1fr); gap:12px; border-top:1px solid var(--line); padding:10px 0}
+.cs-meta dt{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); padding-top:3px}
+.cs-meta dd{font-size:15px}
+.cs-row{display:grid; grid-template-columns:220px minmax(0,1fr); gap:32px; padding:40px 0; border-top:1px solid var(--line)}
+.cs-row h4{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); font-weight:400}
+.cs-row .big{font-size:clamp(22px,2.4vw,32px); line-height:1.25; letter-spacing:-.02em; max-width:34ch}
+.cs-dec{list-style:none; margin:0; padding:0}
+.cs-dec li{display:grid; grid-template-columns:40px 140px minmax(0,1fr); gap:16px; padding:16px 0; border-bottom:1px solid var(--line); font-size:19px; align-items:baseline}
+.cs-dec li span{font-family:var(--mono); font-size:12px; color:var(--muted)}
+.cs-dec li b{font-weight:500; font-size:13px; font-family:var(--mono); color:#8A5A1E}
+.cs-st{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px}
+.cs-st b{display:block; font-family:var(--serif); font-weight:400; font-size:clamp(52px,6vw,92px); line-height:.9}
+.cs-st span{color:var(--muted); font-size:14px; display:block; margin-top:8px}
+.cs-lim{font-size:19px; max-width:52ch; border-left:2px solid #C48A3A; padding-left:16px}
+.cs-slots{display:grid; grid-template-columns:2fr 1fr; grid-auto-rows:180px; gap:12px}
+.cs-slots div{border:1px dashed rgba(22,21,20,.25); border-radius:14px; display:grid; place-items:center; font-family:var(--mono); font-size:12px; color:var(--muted); text-align:center; padding:8px}
+.cs-slots div:first-child{grid-row:span 2}
+.cs-live{font-family:var(--mono); font-size:13px; border-bottom:1px solid var(--fg); text-decoration:none; justify-self:start}
+.cs-next{display:grid; grid-template-columns:minmax(0,1fr) 220px; gap:24px; align-items:end; width:100%; text-align:left; padding:48px 0 120px; border-top:1px solid var(--line)}
+.cs-next small{font-family:var(--mono); font-size:12px; color:var(--muted)}
+.cs-next strong{display:block; font-weight:500; font-size:clamp(40px,6vw,96px); line-height:.9; letter-spacing:-.055em; transition:transform .6s var(--out)}
+.cs-next:hover strong{transform:translateX(16px)}
+.cs-next img{border-radius:10px; aspect-ratio:4/3; object-fit:cover}
+.case.open .rv{animation:rise 1s var(--out) both; animation-delay:calc(var(--d,0) * 70ms + 300ms)}
+@keyframes rise{from{opacity:0; transform:translateY(46px)}}
+.flip{position:fixed; z-index:95; object-fit:cover; pointer-events:none; transition:left .95s var(--ease), top .95s var(--ease), width .95s var(--ease), height .95s var(--ease), border-radius .95s var(--ease)}
+
+@media (max-width:1000px){
+  .ov-cols{grid-template-columns:1fr; gap:22px}
+  .ov-head{grid-template-columns:1fr}
+  .ab-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rail{display:none}
+  .cs-head{grid-template-columns:1fr}
+  .cs-row{grid-template-columns:1fr; gap:14px}
+  .cs-st{grid-template-columns:1fr}
+  .cs-dec li{grid-template-columns:32px minmax(0,1fr)}
+  .cs-dec li b, .cs-dec li em{grid-column:2}
+  .cs-next{grid-template-columns:1fr}
+  .caps .r{grid-template-columns:1fr; gap:10px}
+}
+@media (max-width:700px){
+  .top{grid-template-columns:1fr auto}
+  .top .clock{display:none}
+  .g-sticky{perspective-origin:50% 34%}
+  .g-sticky::before{background:radial-gradient(circle at 50% 34%, rgba(26,24,22,1) 0, rgba(26,24,22,.8) 5%, rgba(26,24,22,0) 22%)}
+  .info, .info.r, .info.l{left:var(--gl); right:var(--gr); width:auto; top:auto; bottom:calc(16px + env(safe-area-inset-bottom,0px)); transform:translateY(12px); padding:16px; gap:10px}
+  .info.show{transform:none}
+  .info h2{font-size:36px}
+  .info dl div:nth-child(n+3){display:none}
+  .info.guide{bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+  .info.roomc, .info.boardc{left:var(--gl); right:var(--gr); width:auto; transform:translateY(10px)}
+  .info.roomc.show, .info.boardc.show{transform:none}
+  .plan, .hint{display:none}
+  .ab-steps{grid-template-columns:1fr}
+  .cs-slots{grid-template-columns:1fr; grid-auto-rows:120px}
+  .cs-slots div:first-child{grid-row:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s !important; transition-duration:.001s !important}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#" id="brand">Katherine Lin <em>— exhibition</em></a>
+  <span class="where mono" id="where"><span class="dot"></span><span id="whereT">Entrance</span></span>
+  <span class="clock mono" id="clock">Sydney</span>
+</header>
+
+<div class="intro" id="intro"><div class="c">
+  <p class="nm">Katherine Lin</p>
+  <div class="ln"><i id="inBar"></i></div>
+  <p class="lab mono" id="inLab">Lighting the exhibition</p>
+</div></div>
+
+<nav class="rail" id="rail" aria-label="Exhibition map">
+  <button type="button" data-go="entrance"><span>Entrance</span><i></i></button>
+  <button type="button" data-go="room0"><span>Room I · AI & trust</span><i></i></button>
+  <button type="button" data-go="room1"><span>Room II · UX & recovery</span><i></i></button>
+  <button type="button" data-go="room2"><span>Room III · Research</span><i></i></button>
+  <button type="button" data-go="board"><span>Overview</span><i></i></button>
+  <button type="button" data-go="about"><span>Process</span><i></i></button>
+  <button type="button" data-go="contact"><span>Contact</span><i></i></button>
+</nav>
+
+<main id="stage"></main>
+<div class="info" id="info" aria-live="polite"></div>
+<div class="case" id="case" role="dialog" aria-modal="true" aria-label="Case study"></div>
+<div class="cursor" id="cursor"><span id="curLab">View</span></div>
+
+<script>
+const IMG = "../../assets/previews/";
+const ROOMS = [
+  {n:"I",   name:"AI product & trust",            short:"AI & trust",    l:"255,206,150", look:"How AI suggestions stay editable, explainable and checkable."},
+  {n:"II",  name:"UX, accessibility & recovery",  short:"UX & recovery", l:"200,218,255", look:"Recovery paths for when a journey, a song search or a meal plan goes wrong."},
+  {n:"III", name:"Research & evidence",           short:"Research",      l:"238,222,196", look:"Field research and a data story, each ending in a decision someone can make."}
+];
+const P = [
+ {id:"circleu", room:0, feat:true, title:"CircleU", line:"Private reflection, followed by words you can use.",
+  type:"iOS app · on-device AI", context:"Team project, Apple Foundation Program 2026", roleS:"Product, research, design and development", stageS:"Shipped to TestFlight",
+  role:"Team project · product, research, design, development", tools:"SwiftUI · SwiftData · Apple Foundation Models", stage:"TestFlight; redesign in Simulator testing", img:"circleu.jpg", live:"https://katherine0292.github.io/CircleU/",
+  problem:"People can replay a difficult conversation and still be unsure what to say next. CircleU links journaling to communication: Write → Reflect → Talk → How did it go?",
+  decisions:[["Privacy","Keep sensitive reflection on the phone"],["Fallback","Keep the core task available when the model is not"],["Agency","Keep interpretation with the person"]],
+  stats:[["6→9","of 10 completed reflection after revision"],["311","unit tests reported by the source"],["20","discovery participants"]],
+  limit:"Small usability sessions. A team project: the case describes my contribution."},
+ {id:"wildling", room:0, title:"Wildling", line:"Meet a creature whose choices you can understand.",
+  type:"Interactive installation · explainable behaviour", context:"Designed for a Sydney game and interaction exhibition", roleS:"AI product and interaction designer, developer", stageS:"Playable V3.1 build",
+  role:"AI product and interaction designer, developer", tools:"p5.js · MediaPipe · Web Audio", stage:"Playable V3.1 browser build", img:"wildling.webp", live:"https://katherine0292.github.io/wildling/",
+  problem:"A visitor needs to understand both how to interact and why a creature responds. When tracking fails, a refusal can look like a broken interface.",
+  decisions:[["Input","One interaction contract for hand and mouse"],["Refusal","A tired or hungry kitten gives a reason"],["Truth","Show the recorded decision, not a story told afterwards"]],
+  stats:[["119","deterministic replay tests"],["19","test suites"],["3","kittens with their own needs"]],
+  limit:"Recognition with real hands at venue lighting and distance is not yet measured."},
+ {id:"who-said-what-when", room:0, title:"Who Said What When", line:"Link an answer to its speaker and evidence.",
+  type:"Audio AI · benchmark design", context:"Benchmark pilot, release 0.1.0", roleS:"Task framing, annotation workflow, validation and scoring tooling", stageS:"25 items · 178 annotated turns",
+  role:"Task framing, annotation workflow, scoring tooling", tools:"Python · JSONL · JSON Schema", stage:"0.1.0 pilot, 25 items", img:"who-said-what-when-benchmark.png", live:"https://katherine0292.github.io/who-said-what-when-benchmark/",
+  problem:"An answer can sound plausible while giving a guest's claim to the host, dropping a qualification, or pointing to the wrong passage.",
+  decisions:[["Process","Annotate in two rounds: turns, then questions"],["Scoring","Temporal IoU over the real interval set"],["Pass","Joint Pass needs speaker, time and meaning"]],
+  stats:[["25","pilot items"],["18","in default evaluation"],["0","gold items so far"]],
+  limit:"No gold items and no held-out test set yet. Baselines check reproducibility only."},
+ {id:"transfer-coach", room:1, feat:true, title:"Transfer Coach", line:"A next step when the journey changes.",
+  type:"Transport UX · decision support", context:"Commissioned UX project for TripView, 2026", roleS:"UX researcher and interaction designer, research to evaluation", stageS:"38 screens · 7 usability sessions",
+  role:"Commissioned UX researcher and interaction designer", tools:"Interactive HTML · UX research", stage:"38-screen prototype, three-method evaluation", img:"transfer-coach.webp", live:"https://katherine0292.github.io/Transfer-Coach/portfolio/",
+  problem:"A route plan made at home gives little help when a service is late. Transfer Coach answers: Can I catch it? Will I arrive on time? What should I do now?",
+  decisions:[["Delay","An explicit delayed state with old and new times"],["Honesty","“You're at Stand C”, not “Transfer complete”"],["Recovery","Choosing an alternative starts guidance"]],
+  stats:[["7","moderated usability sessions"],["8/13","recommendations fully implemented"],["38","prototype screens"]],
+  limit:"All routes and disruptions use sample data. No live feed or prediction model."},
+ {id:"musictag", room:1, title:"MusicTag", line:"Familiar music, within reach.",
+  type:"Accessibility · connected product", context:"Independent UX and interaction design commission", roleS:"Research, interaction design, prototyping, voice specification", stageS:"Browser prototype · 24 states",
+  role:"Independent UX and interaction commission", tools:"HTML · CSS · JavaScript · Voice interaction", stage:"Browser prototype, 24 design states", img:"musictag.webp", live:"https://katherine0292.github.io/MusicTag/",
+  problem:"Familiar listening routines break when saved songs become hard to find, controls change, or a voice request is misunderstood.",
+  decisions:[["Return","Always a stable place to come back to"],["Choice","Voice proposes matches; the listener picks"],["Failure","Retry, typing and Library stay available"]],
+  stats:[["24","design states"],["5","controls on the remote"],["65+","intended listeners"]],
+  limit:"Voice, Bluetooth and speaker switching are simulations. Usability with intended listeners is next."},
+ {id:"foodsense", room:1, title:"FoodSense", line:"From what is in the fridge to what to cook.",
+  type:"AI interaction · iOS concept", context:"Independent client commission", roleS:"UI/UX designer: synthesis, interaction, visual design, prototyping", stageS:"25 iOS states · 3 prototypes",
+  role:"UI/UX designer, independent client commission", tools:"AI interaction design · iOS UX · Browser prototypes", stage:"25 iOS states, 10 paper screens, 3 prototypes", img:"foodsense.jpg", live:"https://katherine0292.github.io/FoodSense/",
+  problem:"In a shared fridge, groceries disappear behind other items and manual inventory becomes another chore.",
+  decisions:[["Review","Confirm detections before adding"],["Action","“Use first” links straight to feasible recipes"],["Uncertainty","Dates and sensor cues stay separate"]],
+  stats:[["25","iOS states"],["10","paper screens"],["3","prototypes"]],
+  limit:"The recognition model and device sync were not built. Waste reduction is an unmeasured hypothesis."},
+ {id:"hci-research", room:2, feat:true, title:"Remembering in Motion", line:"What helps us resume after an interruption?",
+  type:"HCI research · field probe", context:"Personal HCI research project, 2026", roleS:"Framing, interviews, analysis, probe design, synthesis", stageS:"15 interviews · 2-week probe",
+  role:"Framing, interviews, analysis, probe design, synthesis", tools:"Interviews · Affinity analysis · Field probe", stage:"Two phases complete; evaluation proposed", img:"hci-research.jpg", live:"https://katherine0292.github.io/HCI-Research/",
+  problem:"How do people remember belongings while moving between places, and how do they recover when an interruption displaces a familiar check?",
+  decisions:[["Framing","Separate a lost location from lost progress"],["Method","Use counterexamples to sharpen the question"],["Field","Move from interviews to an in-context probe"]],
+  stats:[["15","interview participants"],["356","coded entries"],["10","field incidents"]],
+  limit:"The field probe followed one participant: depth, with limited generalisation."},
+ {id:"data-visualisation", room:2, title:"The Price of Arrival", line:"Turn a headline into a decision someone can make.",
+  type:"Data storytelling · Tableau", context:"Independent data visualisation project", roleS:"Data visualisation designer and storyteller, sourcing to delivery", stageS:"6 figures · 19-slide story",
+  role:"Data visualisation designer and storyteller", tools:"Tableau · Data preparation · HTML", stage:"6 figures, 19-slide story, film", img:"data-visualisation.png", live:"https://katherine0292.github.io/Data-Visualisation/",
+  problem:"A record enrolment headline says little about a student's intake, campus or budget. The story follows Mei, a prospective Master's student.",
+  decisions:[["Counts","Enrolments and commencements answer different questions"],["Restraint","Replaced a Sankey the data could not support"],["Scope","Removed a budget calculator CPI could not back"]],
+  stats:[["5","public datasets"],["6","figures"],["19","slides with 10 scenes"]],
+  limit:"Price indices describe change, not personal dollar estimates."}
+];
+const CAPS = [
+  ["Research that changes a design", ["hci-research","transfer-coach"]],
+  ["AI interaction and user control", ["circleu","foodsense"]],
+  ["Accessible, recoverable experiences", ["musictag","transfer-coach"]],
+  ["Prototyping and implementation", ["wildling","circleu"]],
+  ["Evaluation and evidence quality", ["who-said-what-when","data-visualisation"]]
+];
+
+const $ = (s,r=document) => r.querySelector(s);
+const $$ = (s,r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const clamp = (v,a=0,b=1) => Math.max(a, Math.min(b, v));
+const lerp = (a,b,t) => a + (b-a)*t;
+const sstep = t => t*t*t*(t*(t*6-15)+10);
+const eio = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+const pad = n => String(n).padStart(2,"0");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const fine = matchMedia("(pointer:fine)").matches;
+const idx = id => P.findIndex(p => p.id === id);
+const L = p => ROOMS[p.room].l;
+let caseIdx = -1, introDone = false;
+
+/* ── exhibition layout along the runway ── */
+const PERS = 1000, HW = 1100, CH = 900, FLOOR = CH/2, PANEL_BOTTOM = 290;
+let ITEMS = [], ZB = 0;
+function plan(){
+  const mob = innerWidth < 700; ITEMS = []; let Z = 600, g = 0;
+  ITEMS.push({k:"entrance", Z, D:1650, x:0, yaw:0});
+  Z += 1350;
+  ROOMS.forEach((r, ri) => {
+    r.Z = Z; ITEMS.push({k:"room", r:ri, Z, D:1350, x:0, yaw:0}); Z += 1500;
+    P.forEach((p, i) => { if (p.room !== ri) return;
+      const side = g++ % 2 ? 1 : -1; p.side = side; p.px = mob ? 0 : side * (p.feat ? 300 : 380); p.Z = Z; p.w = p.feat ? 640 : 520;
+      ITEMS.push({k:"panel", i, Z, D: mob ? (p.feat ? 1800 : 1600) : (p.feat ? 1200 : 1100), x:p.px * .25, yaw: mob ? 0 : side * 2.5}); Z += 1400; });
+    Z += 100;
+  });
+  ZB = Z + 900; ITEMS.push({k:"board", Z:ZB, D:PERS, x:0, yaw:0});
+  ITEMS.forEach(it => it.cz = it.Z - it.D + PERS);
+}
+plan();
+
+/* ── markup ── */
+function sceneHTML(){
+  const Lz = ZB + 10;
+  const plane = (cls, w, h, tf, extra="", inner="") => `<div class="${cls}" style="width:${w}px;height:${h}px;margin:${-h/2}px 0 0 ${-w/2}px;transform:${tf};${extra}">${inner}</div>`;
+  let s = "";
+  s += plane("g-floor", HW*2, Lz, `translate3d(0,${FLOOR}px,${-Lz/2}px) rotateX(90deg)`);
+  s += plane("g-ceil",  HW*2, Lz, `translate3d(0,${-FLOOR}px,${-Lz/2}px) rotateX(-90deg)`);
+  s += plane("g-wall",  Lz, CH, `translate3d(${-HW}px,0,${-Lz/2}px) rotateY(90deg)`);
+  s += plane("g-wall",  Lz, CH, `translate3d(${HW}px,0,${-Lz/2}px) rotateY(-90deg)`);
+  s += plane("g-endwall", HW*2, CH, `translate3d(0,0,${-ZB - 4}px)`);
+  s += `<div class="g-title" id="gTitle" style="transform:translate3d(0,-250px,-600px)"><p class="mono eyebrow">Selected work · 2024 – 2026 · Sydney</p><h1>Katherine Lin</h1><p class="s">AI product design · UX research · interaction<br>Three rooms, eight works. Scroll to walk in.</p></div>`;
+  s += `<div class="g-fix g-ent" style="--l:var(--warm);transform:translate3d(0,${-FLOOR+2}px,-700px) rotateX(-90deg)"></div><div class="g-pool g-ent" style="--l:var(--warm);transform:translate3d(0,${FLOOR-1}px,-700px) rotateX(90deg)"></div>`;
+  ROOMS.forEach((r, ri) => {
+    const ow = 1000, oh = 720, top = FLOOR - oh;
+    s += `<div class="g-portal" data-z="${r.Z}" style="--l:${r.l};transform:translate3d(0,0,${-r.Z}px)">
+      <div class="pc" style="left:${-HW}px;top:${-FLOOR}px;width:${HW-ow/2}px;height:${CH}px"></div>
+      <div class="pc" style="left:${ow/2}px;top:${-FLOOR}px;width:${HW-ow/2}px;height:${CH}px"></div>
+      <div class="pc" style="left:${-ow/2}px;top:${-FLOOR}px;width:${ow}px;height:${CH-oh}px"></div>
+      <div class="edge" style="left:${-ow/2}px;top:${top}px;width:${ow}px;height:${oh}px"></div>
+      <div class="num" style="left:${-HW}px;width:${HW-ow/2}px;top:${-260}px">${r.n}</div>
+      <div class="sign" style="left:${-ow/2}px;width:${ow}px;top:${-FLOOR+18}px"><span class="mono">ROOM ${r.n}</span><h2>${esc(r.name)}</h2></div></div>`;
+  });
+  P.forEach((p, i) => {
+    s += `<div class="g-cone" data-i="${i}" style="--l:${L(p)};transform:translate3d(${p.px}px,${-FLOOR}px,${-p.Z - 60}px)"></div>`;
+    s += `<div class="g-pool" data-i="${i}" style="--l:${L(p)};transform:translate3d(${p.px}px,${FLOOR-1}px,${-p.Z}px) rotateX(90deg)"></div>`;
+    s += `<div class="g-fix" data-i="${i}" style="--l:${L(p)};transform:translate3d(${p.px}px,${-FLOOR+2}px,${-p.Z}px) rotateX(-90deg)"></div>`;
+    s += `<div class="g-art${p.feat?" feat":""}" data-i="${i}" style="--l:${L(p)};width:${p.w}px" role="button" tabindex="0" aria-label="Open ${esc(p.title)}">
+      <div class="bd">${p.feat ? `<span class="badge">FEATURED</span>` : ""}<img src="${IMG+p.img}" alt="${esc(p.title)}">
+      <div class="cap"><h3>${esc(p.title)}</h3><span class="mono">ROOM ${ROOMS[p.room].n}<br>${esc(p.type.split(" · ")[0])}</span></div></div><div class="legs"></div></div>`;
+  });
+  ROOMS.forEach((r, ri) => {
+    s += `<div class="g-wash" data-r="${ri}" style="--l:${r.l}"></div><div class="g-head" data-r="${ri}" style="--l:${r.l}"><span class="mono">ROOM ${r.n} · ${P.filter(p=>p.room===ri).length} WORKS</span><h3>${esc(r.name)}</h3></div>`;
+  });
+  return s;
+}
+function guideHTML(){
+  return `<div class="row1 mono eyebrow">Exhibition guide</div>
+  <ol>${ROOMS.map((r,ri) => `<li style="--l:${r.l}"><span class="dot"></span><span class="mono">${r.n}</span><span>${esc(r.name)}</span><small>${P.filter(p=>p.room===ri).length} works</small><span class="f">Featured: ${esc(P.find(p=>p.room===ri && p.feat).title)}</span></li>`).join("")}</ol>
+  <p class="mono" style="color:var(--dim)">Scroll to walk · each stop is one work · the last room lays everything out</p>`;
+}
+function overviewHTML(){
+  return `<section class="ov wrap" id="s-over" data-step="board"><div class="inner">
+    <div class="ov-head"><div><p class="mono eyebrow" style="color:var(--dim)">The whole exhibition</p><h2 style="margin-top:16px">Eight works,<br><em>three rooms.</em></h2></div>
+      <div><p>Everything at a glance, grouped by what each project shows. Featured works lead each room. Every card names the type, the context and my role.</p>
+      <div class="ov-filter" role="group" aria-label="Filter by room"><button type="button" data-f="-1" aria-pressed="true">All rooms</button>${ROOMS.map((r,ri)=>`<button type="button" data-f="${ri}" aria-pressed="false" style="--l:${r.l}"><span class="dot"></span>${esc(r.short)}</button>`).join("")}</div></div></div>
+    <div class="ov-cols">${ROOMS.map((r,ri) => `<div class="ov-col" data-r="${ri}" style="--l:${r.l}"><header><span class="mono"><span class="dot"></span>ROOM ${r.n} · ${P.filter(p=>p.room===ri).length} WORKS</span><h3>${esc(r.name)}</h3><p>${esc(r.look)}</p></header>
+      ${P.map((p,i) => p.room !== ri ? "" : `<button type="button" class="card${p.feat?" feat":""}" data-open="${i}"><img src="${IMG+p.img}" alt="" loading="lazy"><div class="cb">
+        <div class="k mono"><span>${esc(p.type)}</span>${p.feat?"<b>Featured</b>":""}</div><h4>${esc(p.title)}</h4><p class="ln">${esc(p.line)}</p>
+        <dl><div><dt>Context</dt><dd>${esc(p.context)}</dd></div><div><dt>Role</dt><dd>${esc(p.roleS)}</dd></div><div><dt>Stage</dt><dd>${esc(p.stageS)}</dd></div></dl>
+        <span class="open">Case study →</span></div></button>`).join("")}</div>`).join("")}</div>
+    <div class="caps"><h3>Capabilities, and where to see them</h3>${CAPS.map(c => `<div class="r"><p>${esc(c[0])}</p><div>${c[1].map(id => { const p = P[idx(id)]; return `<button type="button" data-open="${idx(id)}" style="--l:${L(p)}"><span class="dot"></span>${esc(p.title)}</button>`; }).join("")}</div></div>`).join("")}</div>
+  </div></section>`;
+}
+const aboutHTML = () => `<section class="ab wrap" data-step="about" id="s-about"><div class="inner">
+  <p class="mono eyebrow" style="color:var(--dim)">Process</p>
+  <p class="ab-lead">I design for the moment information is uncertain, an interface gets in the way, or a routine <em>breaks</em>.</p>
+  <ol class="ab-steps">
+    <li><span>01</span><h3>Research</h3><p>Find where the routine breaks and which cue helps people resume.</p><small>15 interviews · 356 coded entries</small></li>
+    <li><span>02</span><h3>Decide</h3><p>Turn evidence into a decision a person can make on the spot.</p><small>“Stay or switch?” at Central</small></li>
+    <li><span>03</span><h3>Prototype</h3><p>Build it for real, from SwiftUI to p5.js to Python tooling.</p><small>119 replay tests · 38 screens</small></li>
+    <li><span>04</span><h3>Show the evidence</h3><p>Report what was measured, and name what is not proven yet.</p><small>“0 gold items”, stated plainly</small></li>
+  </ol></div></section>`;
+const contactHTML = () => `<section class="ct wrap" data-step="contact" id="s-contact"><div class="inner">
+  <p class="mono eyebrow" style="color:var(--dim)">Contact</p>
+  <h2 class="ct-h">Let’s talk about<br><em>the next step.</em></h2>
+  <div class="ct-row"><a class="ct-btn mag" href="https://github.com/katherine0292" target="_blank" rel="noopener"><i></i>Get in touch</a>
+    <a class="ct-link" href="https://github.com/katherine0292" target="_blank" rel="noopener">GitHub ↗</a>
+    <button class="ct-link" type="button" id="replay">Walk the exhibition again ↺</button></div>
+  <div class="ct-foot mono"><span>Shangcheng Lin (Katherine)</span><span>AI product design · UX research · Interaction</span><span>Exhibition demo · v3</span></div>
+</div></section>`;
+
+function build(){
+  const SEG = innerHeight * 1.05;
+  $("#stage").innerHTML = `<section class="g-scroll" id="gScroll" style="height:${(ITEMS.length-1)*SEG + innerHeight}px">
+    <div class="g-sticky scene" id="scene">
+      <div class="g-yaw" id="gYaw"><div class="g-cam" id="gCam">${sceneHTML()}</div></div>
+      <div class="flash" id="flash"></div>
+      <div class="plan" aria-hidden="true"><div class="lb"><span>I</span><span>II</span><span>III</span><span>All</span></div><div class="bar">${ROOMS.map(r=>`<span style="--l:${r.l}"></span>`).join("")}<span style="--l:var(--warm)"></span><i id="planDot"></i></div></div>
+      <p class="hint mono" id="hint">Scroll to walk ↓</p>
+    </div></section>${overviewHTML()}${aboutHTML()}${contactHTML()}`;
+  return SEG;
+}
+
+/* ── case (light paper template) ── */
+function caseHTML(i){
+  const p = P[i], n = P[(i+1)%P.length], r = ROOMS[p.room];
+  return `<div class="cs"><div class="cs-in">
+  <div class="cs-bar"><span class="mono" style="--l:${r.l}"><span class="dot"></span>Room ${r.n} · ${esc(r.name)} · ${pad(i+1)} / 08</span>
+    <div class="nav"><button type="button" data-go="${(i+7)%8}" aria-label="Previous project">←</button><button type="button" data-go="${(i+1)%8}" aria-label="Next project">→</button><button type="button" data-close>Back to exhibition</button></div></div>
+  <figure class="cs-cover"><img src="${IMG+p.img}" alt="${esc(p.title)}"></figure>
+  <header class="cs-head"><div><h1 class="rv">${esc(p.title)}</h1><p class="ln rv" style="--d:1">${esc(p.line)}</p></div>
+    <dl class="cs-meta rv" style="--d:2"><div><dt>Type</dt><dd>${esc(p.type)}</dd></div><div><dt>Context</dt><dd>${esc(p.context)}</dd></div><div><dt>Role</dt><dd>${esc(p.role)}</dd></div><div><dt>Tools</dt><dd>${esc(p.tools)}</dd></div><div><dt>Stage</dt><dd>${esc(p.stage)}</dd></div></dl></header>
+  <section class="cs-row rv" style="--d:3"><h4>01 · Problem</h4><p class="big">${esc(p.problem)}</p></section>
+  <section class="cs-row rv" style="--d:4"><h4>02 · Decisions</h4><ol class="cs-dec">${p.decisions.map((d,k)=>`<li><span>${pad(k+1)}</span><b>${esc(d[0])}</b><em style="font-family:var(--sans);font-style:normal">${esc(d[1])}</em></li>`).join("")}</ol></section>
+  <section class="cs-row rv" style="--d:5"><h4>03 · Evidence</h4><div class="cs-st">${p.stats.map(s=>`<div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join("")}</div></section>
+  <section class="cs-row rv" style="--d:6"><h4>04 · Not yet proven</h4><p class="cs-lim">${esc(p.limit)}</p></section>
+  <section class="cs-row rv" style="--d:7"><h4>05 · Media slots</h4><div style="display:grid;gap:16px"><div class="cs-slots"><div>Prototype film<br>16:9 autoplay, muted</div><div>Before / after</div><div>Process wall</div></div><a class="cs-live" href="${p.live}" target="_blank" rel="noopener">Open the live project ↗</a></div></section>
+  <button class="cs-next" type="button" data-go="${(i+1)%8}"><span><small>Next work · Room ${ROOMS[n.room].n}</small><strong>${esc(n.title)} →</strong></span><img src="${IMG+n.img}" alt=""></button>
+  </div></div>`;
+}
+function openCase(i, rect){
+  caseIdx = i; const c = $("#case");
+  c.innerHTML = caseHTML(i); c.scrollTop = 0;
+  document.documentElement.classList.add("lock");
+  cursor(false);
+  requestAnimationFrame(() => {
+    c.classList.add("open");
+    const cover = $(".cs-cover img", c);
+    if (rect && !reduce){
+      cover.style.opacity = 0;
+      const r2 = cover.getBoundingClientRect();
+      const fl = new Image(); fl.src = IMG + P[i].img; fl.className = "flip"; fl.alt = "";
+      Object.assign(fl.style, {left:rect.left+"px", top:rect.top+"px", width:rect.width+"px", height:rect.height+"px", borderRadius:"4px"});
+      document.body.appendChild(fl); fl.getBoundingClientRect();
+      Object.assign(fl.style, {left:r2.left+"px", top:r2.top+"px", width:r2.width+"px", height:r2.height+"px", borderRadius:"16px"});
+      setTimeout(() => { cover.style.opacity = 1; fl.remove(); }, 980);
+    }
+    setTimeout(() => $("[data-close]", c)?.focus({preventScroll:true}), 60);
+  });
+}
+function closeCase(){ if (caseIdx < 0) return; $("#case").classList.remove("open"); document.documentElement.classList.remove("lock"); caseIdx = -1; }
+$("#case").addEventListener("click", e => {
+  const g = e.target.closest("[data-go]"); if (g){ caseIdx = +g.dataset.go; $("#case").innerHTML = caseHTML(caseIdx); $("#case").scrollTop = 0; return; }
+  if (e.target.closest("[data-close]")) closeCase();
+});
+
+/* ── cursor ── */
+const curEl = $("#cursor"); let mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my;
+addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; }, {passive:true});
+function cursor(big, label){ curEl.classList.toggle("big", !!big); if (label) $("#curLab").textContent = label; }
+(function loop(){ cx += (mx-cx)*.3; cy += (my-cy)*.3; curEl.style.transform = `translate(${cx}px,${cy}px)`; requestAnimationFrame(loop); })();
+
+/* ── the walk ── */
+let SEG, raf, sNow = 0, sTarget = 0, lastK = -1, showK = -1, curRoom = -1, board = null, ac;
+function boardLayout(){
+  const vw = innerWidth, vh = innerHeight, mob = vw < 700;
+  const W = Math.min(vw * (mob ? .94 : .86), 1460), gap = mob ? 10 : 40, cw = (W - gap*2) / 3;
+  const topY = -vh/2 + (mob ? 120 : 150), headH = mob ? 34 : 74, avail = vh - (mob ? 120 : 150) - (mob ? 110 : 80) - headH;
+  const arts = $$(".g-art"), cols = [[],[],[]];
+  P.forEach((p,i) => cols[p.room].push(i));
+  let need = 0;
+  const sz = cols.map(col => { let h = 0; col.forEach((i,k) => { const s = cw / P[i].w; h += arts[i].offsetHeight * s + (k ? 14 : 0); }); need = Math.max(need, h); return h; });
+  const f = Math.min(1, avail / need);
+  const out = [];
+  cols.forEach((col, c) => {
+    const cxm = -W/2 + cw/2 + c*(cw+gap); let y = topY + headH;
+    col.forEach(i => { const s = cw / P[i].w * f; out[i] = {x: cxm - P[i].w/2, y, z:-ZB, ry:0, s}; y += arts[i].offsetHeight * s + 14*f; });
+    const hd = $(`.g-head[data-r="${c}"]`); hd.classList.toggle("sm", mob); hd.style.width = (mob ? cw / .45 : cw) + "px"; hd.style.transform = `translate3d(${cxm - cw/2}px,${topY}px,${-ZB + 2}px) scale(${mob ? .45 : 1})`; hd.style.transformOrigin = "0 0";
+    $(`.g-wash[data-r="${c}"]`).style.transform = `translate3d(${cxm}px,${-CH/2}px,${-ZB + 1}px)`;
+  });
+  return out;
+}
+function start(){
+  ac?.abort(); ac = new AbortController(); const signal = ac.signal;
+  cancelAnimationFrame(raf);
+  plan(); SEG = build();
+  const sec = $("#gScroll"), cam = $("#gCam"), yawEl = $("#gYaw"), arts = $$(".g-art"), info = $("#info");
+  const portals = $$(".g-portal"), ents = $$(".g-ent");
+  const cones = $$(".g-cone[data-i]"), pools = $$(".g-pool[data-i]"), fixes = $$(".g-fix[data-i]"), heads = $$(".g-head"), washes = $$(".g-wash"), title = $("#gTitle");
+  const corridor = () => P.map((p,i) => ({x:p.px - p.w/2, y:PANEL_BOTTOM - arts[i].offsetHeight, z:-p.Z, ry:-p.side*8, s:1}));
+  let C = corridor(); board = boardLayout();
+  document.fonts?.ready.then(() => { C = corridor(); board = boardLayout(); });
+  if (introDone) $("#scene").classList.add("lit");
+  const scrollToStop = (k, smooth=true) => scrollTo({top: sec.offsetTop + k * SEG, behavior: smooth && !reduce ? "smooth" : "auto"});
+  const onScroll = () => { const r = sec.getBoundingClientRect(); sTarget = clamp(-r.top / SEG, 0, ITEMS.length - 1); };
+  addEventListener("scroll", onScroll, {signal, passive:true}); onScroll(); sNow = sTarget;
+  // soft snap: each scroll lands on the next stop, like turning a page
+  let snapT;
+  addEventListener("scroll", () => { clearTimeout(snapT); snapT = setTimeout(() => {
+    if (caseIdx >= 0) return; const r = sec.getBoundingClientRect(); if (r.bottom < innerHeight * .9) return;
+    const s = -r.top / SEG, k = Math.round(s); if (k < 0 || k > ITEMS.length - 1) return;
+    if (Math.abs(s - k) > .015 && Math.abs(s - k) < .45) scrollToStop(k); }, 170); }, {signal, passive:true});
+  const openFrom = i => openCase(i, $("img", arts[i]).getBoundingClientRect());
+  arts.forEach((a,i) => { a.addEventListener("click", () => openFrom(i), {signal}); a.addEventListener("keydown", e => { if (e.key === "Enter") openFrom(i); }, {signal});
+    a.addEventListener("pointerenter", () => cursor(true, "View"), {signal}); a.addEventListener("pointerleave", () => cursor(false), {signal}); });
+  $$("[data-open]").forEach(b => { b.addEventListener("click", () => { const im = $("img", b); openCase(+b.dataset.open, im ? im.getBoundingClientRect() : null); }, {signal});
+    b.addEventListener("pointerenter", () => cursor(true, "Open"), {signal}); b.addEventListener("pointerleave", () => cursor(false), {signal}); });
+  $$(".ov-filter button").forEach(b => b.addEventListener("click", () => { const f = +b.dataset.f;
+    $$(".ov-filter button").forEach(x => x.setAttribute("aria-pressed", x === b)); $$(".ov-col").forEach(c => c.classList.toggle("dim", f >= 0 && +c.dataset.r !== f)); }, {signal}));
+  $("#replay").addEventListener("click", () => { scrollTo(0,0); runIntro(); }, {signal});
+  $$(".mag").forEach(m => { if (!fine) return; m.addEventListener("pointermove", e => { const r = m.getBoundingClientRect(); m.style.transform = `translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.4}px)`; }, {signal}); m.addEventListener("pointerleave", () => m.style.transform = "", {signal}); });
+  // rail
+  $$("#rail button").forEach(b => b.addEventListener("click", () => { closeCase(); const g = b.dataset.go;
+    if (g === "entrance") return scrollToStop(0);
+    if (g.startsWith("room")) return scrollToStop(ITEMS.findIndex(it => it.k === "room" && it.r === +g.slice(4)));
+    if (g === "board") return scrollToStop(ITEMS.length - 1);
+    $("#s-" + g)?.scrollIntoView({behavior: reduce ? "auto" : "smooth"}); }, {signal}));
+  const rail = g => $$("#rail button").forEach(b => b.classList.toggle("on", b.dataset.go === g));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) rail(e.target.dataset.step === "board" ? "board" : e.target.dataset.step); }), {rootMargin:"-50% 0px -50% 0px"});
+  $$("#stage .ab, #stage .ct, #s-over").forEach(s => io.observe(s));
+  signal.addEventListener("abort", () => io.disconnect());
+  addEventListener("keydown", e => { if (e.key === "Escape") closeCase();
+    if (caseIdx < 0 && (e.key === "ArrowDown" || e.key === "PageDown" || e.key === "ArrowUp" || e.key === "PageUp")){ const r = sec.getBoundingClientRect(); const s = -r.top / SEG;
+      if (s >= -.1 && s <= ITEMS.length - 1.1 && !(e.key.endsWith("Up") && s < .1)){ e.preventDefault(); scrollToStop(clamp(Math.round(s) + (e.key.endsWith("Down") ? 1 : -1), 0, ITEMS.length - 1)); } }
+    if (caseIdx >= 0 && (e.key === "ArrowRight" || e.key === "ArrowLeft")){ caseIdx = (caseIdx + (e.key === "ArrowRight" ? 1 : 7)) % 8; $("#case").innerHTML = caseHTML(caseIdx); } }, {signal});
+  let tb = 0, yaw = 0, pitch = 0, prevCam = 0, last = performance.now();
+  const tf = o => `translate3d(${o.x}px,${o.y}px,${o.z}px) rotateY(${o.ry}deg) scale(${o.s})`;
+  const frame = now => {
+    raf = requestAnimationFrame(frame);
+    const dt = Math.min(.1, (now - last) / 1000) * 60; last = now;
+    sNow += (sTarget - sNow) * (reduce ? 1 : 1 - Math.pow(1 - .1, dt));
+    const n = ITEMS.length, k0 = Math.min(n - 2, Math.floor(sNow)), fr = clamp(sNow - k0), e = sstep(fr), A = ITEMS[k0], B = ITEMS[k0 + 1];
+    const camZ = lerp(A.cz, B.cz, e), camX = lerp(A.x, B.x, e), yawS = lerp(A.yaw, B.yaw, e);
+    tb = B.k === "board" ? eio(clamp((fr - .25) / .75)) : (A.k === "board" ? 1 : 0);
+    const nx = fine ? (mx / innerWidth - .5) : 0, ny = fine ? (my / innerHeight - .5) : 0;
+    const k = 1 - Math.pow(1 - .06, dt);
+    yaw += ((yawS + nx * 5) * (1 - tb) - yaw) * k; pitch += ((-ny * 3) * (1 - tb) - pitch) * k;
+    yawEl.style.transform = `rotateX(${pitch}deg) rotateY(${yaw}deg)`;
+    cam.style.transform = `translate3d(${-camX}px,0,${camZ}px)`;
+    // works: corridor pose → board pose
+    arts.forEach((a,i) => {
+      const t = eio(clamp((tb - i*.03) / (1 - 7*.03)));
+      const c = C[i], b = board[i] || c;
+      const o = {x:lerp(c.x,b.x,t), y:lerp(c.y,b.y,t), z:lerp(c.z,b.z,t), ry:lerp(c.ry,b.ry,t), s:lerp(c.s,b.s,t)};
+      a.style.transform = tf(o);
+      const D = PERS - o.z - camZ; const op = clamp((D - 260) / 340);
+      a.style.opacity = op; a.style.visibility = op < .01 ? "hidden" : "visible";
+      a.classList.toggle("board", t > .5);
+      const lo = (1 - tb) * clamp((PERS + P[i].Z - camZ - 200) / 400);
+      const vis = lo > .01 && PERS + P[i].Z - camZ > 120 ? "visible" : "hidden";
+      [cones[i], pools[i], fixes[i]].forEach(el => { el.style.opacity = lo; el.style.visibility = vis; });
+    });
+    heads.forEach(h => h.style.opacity = clamp((tb - .55) / .45)); washes.forEach(w => w.style.opacity = tb);
+    const tOp = clamp((PERS + 600 - camZ - 300) / 500); title.style.opacity = tOp; title.style.visibility = tOp > .01 ? "visible" : "hidden";
+    ents.forEach(el => el.style.visibility = PERS + 700 - camZ > 120 ? "visible" : "hidden");
+    portals.forEach(el => el.style.visibility = PERS + +el.dataset.z - camZ > 40 ? "visible" : "hidden");
+    // crossing a doorway changes the room light
+    ROOMS.forEach((r, ri) => { const at = r.Z + PERS - 200; if ((prevCam < at && camZ >= at) || (prevCam >= at && camZ < at)){ const fl = $("#flash"); fl.style.setProperty("--fl", camZ >= at ? r.l : (ri ? ROOMS[ri-1].l : "255,222,176")); fl.classList.remove("go"); void fl.offsetWidth; if (!reduce) fl.classList.add("go"); } });
+    prevCam = camZ;
+    let room = -1; ROOMS.forEach((r, ri) => { if (camZ > r.Z - 1400) room = ri; }); if (B.k === "board" && fr > .5 || A.k === "board") room = 3;
+    if (room !== curRoom){ curRoom = room; $("#whereT").textContent = room < 0 ? "Entrance" : room === 3 ? "Overview · all rooms" : `Room ${ROOMS[room].n} · ${ROOMS[room].short}`; $("#where").style.setProperty("--l", room >= 0 && room < 3 ? ROOMS[room].l : "var(--warm)"); }
+    $("#planDot").style.left = (clamp(sNow / (n - 1)) * 100) + "%";
+    // side card: visible only while the camera rests at a stop
+    const kN = Math.round(sNow), rest = Math.abs(sNow - kN) < .2 && introDone && caseIdx < 0;
+    const secR = sec.getBoundingClientRect(); const inScene = secR.bottom > innerHeight * .6;
+    if (kN !== lastK){ lastK = kN; renderInfo(ITEMS[kN]); }
+    info.classList.toggle("show", rest && inScene);
+    $("#hint").style.opacity = sNow < .3 ? 1 : 0;
+    if (inScene){ const it = ITEMS[kN]; rail(it.k === "entrance" ? "entrance" : it.k === "board" ? "board" : `room${it.k === "room" ? it.r : P[it.i].room}`); }
+  };
+  const renderInfo = it => {
+    info.className = "info";
+    if (it.k === "entrance"){ info.classList.add("guide"); info.innerHTML = guideHTML(); return; }
+    if (it.k === "room"){ const r = ROOMS[it.r]; info.classList.add("roomc"); info.style.setProperty("--l", r.l);
+      info.innerHTML = `<div class="row1 mono eyebrow"><span class="dot"></span>Room ${r.n} · ${P.filter(p=>p.room===it.r).length} works</div><h2>${esc(r.name)}</h2><p class="ln">${esc(r.look)}</p><p class="mono" style="color:var(--dim)">${P.filter(p=>p.room===it.r).map(p=>esc(p.title)).join("  ·  ")}</p>`; return; }
+    if (it.k === "board"){ info.classList.add("boardc"); info.innerHTML = `<span class="mono">Every work, by room · scroll for the full overview ↓</span>`; return; }
+    const p = P[it.i], r = ROOMS[p.room];
+    info.classList.add(p.side < 0 || innerWidth < 700 ? "r" : "l"); info.style.setProperty("--l", r.l);
+    info.innerHTML = `<div class="row1 mono"><span class="dot"></span>Room ${r.n} · ${esc(r.short)} · ${pad(it.i+1)}/08${p.feat ? `<span class="feat">Featured</span>` : ""}</div>
+      <h2>${esc(p.title)}</h2><p class="ln">${esc(p.line)}</p>
+      <dl><div><dt>Type</dt><dd>${esc(p.type)}</dd></div><div><dt>Context</dt><dd>${esc(p.context)}</dd></div><div><dt>My role</dt><dd>${esc(p.roleS)}</dd></div><div><dt>Stage</dt><dd>${esc(p.stageS)}</dd></div></dl>
+      <button type="button" class="go" data-ic="${it.i}">Open case study →</button>`;
+    $("[data-ic]", info).addEventListener("click", () => openFrom(it.i));
+  };
+  raf = requestAnimationFrame(frame);
+  let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { const s = sNow; start(); scrollTo(0, $("#gScroll").offsetTop + s * SEG); }, 250); }, {signal});
+}
+
+/* ── intro: lights come on, flicker, resume ── */
+function runIntro(){
+  closeCase(); introDone = false;
+  const it = $("#intro"), bar = $("#inBar"), lab = $("#inLab");
+  it.classList.remove("out","on","flick"); bar.style.width = "0"; lab.textContent = "Lighting the exhibition";
+  $("#scene")?.classList.remove("lit");
+  const fin = () => { it.classList.add("out"); introDone = true; lastK = -1; setTimeout(() => $("#scene")?.classList.add("lit"), 250); };
+  if (reduce){ it.classList.add("on"); bar.style.width = "100%"; setTimeout(fin, 300); return; }
+  setTimeout(() => { it.classList.add("on"); bar.style.width = "62%"; }, 150);
+  setTimeout(() => { it.classList.add("flick"); lab.textContent = "Power interrupted at 62% · resuming"; }, 1000);
+  setTimeout(() => { it.classList.remove("flick"); lab.textContent = "Three rooms · eight works"; bar.style.width = "100%"; }, 1800);
+  setTimeout(fin, 2500);
+}
+$("#brand").addEventListener("click", e => { e.preventDefault(); closeCase(); scrollTo({top:0, behavior:reduce?"auto":"smooth"}); });
+const clock = () => { try { $("#clock").textContent = "Sydney " + new Intl.DateTimeFormat("en-AU", {hour:"2-digit", minute:"2-digit", timeZone:"Australia/Sydney"}).format(new Date()); } catch(e){} };
+clock(); setInterval(clock, 30000);
+
+start(); runIntro();
+</script>
+</body>
+</html>

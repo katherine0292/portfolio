@@ -6,6 +6,8 @@
 
 **AI product design · UX research · Interaction design · Creative development**
 
+**[Open the live portfolio](https://katherine0292.github.io/portfolio/)** · [Deployment guide](docs/DEPLOYMENT.md)
+
 I design experiences that help people act when information is uncertain, an interface gets in the way, or a routine breaks. My work connects research, interaction design and working prototypes, from private reflection on an iPhone to explainable creatures in the browser.
 
 This portfolio brings together **eight projects**. Each case study explains the problem, my contribution, the design decisions, the evidence and the current delivery stage.
