@@ -10,7 +10,7 @@
 
 I design experiences that help people act when information is uncertain, an interface gets in the way, or a routine breaks. My work connects research, interaction design and working prototypes, from private reflection on an iPhone to explainable creatures in the browser.
 
-This portfolio brings together **eight projects**, including four independent freelance commissions: Wildling, FoodSense, Transfer Coach and The Price of Arrival. Each case study explains the problem, my contribution, the design decisions, the evidence and the current delivery stage.
+This portfolio brings together **eight projects**, including four independent freelance commissions: Wildling, FoodSense, Transfer Coach and Data Visualisation. Each case study explains the problem, my contribution, the design decisions, the evidence and the current delivery stage.
 
 [GitHub profile](https://github.com/katherine0292) · [All projects](#selected-projects) · [Skills and evidence](#skills-and-evidence) · [Source register](docs/SOURCES.md)
 
@@ -18,83 +18,75 @@ This portfolio brings together **eight projects**, including four independent fr
 
 | If you are reviewing… | Start with… |
 | --- | --- |
-| AI product design and trust | [CircleU](projects/circleu.md), [Wildling](projects/wildling.md), [Who Said What When](projects/who-said-what-when.md) |
+| AI product design and trust | [CircleU](projects/circleu.md), [Wildling](projects/wildling.md), [Data Benchmark](projects/who-said-what-when.md) |
 | UX, accessibility and recovery | [MusicTag](projects/musictag.md), [Transfer Coach](projects/transfer-coach.md), [FoodSense](projects/foodsense.md) |
-| Research and evidence communication | [Remembering in Motion](projects/hci-research.md), [The Price of Arrival](projects/data-visualisation.md) |
+| Research and evidence communication | [HCI Research](projects/hci-research.md), [Data Visualisation](projects/data-visualisation.md) |
 
 ## Selected projects
 
 <table>
 <tr>
 <td width="50%" valign="top">
-<a href="projects/circleu.md"><img src="assets/previews/circleu.jpg" alt="CircleU product poster showing the reflection and conversation experience" width="100%"></a>
-<h3>01 · CircleU</h3>
-<p><strong>Private reflection, followed by words you can use.</strong></p>
-<p>An iOS journaling and communication experience with on-device AI, editable suggestions and a Write → Reflect → Talk → Outcome loop.</p>
-<p>SwiftUI · SwiftData · Apple Foundation Models<br><strong>Stage:</strong> TestFlight release; current redesign in Simulator testing.<br><strong>Context:</strong> Team project; product, research, design and development contributions.</p>
-<p><a href="projects/circleu.md">Case study</a> · <a href="https://katherine0292.github.io/CircleU/">Portfolio</a> · <a href="https://github.com/katherine0292/CircleU">Repository</a></p>
+<a href="https://katherine0292.github.io/CircleU/"><img src="assets/previews/poster-circleu.webp" alt="CircleU project poster" width="100%"></a>
+<h3>CircleU</h3>
+<p>A reflection and communication-practice app for difficult conversations, built on Apple&#x27;s on-device foundation models.</p>
+<p><strong>Context:</strong> Apple Foundation Program, Sydney · 5-person team, Apple mentors<br><strong>My role:</strong> Product lead (PM &amp; UX): research, MVP scope, AI design, release<br><strong>Stage:</strong> TestFlight 1.0 (first release): 6 installs, 143 sessions</p>
+<p><a href="https://katherine0292.github.io/CircleU/">Portfolio</a> · <a href="https://github.com/katherine0292/CircleU">Repository</a></p>
 </td>
 <td width="50%" valign="top">
-<a href="projects/wildling.md"><img src="assets/previews/wildling.webp" alt="Three Wildling kittens in a jungle clearing with hand and mouse input choices" width="100%"></a>
-<h3>02 · Wildling</h3>
-<p><strong>Meet a creature whose choices you can understand.</strong></p>
-<p>A browser installation where hand gestures and mouse input share one care experience. A visible MIND panel explains each kitten's decisions.</p>
-<p>JavaScript · p5.js · MediaPipe · Web Audio<br><strong>Stage:</strong> Playable V3.1 browser build.<br><strong>Context:</strong> Independent exhibition commission for Stamp Gallery, a private gallery.</p>
-<p><a href="projects/wildling.md">Case study</a> · <a href="https://katherine0292.github.io/wildling/">Play</a> · <a href="https://github.com/katherine0292/wildling">Repository</a></p>
+<a href="https://katherine0292.github.io/wildling/portfolio/"><img src="assets/previews/poster-wildling.webp" alt="Wildling project poster" width="100%"></a>
+<h3>Wildling</h3>
+<p>A browser installation where visitors care for three kittens by hand gesture, and each kitten&#x27;s decisions are explained in real time.</p>
+<p><strong>Context:</strong> Independent commission for Stamp Gallery, a private gallery<br><strong>My role:</strong> Sole designer and developer<br><strong>Stage:</strong> Live · real-hand performance not yet measured</p>
+<p><a href="https://katherine0292.github.io/wildling/portfolio/">Portfolio</a> · <a href="https://katherine0292.github.io/wildling/">Play</a> · <a href="https://github.com/katherine0292/wildling">Repository</a></p>
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
-<a href="projects/musictag.md"><img src="assets/previews/musictag.webp" alt="MusicTag tactile remote, vinyl record and phone player" width="100%"></a>
-<h3>03 · MusicTag</h3>
-<p><strong>Familiar music, within reach.</strong></p>
-<p>An accessible music experience for adults aged 65+, pairing a simplified phone interface with tactile playback and recoverable voice search.</p>
-<p>UX research · Accessible interaction · HTML/CSS/JavaScript<br><strong>Stage:</strong> Browser prototype and 24 design states.<br><strong>Context:</strong> University–industry collaboration with Spotify.</p>
-<p><a href="projects/musictag.md">Case study</a> · <a href="https://katherine0292.github.io/MusicTag/">Portfolio</a> · <a href="https://github.com/katherine0292/MusicTag">Repository</a></p>
+<a href="https://katherine0292.github.io/Transfer-Coach/portfolio/"><img src="assets/previews/poster-transfer-coach.webp" alt="Transfer Coach project poster" width="100%"></a>
+<h3>Transfer Coach</h3>
+<p>A decision layer for multi-transfer commutes: will I make the connection, and what do I do if I won&#x27;t?</p>
+<p><strong>Context:</strong> Independent commission for TripView, Sydney, 2026<br><strong>My role:</strong> UX researcher and interaction designer (solo): research, concept, prototype, evaluation<br><strong>Stage:</strong> 38-screen prototype delivered · sample data, no live feed</p>
+<p><a href="https://katherine0292.github.io/Transfer-Coach/portfolio/">Portfolio</a> · <a href="https://github.com/katherine0292/Transfer-Coach">Repository</a></p>
 </td>
 <td width="50%" valign="top">
-<a href="projects/transfer-coach.md"><img src="assets/previews/transfer-coach.webp" alt="Transfer Coach poster presenting public transport transfer guidance" width="100%"></a>
-<h3>04 · Transfer Coach</h3>
-<p><strong>A next step when the journey changes.</strong></p>
-<p>A transport decision layer that separates catching the connection from arriving on time, with explicit delay, missed-service and wrong-stop recovery.</p>
-<p>UX research · Decision support · Interactive HTML prototype<br><strong>Stage:</strong> 38-screen prototype and three-method evaluation.<br><strong>Context:</strong> Independent UX commission for TripView.</p>
-<p><a href="projects/transfer-coach.md">Case study</a> · <a href="https://katherine0292.github.io/Transfer-Coach/portfolio/">Portfolio</a> · <a href="https://github.com/katherine0292/Transfer-Coach">Repository</a></p>
+<a href="https://katherine0292.github.io/FoodSense/"><img src="assets/previews/poster-foodsense.webp" alt="FoodSense project poster" width="100%"></a>
+<h3>FoodSense</h3>
+<p>An iOS app that turns fridge-camera detections into a confirmed inventory and a meal the household can cook.</p>
+<p><strong>Context:</strong> Independent client commission; client not named in the public materials<br><strong>My role:</strong> UI/UX designer: interaction, visual design, prototypes<br><strong>Stage:</strong> Interactive prototype · detection data simulated</p>
+<p><a href="https://katherine0292.github.io/FoodSense/">Portfolio</a> · <a href="https://github.com/katherine0292/FoodSense">Repository</a></p>
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
-<a href="projects/who-said-what-when.md"><img src="assets/previews/who-said-what-when-benchmark.png" alt="Who Said What When: conversational speakers connected to supporting audio evidence" width="100%"></a>
-<h3>05 · Who Said What When</h3>
-<p><strong>Link an answer to its speaker and evidence.</strong></p>
-<p>A conversational audio benchmark pilot that evaluates speaker attribution, answer meaning and supporting time intervals together.</p>
-<p>Python · JSONL · Annotation design · Evaluation metrics<br><strong>Stage:</strong> 0.1.0 pilot; 25 items, with 18 in default evaluation.<br><strong>Focus:</strong> Auditable data and reproducible scoring.</p>
-<p><a href="projects/who-said-what-when.md">Case study</a> · <a href="https://katherine0292.github.io/who-said-what-when-benchmark/">Walkthrough</a> · <a href="https://github.com/katherine0292/who-said-what-when-benchmark">Repository</a></p>
+<a href="https://katherine0292.github.io/MusicTag/"><img src="assets/previews/poster-musictag.webp" alt="MusicTag project poster" width="100%"></a>
+<h3>MusicTag</h3>
+<p>A simplified phone interface paired with a tactile remote, designed so older listeners can find and play familiar music on their own.</p>
+<p><strong>Context:</strong> University–industry collaboration with Spotify<br><strong>My role:</strong> UX and interaction design: research, prototype, voice spec, evaluation plan<br><strong>Stage:</strong> Interactive prototype · voice and Bluetooth simulated · usability study planned</p>
+<p><a href="https://katherine0292.github.io/MusicTag/">Portfolio</a> · <a href="https://github.com/katherine0292/MusicTag">Repository</a></p>
 </td>
 <td width="50%" valign="top">
-<a href="projects/foodsense.md"><img src="assets/previews/foodsense.jpg" alt="FoodSense poster connecting fridge inventory, ingredients and cooking" width="100%"></a>
-<h3>06 · FoodSense</h3>
-<p><strong>From what is in the fridge to what to cook.</strong></p>
-<p>An iOS product design concept for reviewing grocery detections, prioritising ingredients and choosing a feasible meal in a shared household.</p>
-<p>AI interaction design · iOS UX · Browser prototyping<br><strong>Stage:</strong> 25 iOS states, 10 paper screens and three prototypes.<br><strong>Context:</strong> Independent client commission; client not named in the public materials.</p>
-<p><a href="projects/foodsense.md">Case study</a> · <a href="https://katherine0292.github.io/FoodSense/">Portfolio</a> · <a href="https://github.com/katherine0292/FoodSense">Repository</a></p>
+<a href="https://katherine0292.github.io/HCI-Research/"><img src="assets/previews/poster-hci-research.webp" alt="HCI Research project poster" width="100%"></a>
+<h3>HCI Research</h3>
+<p>A two-phase HCI study of how people keep track of belongings and resume interrupted routines, with design implications.</p>
+<p><strong>Context:</strong> HCI paper research in an academic setting, 2026 · Project: Remembering in Motion<br><strong>My role:</strong> Lead researcher: framing, interviews, analysis, probe design<br><strong>Stage:</strong> Two study phases complete · evaluation plan proposed</p>
+<p><a href="https://katherine0292.github.io/HCI-Research/">Portfolio</a> · <a href="https://github.com/katherine0292/HCI-Research">Repository</a></p>
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
-<a href="projects/hci-research.md"><img src="assets/previews/hci-research.jpg" alt="Theme map from the Remembering in Motion research project" width="100%"></a>
-<h3>07 · Remembering in Motion</h3>
-<p><strong>What helps us resume after an interruption?</strong></p>
-<p>A two-phase HCI investigation into bodily checks, belongings and unfinished tasks, moving from interviews to an in-context field probe.</p>
-<p>Semi-structured interviews · Affinity analysis · Field probes<br><strong>Stage:</strong> Research complete; design hypotheses and evaluation plan.<br><strong>Context:</strong> Personal HCI research.</p>
-<p><a href="projects/hci-research.md">Case study</a> · <a href="https://katherine0292.github.io/HCI-Research/">Portfolio</a> · <a href="https://github.com/katherine0292/HCI-Research">Repository</a></p>
+<a href="https://katherine0292.github.io/who-said-what-when-benchmark/"><img src="assets/previews/poster-who-said-what-when.webp" alt="Data Benchmark project poster" width="100%"></a>
+<h3>Data Benchmark</h3>
+<p>An audio question-answering evaluation pilot that tests whether systems get the speaker, meaning and time evidence right.</p>
+<p><strong>Context:</strong> Research paper forthcoming · Corresponding author · Project: Who Said What When<br><strong>My role:</strong> Corresponding author · task design, annotation, data validation and scoring tools<br><strong>Stage:</strong> Evaluation pilot · independent listening review pending</p>
+<p><a href="https://katherine0292.github.io/who-said-what-when-benchmark/">Portfolio</a> · <a href="https://github.com/katherine0292/who-said-what-when-benchmark">Repository</a></p>
 </td>
 <td width="50%" valign="top">
-<a href="projects/data-visualisation.md"><img src="assets/previews/data-visualisation.png" alt="The Price of Arrival figure comparing new and continuing enrolments across education sectors" width="100%"></a>
-<h3>08 · The Price of Arrival</h3>
-<p><strong>Turn a headline into a decision someone can make.</strong></p>
-<p>An interactive data story about international study in Sydney, connecting course activity, study locations, historical visa context and price trends.</p>
-<p>Tableau · Data preparation · Visual storytelling · HTML<br><strong>Stage:</strong> Six figures, a 19-slide story, film and evaluation workbook.<br><strong>Context:</strong> Independent data visualisation commission for Harbourline Education Consulting.</p>
-<p><a href="projects/data-visualisation.md">Case study</a> · <a href="https://katherine0292.github.io/Data-Visualisation/">Interactive story</a> · <a href="https://github.com/katherine0292/Data-Visualisation">Repository</a></p>
+<a href="https://katherine0292.github.io/Data-Visualisation/portfolio/"><img src="assets/previews/poster-data-visualisation.webp" alt="Data Visualisation project poster" width="100%"></a>
+<h3>Data Visualisation</h3>
+<p>A data-driven story that turns international-student enrolment data into decisions a prospective student can act on.</p>
+<p><strong>Context:</strong> Independent commission for Harbourline Education Consulting · Project: The Price of Arrival<br><strong>My role:</strong> Data analysis, visualisation and storytelling, end to end<br><strong>Stage:</strong> 6 figures · 19-slide story · short film</p>
+<p><a href="https://katherine0292.github.io/Data-Visualisation/portfolio/">Portfolio</a> · <a href="https://github.com/katherine0292/Data-Visualisation">Repository</a></p>
 </td>
 </tr>
 </table>
@@ -107,7 +99,7 @@ This portfolio brings together **eight projects**, including four independent fr
 | AI interaction and user control | [CircleU](projects/circleu.md): source labels, fallbacks and editable suggestions; [FoodSense](projects/foodsense.md): review before adding detections. |
 | Accessible, recoverable experiences | [MusicTag](projects/musictag.md): tactile controls, stable navigation, voice retry and typing; [Transfer Coach](projects/transfer-coach.md): alternatives at the point of failure. |
 | Prototyping and implementation | [Wildling](projects/wildling.md): browser interaction and deterministic replays; [CircleU](projects/circleu.md): native iOS flows and local storage. |
-| Evaluation and evidence quality | [Who Said What When](projects/who-said-what-when.md): separate speaker, meaning and time metrics; [The Price of Arrival](projects/data-visualisation.md): definitions, sources and interpretation limits. |
+| Evaluation and evidence quality | [Data Benchmark](projects/who-said-what-when.md): separate speaker, meaning and time metrics; [Data Visualisation](projects/data-visualisation.md): definitions, sources and interpretation limits. |
 
 ## About this collection
 

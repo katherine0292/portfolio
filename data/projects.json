@@ -22,7 +22,7 @@
       "repository": "https://github.com/katherine0292/CircleU",
       "live": "https://katherine0292.github.io/CircleU/",
       "caseStudy": "projects/circleu.md",
-      "preview": "assets/previews/circleu.jpg",
+      "preview": "assets/previews/poster-circleu.webp",
       "sourceCommit": "045736d7b0a61fc3bb94468e4923ac43251a0d68",
       "evidence": [
         {
@@ -56,9 +56,9 @@
         "Node.js"
       ],
       "repository": "https://github.com/katherine0292/wildling",
-      "live": "https://katherine0292.github.io/wildling/",
+      "live": "https://katherine0292.github.io/wildling/portfolio/",
       "caseStudy": "projects/wildling.md",
-      "preview": "assets/previews/wildling.webp",
+      "preview": "assets/previews/poster-wildling.webp",
       "sourceCommit": "621a4e448491e6a070cddf2eb74f4a3b4b57154a",
       "evidence": [
         {
@@ -91,7 +91,7 @@
       "repository": "https://github.com/katherine0292/MusicTag",
       "live": "https://katherine0292.github.io/MusicTag/",
       "caseStudy": "projects/musictag.md",
-      "preview": "assets/previews/musictag.webp",
+      "preview": "assets/previews/poster-musictag.webp",
       "sourceCommit": "5e6e758b99c1f94f7b8505a23846f61e2a0ac89b",
       "evidence": [
         {
@@ -119,7 +119,7 @@
       "repository": "https://github.com/katherine0292/Transfer-Coach",
       "live": "https://katherine0292.github.io/Transfer-Coach/portfolio/",
       "caseStudy": "projects/transfer-coach.md",
-      "preview": "assets/previews/transfer-coach.webp",
+      "preview": "assets/previews/poster-transfer-coach.webp",
       "sourceCommit": "f6327d32f68adfa10991d7b5dc3b36b384d419a3",
       "evidence": [
         {
@@ -138,7 +138,7 @@
     },
     {
       "id": "who-said-what-when",
-      "title": "Who Said What When",
+      "title": "Data Benchmark",
       "summary": "Speaker, meaning and time evidence in conversational audio",
       "category": "Audio AI / benchmark design",
       "role": "Task framing, annotation workflow, validation and scoring tooling",
@@ -151,7 +151,7 @@
       "repository": "https://github.com/katherine0292/who-said-what-when-benchmark",
       "live": "https://katherine0292.github.io/who-said-what-when-benchmark/",
       "caseStudy": "projects/who-said-what-when.md",
-      "preview": "assets/previews/who-said-what-when-benchmark.png",
+      "preview": "assets/previews/poster-who-said-what-when.webp",
       "sourceCommit": "9220da9271dacb9d3e641e1e68f136c037152b4f",
       "evidence": [
         {
@@ -184,7 +184,7 @@
       "repository": "https://github.com/katherine0292/FoodSense",
       "live": "https://katherine0292.github.io/FoodSense/",
       "caseStudy": "projects/foodsense.md",
-      "preview": "assets/previews/foodsense.jpg",
+      "preview": "assets/previews/poster-foodsense.webp",
       "sourceCommit": "ee986d1edb228e1a72447aee775873fe4ddcb57a",
       "evidence": [
         {
@@ -203,7 +203,7 @@
     },
     {
       "id": "hci-research",
-      "title": "Remembering in Motion",
+      "title": "HCI Research",
       "summary": "Everyday memory and resumption after interruptions",
       "category": "HCI / qualitative research",
       "role": "Personal research: interviews, probes, synthesis and design opportunities",
@@ -216,7 +216,7 @@
       "repository": "https://github.com/katherine0292/HCI-Research",
       "live": "https://katherine0292.github.io/HCI-Research/",
       "caseStudy": "projects/hci-research.md",
-      "preview": "assets/previews/hci-research.jpg",
+      "preview": "assets/previews/poster-hci-research.webp",
       "sourceCommit": "5e26e0646325d7d73a7b17ceb17118716aa96604",
       "evidence": [
         {
@@ -235,7 +235,7 @@
     },
     {
       "id": "data-visualisation",
-      "title": "The Price of Arrival",
+      "title": "Data Visualisation",
       "summary": "An interactive data story about international study in Sydney",
       "category": "Data visualisation / storytelling",
       "role": "Independent data visualisation designer and data storyteller",
@@ -247,9 +247,9 @@
         "Visual storytelling"
       ],
       "repository": "https://github.com/katherine0292/Data-Visualisation",
-      "live": "https://katherine0292.github.io/Data-Visualisation/",
+      "live": "https://katherine0292.github.io/Data-Visualisation/portfolio/",
       "caseStudy": "projects/data-visualisation.md",
-      "preview": "assets/previews/data-visualisation.png",
+      "preview": "assets/previews/poster-data-visualisation.webp",
       "sourceCommit": "358f1c9341709c05faa76e3dcaf81363f93b696c",
       "evidence": [
         {
