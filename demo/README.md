@@ -146,3 +146,8 @@
 - 桌面端将个人照片向左微调，手机端保持原有布局。
 - 在经历部分增加 HCI 论文研究与音频 AI Benchmark 论文经历；后者据本人说明标注通讯作者及论文即将发表。
 - 将论文发表状态与 benchmark 试点的验证状态分别标注。
+
+
+## v16 · 研究项目命名（[预览](v16/index.html)）
+
+- 根据作品集浏览场景，将研究与数据项目的展示名称改为 HCI Research、Data Benchmark 和 Data Visualisation，项目链接及内容保持对应。

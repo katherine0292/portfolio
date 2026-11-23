@@ -1,0 +1,1412 @@
+<!doctype html>
+<html lang="en" data-theme="aura">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Katherine Lin Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500&family=Noto+Serif+SC:wght@500&display=swap">
+<style>
+/*
+  NEXT STEP · v4
+  Three modes, one direction of travel:
+    1. Gallery  – a lit corridor; every scroll gesture turns one page (one work).
+    2. Board    – the Canvas layout: opening title, then a free pan / zoom board grouped by category,
+                  with a bottom line. Pushing past the line turns the page.
+    3. Closing  – process and contact.
+  Warm graphite interior, spotlights; case pages stay on light paper.
+  Committed to one look, so colours are explicit rather than theme-switched.
+*/
+:root{
+  --room:#1F1D1B; --ink:#EEE9E1; --dim:#A39C92; --hair:rgba(238,233,225,.14);
+  --paper:#F5F2EC; --fg:#161514; --muted:#6E6A64; --line:rgba(22,21,20,.12);
+  --warm:255,222,176; --accent:#E9C38A;
+  --fog:24,22,20; --vig:rgba(12,11,10,.5); --cardbg:rgba(24,22,20,.86); --cardink:#EEE9E1; --carddim:#A39C92; --cardhair:rgba(238,233,225,.14); --cardsolid:#181614;
+  --board:#F5F2EC; --legs:#4A453F; --grid:rgba(238,233,225,.12); --hair2:rgba(238,233,225,.35); --turn:#2A2622; --shadow:rgba(0,0,0,.8);
+  --accentText:rgb(255,222,176); --introbg:#100F0E; --cvglow:rgba(255,222,176,.08);
+  --blurf:blur(18px) brightness(.62); --defocus:blur(7px) brightness(.5); --defocus2:blur(5px) opacity(.3);
+  --sans:"Geist", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --serif:"Instrument Serif", "Noto Serif SC", "Songti SC", "Times New Roman", serif;
+  --mono:"Geist Mono", ui-monospace, Menlo, monospace;
+  --ease:cubic-bezier(.7,0,.2,1); --out:cubic-bezier(.2,.8,.2,1);
+  --gl:max(16px, env(safe-area-inset-left, 0px)); --gr:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+/* Light: a daylight gallery, warm white walls */
+html[data-theme="light"]{
+  --room:#ECEAE6; --ink:#1A1917; --dim:#6F6B64; --hair:rgba(26,25,23,.12);
+  --fog:236,234,230; --vig:rgba(150,140,125,.16); --cardbg:rgba(252,251,249,.94); --cardink:#1A1917; --carddim:#6F6B64; --cardhair:rgba(26,25,23,.1); --cardsolid:#FCFBF9;
+  --board:#FFFFFF; --legs:#B8B2A8; --grid:rgba(26,25,23,.13); --hair2:rgba(26,25,23,.3); --turn:#DDD8D0; --shadow:rgba(60,50,40,.28);
+  --accentText:#B4642A; --introbg:#F4F2EE; --cvglow:rgba(255,236,210,.5);
+  --blurf:blur(18px) brightness(1.04) saturate(.9); --defocus:blur(7px) opacity(.42); --defocus2:blur(5px) opacity(.3); color-scheme:light}
+/* Vivid: each room painted in one saturated colour */
+html[data-theme="vivid"]{
+  --room:#2B44FF; --ink:#FFFFFF; --dim:rgba(255,255,255,.78); --hair:rgba(255,255,255,.25);
+  --fog:255,90,54; --vig:rgba(0,0,0,.16); --cardbg:rgba(255,255,255,.97); --cardink:#111111; --carddim:#5A5A5A; --cardhair:rgba(0,0,0,.1); --cardsolid:#FFFFFF;
+  --board:#FFFFFF; --legs:rgba(255,255,255,.7); --grid:rgba(255,255,255,.22); --hair2:rgba(255,255,255,.5); --turn:#FF5A36; --shadow:rgba(0,0,40,.35);
+  --accentText:#FFD23F; --introbg:#FF5A36; --cvglow:rgba(255,255,255,.06); --labc:var(--ink); --secline:rgba(255,255,255,.6);
+  --blurf:blur(18px) saturate(1.15); --defocus:blur(7px) opacity(.55); --defocus2:blur(5px) opacity(.3)}
+/* Aura: soft light-grey ground, glowing gradient blooms behind the work */
+html[data-theme="aura"]{
+  --room:#EFEFEF; --ink:#1A1A1A; --dim:#6B6B6B; --hair:rgba(0,0,0,.1);
+  --fog:239,239,239; --vig:transparent; --cardbg:rgba(255,255,255,.84); --cardink:#1A1A1A; --carddim:#6B6B6B; --cardhair:rgba(0,0,0,.08); --cardsolid:#FFFFFF;
+  --board:#FFFFFF; --legs:#CFCFCF; --grid:rgba(0,0,0,.09); --hair2:rgba(0,0,0,.25); --turn:#F6D2B8; --shadow:rgba(120,60,30,.18);
+  --accentText:#F06A3C; --introbg:#EFEFEF; --cvglow:transparent;
+  --blurf:blur(20px) saturate(1.1); --defocus:blur(8px) opacity(.5); --defocus2:blur(5px) opacity(.3); color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0; height:100%}
+body{background:var(--room); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.5; overflow:hidden}
+img{max-width:100%; display:block}
+a{color:inherit}
+button{font:inherit; color:inherit; cursor:pointer; background:none; border:0; padding:0}
+:focus-visible{outline:1.5px solid var(--accent); outline-offset:4px}
+h1,h2,h3,h4{margin:0; font-weight:500; text-wrap:balance}
+p,dl,dd{margin:0}
+em{font-family:var(--serif); font-style:italic; font-weight:400}
+.mono{font-family:var(--mono); font-size:12px; letter-spacing:.04em}
+.eyebrow{text-transform:uppercase; letter-spacing:.14em}
+.dot{display:inline-block; width:7px; height:7px; border-radius:50%; background:rgb(var(--l,var(--warm))); box-shadow:0 0 10px rgba(var(--l,var(--warm)),.8); flex:none}
+
+/* chrome */
+.top{position:fixed; z-index:50; inset:0 0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; padding:calc(14px + env(safe-area-inset-top,0px)) var(--gr) 14px var(--gl); pointer-events:none}
+.top > *{pointer-events:auto}
+.brand{font-size:14px; text-decoration:none; font-weight:500}
+.brand em{font-size:16px; color:var(--dim)}
+.where{display:flex; align-items:center; gap:8px; color:var(--dim)}
+.clock{justify-self:end; color:var(--dim)}
+.rail{position:fixed; z-index:40; right:calc(18px + env(safe-area-inset-right,0px)); top:50%; transform:translateY(-50%); display:grid; gap:12px}
+.rail button{display:flex; align-items:center; justify-content:flex-end; gap:10px; font-family:var(--mono); font-size:11px; color:var(--dim)}
+.rail button span{opacity:0; transform:translateX(6px); transition:.3s var(--out)}
+.rail:hover button span{opacity:1; transform:none}
+.rail button i{width:16px; height:1.5px; background:currentColor; opacity:.4; transition:.4s var(--out)}
+.rail button.on{color:var(--ink)}
+.rail button.on i{width:32px; opacity:1; background:var(--accent)}
+.cursor{position:fixed; z-index:96; left:0; top:0; width:8px; height:8px; margin:-4px; border-radius:50%; background:var(--ink); pointer-events:none; transition:width .35s var(--out), height .35s var(--out), margin .35s var(--out); display:grid; place-items:center; color:var(--room); font-family:var(--mono); font-size:11px}
+.cursor span{opacity:0; transition:opacity .2s}
+.cursor.big{width:84px; height:84px; margin:-42px}
+.cursor.big span{opacity:1}
+html.case-open .cursor{background:var(--fg); color:var(--paper)}
+@media (pointer:coarse){.cursor{display:none}}
+
+/* modes */
+.mode{position:fixed; inset:0; opacity:0; visibility:hidden; transition:opacity .9s ease, visibility 0s .9s}
+.mode.on{opacity:1; visibility:visible; transition:opacity .9s ease}
+
+/* intro */
+.intro{position:fixed; inset:0; z-index:100; background:var(--introbg); display:grid; place-items:center; transition:opacity 1.1s ease, visibility 0s 1.1s}
+.intro.out{opacity:0; visibility:hidden}
+.intro::before{content:""; position:absolute; left:50%; top:0; width:min(900px,140vw); height:100%; transform:translateX(-50%); background:radial-gradient(ellipse 40% 60% at 50% 0, rgba(var(--warm),.22), transparent 70%); opacity:0; transition:opacity .5s}
+.intro.on::before{opacity:1}
+.intro.flick::before{animation:flick .7s steps(1) 1}
+@keyframes flick{0%{opacity:.1}15%{opacity:1}30%{opacity:.05}45%{opacity:.8}60%{opacity:0}80%{opacity:.9}}
+.intro .c{position:relative; display:grid; gap:16px; justify-items:center; text-align:center; padding:0 16px}
+.intro .nm{font-family:var(--serif); font-size:clamp(52px,9vw,120px); line-height:1; opacity:.15; transition:opacity .8s}
+.intro.on .nm{opacity:1}
+.intro .ln{width:min(320px,70vw); height:1px; background:rgba(238,233,225,.15); position:relative}
+.intro .ln i{position:absolute; inset:0 auto 0 0; width:0; background:rgb(var(--warm)); transition:width .7s var(--ease)}
+.intro .lab{color:var(--dim); min-height:1.5em}
+
+/* ═══ 1 · GALLERY ═══ */
+.gal{overflow:hidden; perspective:1000px; perspective-origin:50% 46%; background:var(--room)}
+.gal::before{content:""; position:absolute; inset:0; z-index:2; pointer-events:none; background:radial-gradient(circle at 50% 46%, rgba(var(--fog),1) 0, rgba(var(--fog),.85) 5%, rgba(var(--fog),0) 22%)}
+.gal::after{content:""; position:absolute; inset:0; z-index:2; pointer-events:none; background:radial-gradient(ellipse 75% 70% at 50% 50%, transparent 55%, var(--vig) 100%)}
+#gal::before{display:none}
+.g-room{position:absolute; inset:0; width:100%; height:100%; z-index:0}
+.g-yaw{position:absolute; left:50%; top:50%; width:0; height:0; transform-style:preserve-3d; z-index:1}
+.g-cam{position:absolute; left:0; top:0; transform-style:preserve-3d}
+.g-cam > *, .g-seg > *{position:absolute; left:0; top:0}
+.g-seg{transform-style:preserve-3d}
+.g-floor{background:
+  linear-gradient(90deg, transparent calc(50% - 451px), rgba(var(--warm),.32) calc(50% - 451px) calc(50% - 449px), transparent calc(50% - 449px) calc(50% + 449px), rgba(var(--warm),.32) calc(50% + 449px) calc(50% + 451px), transparent calc(50% + 451px)),
+  linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px) 0 0 / 100% 400px,
+  linear-gradient(90deg, #171614, #1D1B19 30%, #24221F 50%, #1D1B19 70%, #171614)}
+.g-ceil{background:#131211}
+.g-wall{background:linear-gradient(0deg, rgba(var(--warm),.20) 0 2px, rgba(var(--warm),.05) 2px 36px, transparent 36px), linear-gradient(0deg, #1D1B19, #282522 65%, #221F1C)}
+.g-title{width:1600px; margin-left:-800px; text-align:center; display:grid; gap:18px; justify-items:center; pointer-events:none}
+.g-title .mono{font-size:17px; color:var(--labc, rgb(var(--l,var(--warm)))); letter-spacing:.24em}
+.g-title h1, .g-title h2{font-family:var(--serif); font-weight:400; line-height:.88; text-shadow:0 0 70px rgba(var(--l,var(--warm)),.28)}
+.g-title h1{font-size:190px}
+.g-title h2{font-size:112px}
+.g-title p.s{font-size:26px; color:var(--dim)}
+.g-title .mb{display:none}
+html[data-theme="aura"] .g-title .mono{color:var(--dim)}
+@media (max-width:700px){ .g-title .mb{display:inline} .g-title h1{font-size:170px} .g-title p.s{font-size:34px; max-width:700px; line-height:1.35} .g-title br.dt{display:none} }
+.cs-bar .sm{display:none}
+@media (max-width:700px){ .cs-bar .sm{display:inline} }
+.g-cone{width:700px; margin-left:-350px; height:860px; clip-path:polygon(47% 0, 53% 0, 100% 100%, 0 100%); background:linear-gradient(180deg, rgba(var(--l),.20), rgba(var(--l),.05) 65%, rgba(var(--l),0)); pointer-events:none}
+.g-pool{width:1000px; height:520px; margin:-260px 0 0 -500px; background:radial-gradient(ellipse at center, rgba(var(--l),.26), rgba(var(--l),.07) 40%, transparent 68%); pointer-events:none}
+.g-fix{width:20px; height:20px; margin:-10px 0 0 -10px; border-radius:50%; background:rgb(var(--l)); box-shadow:0 0 26px 6px rgba(var(--l),.5)}
+.gal:not(.lit) .g-cone, .gal:not(.lit) .g-pool, .gal:not(.lit) .g-fix{opacity:0 !important}
+.g-cone, .g-pool, .g-fix{transition:opacity 1.2s}
+.g-art{transform-origin:50% 0; cursor:pointer; display:block; color:inherit; text-decoration:none}
+.info .go, .cb-open, .caps .r a{text-decoration:none}
+:lang(zh) em{font-style:normal}
+:lang(zh) .cb-title h1 em{font-size:200px; letter-spacing:-.01em}
+:lang(zh) .g-plan .lb span{white-space:nowrap}
+:lang(zh) .g-plan{width:150px}
+:lang(zh) .eyebrow, :lang(zh) .mono{letter-spacing:.06em}
+.cb-end{cursor:pointer; color:inherit; background:none}
+.cb-end:hover p{color:var(--accentText)}
+.g-art .bd{background:var(--board); color:var(--fg); padding:22px 22px 24px; position:relative; box-shadow:0 50px 80px -30px rgba(0,0,0,.7); transition:transform .7s var(--out)}
+.g-art .bd::after{content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg, rgba(var(--l),.14), transparent 35%)}
+.g-art:hover .bd{transform:translateY(-14px)}
+.g-art img{width:100%; aspect-ratio:16/10; object-fit:cover}
+.g-art .cap{display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-top:16px}
+.g-art h3{font-family:var(--serif); font-weight:400; font-size:42px; line-height:1}
+.g-art.feat h3{font-size:52px}
+.g-art .cap .mono{color:var(--muted); text-align:right}
+.g-art .badge{position:absolute; z-index:1; top:34px; left:34px; background:var(--fg); color:var(--paper); font-family:var(--mono); font-size:12px; padding:5px 10px; letter-spacing:.08em}
+.g-art .legs{position:absolute; top:100%; left:0; right:0; height:140px; pointer-events:none}
+.g-art .legs::before, .g-art .legs::after{content:""; position:absolute; top:0; bottom:0; width:2px; background:var(--legs)}
+.g-art .legs::before{left:20%} .g-art .legs::after{right:20%}
+.g-plan{position:absolute; z-index:5; right:calc(18px + env(safe-area-inset-right,0px)); bottom:calc(24px + env(safe-area-inset-bottom,0px)); width:130px; display:grid; gap:6px; font-family:var(--mono); font-size:10.5px; color:var(--dim)}
+.g-plan .bar, .g-plan .lb{display:grid; grid-template-columns:4fr 4fr 3fr 1.4fr; gap:3px}
+.g-plan .bar{position:relative; height:4px}
+.g-plan .bar span{background:rgba(var(--l),.35); border-radius:2px}
+.g-plan .bar i{position:absolute; top:50%; width:10px; height:10px; margin:-5px; border-radius:50%; background:var(--ink); box-shadow:0 0 12px rgba(var(--warm),.9); transition:left .9s var(--ease)}
+.g-hint{position:absolute; z-index:5; left:50%; bottom:calc(22px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); color:var(--dim); white-space:nowrap; transition:opacity .4s}
+
+/* side card */
+.info{position:fixed; z-index:45; top:50%; width:min(390px, 34vw); transform:translateY(-46%); display:grid; gap:14px; padding:24px; border-radius:18px; background:var(--cardbg); color:var(--cardink); border:1px solid var(--cardhair); box-shadow:0 20px 60px -30px var(--shadow); opacity:0; visibility:hidden; transition:opacity .45s, visibility 0s .45s, transform .7s var(--out)}
+.info.r{right:calc(72px + env(safe-area-inset-right,0px))} .info.l{left:calc(40px + env(safe-area-inset-left,0px))}
+.info.show{opacity:1; visibility:visible; transition:opacity .45s, transform .7s var(--out); transform:translateY(-50%)}
+.info .row1{display:flex; align-items:center; gap:10px; flex-wrap:wrap; color:var(--carddim)}
+.info .feat{margin-left:auto; color:var(--fg); background:rgb(var(--l)); padding:2px 8px; border-radius:999px; font-size:11px}
+.info h2{font-family:var(--serif); font-weight:400; font-size:clamp(40px,4vw,58px); line-height:.95}
+.info .ln{color:var(--carddim); font-size:16px}
+.info dl{display:grid; border-top:1px solid var(--cardhair)}
+.info dl div{display:grid; grid-template-columns:78px minmax(0,1fr); gap:12px; padding:9px 0; border-bottom:1px solid var(--cardhair)}
+.info dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--carddim); padding-top:3px}
+.info dd{font-size:14.5px}
+.info .go{justify-self:start; display:inline-flex; gap:10px; align-items:center; background:var(--cardink); color:var(--cardsolid); padding:11px 18px; border-radius:999px; font-size:14px}
+.info .go:hover{background:rgb(var(--l))}
+.info .gos{display:flex; flex-wrap:wrap; gap:8px}
+.info .go.alt{background:transparent; color:var(--cardink); box-shadow:inset 0 0 0 1px var(--cardink)}
+.info .go.alt:hover{background:var(--cardink); color:var(--cardsolid)}
+.cb-gos{display:flex; flex-wrap:wrap; gap:12px}
+.cb-open.alt{border-style:dashed}
+img[src$="wildling-portfolio.webp"]{object-position:left center}
+.info > *{transition:opacity .5s, transform .6s var(--out)}
+.info:not(.show) > *{opacity:0; transform:translateY(10px)}
+.info.show > *:nth-child(2){transition-delay:.05s} .info.show > *:nth-child(3){transition-delay:.1s} .info.show > *:nth-child(4){transition-delay:.15s} .info.show > *:nth-child(5){transition-delay:.2s}
+.info.guide{left:calc(40px + env(safe-area-inset-left,0px)); top:auto; bottom:calc(40px + env(safe-area-inset-bottom,0px)); transform:translateY(10px); width:min(420px, calc(100vw - 32px))}
+.info.guide.show{transform:none}
+.guide ol{list-style:none; margin:0; padding:0; display:grid; border-top:1px solid var(--cardhair)}
+.guide li{display:grid; grid-template-columns:auto 34px minmax(0,1fr) auto; gap:10px; align-items:center; padding:10px 0; border-bottom:1px solid var(--cardhair); font-size:15px}
+.guide li small{color:var(--carddim); font-family:var(--mono); font-size:11px}
+.guide li .f{grid-column:3 / 5; color:var(--carddim); font-size:12.5px; margin-top:-4px}
+.info.roomc{left:50%; top:auto; bottom:calc(48px + env(safe-area-inset-bottom,0px)); transform:translate(-50%,10px); width:min(560px, calc(100vw - 32px)); text-align:center; justify-items:center}
+.info.roomc.show{transform:translate(-50%,0)}
+
+/* ═══ 2 · BOARD (Canvas layout) ═══ */
+.cv{overflow:hidden; touch-action:none; cursor:grab; background-color:var(--room); background-image:radial-gradient(circle, var(--grid) 1px, transparent 1.4px)}
+.cv::after{content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 70% 55% at 50% 0, var(--cvglow), transparent 70%), radial-gradient(ellipse 75% 70% at 50% 50%, transparent 60%, var(--vig) 100%)}
+.cv.drag{cursor:grabbing}
+.cv-plane{position:absolute; left:0; top:0; transform-origin:0 0}
+.cv-plane.moving{will-change:transform}
+.cb{position:absolute}
+.cb-title{width:1500px; padding-top:150px}
+.cb-title .mono{font-size:18px; color:var(--dim)}
+.cb-title h1{font-size:220px; line-height:.86; letter-spacing:-.065em; margin-top:30px}
+.cb-title h1 em{font-size:240px; letter-spacing:-.03em; color:var(--accentText)}
+.cb-title p.l{font-size:34px; line-height:1.25; color:var(--dim); max-width:30ch; margin-top:44px; letter-spacing:-.01em}
+.cb-go{margin-top:48px; display:inline-flex; gap:14px; align-items:center; background:var(--ink); color:var(--room); border-radius:999px; padding:22px 34px; font-size:24px}
+.cb-sec{width:2900px; display:grid; gap:14px; padding-top:40px; border-top:2px solid var(--secline, rgba(var(--l),.6))}
+.cb-sec .mono{font-size:20px; color:var(--labc, rgb(var(--l))); letter-spacing:.24em; display:flex; align-items:center; gap:14px}
+.cb-sec .mono .dot{width:14px; height:14px}
+.cb-sec h2{font-family:var(--serif); font-weight:400; font-size:150px; line-height:.9}
+.cb-sec p{font-size:32px; color:var(--dim); max-width:46ch}
+.cb-p{display:flex; gap:56px; align-items:flex-start; cursor:pointer}
+.cb-p figure{margin:0; flex:none; width:860px; border-radius:18px; overflow:hidden; box-shadow:0 60px 90px -50px var(--shadow), 0 0 0 1px rgba(255,255,255,.05); transition:transform .8s var(--out), box-shadow .6s; position:relative}
+.cb-p figure img{width:100%; aspect-ratio:16/10; object-fit:cover}
+.cb-p figure .badge{position:absolute; top:18px; left:18px; background:rgb(var(--l)); color:var(--fg); font-family:var(--mono); font-size:16px; padding:6px 12px; border-radius:999px}
+.cb-p:hover figure{transform:translateY(-12px); box-shadow:0 80px 100px -50px var(--shadow), 0 0 0 2px rgba(var(--l),.6)}
+.cb-t{width:480px; flex:none; display:grid; gap:18px}
+.cb-t .mono{font-size:15px; color:var(--dim)}
+.cb-t h3{font-size:84px; line-height:.92; letter-spacing:-.05em}
+.cb-t .ln{font-family:var(--serif); font-size:34px; line-height:1.1; color:var(--labc, rgb(var(--l)))}
+.cb-t dl{display:grid; border-top:1px solid var(--hair)}
+.cb-t dl div{display:grid; grid-template-columns:110px 1fr; gap:12px; padding:9px 0; border-bottom:1px solid var(--hair); font-size:17px}
+.cb-t dt{font-family:var(--mono); font-size:13px; color:var(--dim); text-transform:uppercase; letter-spacing:.08em; padding-top:3px}
+.cb-t .pr{font-size:19px; color:var(--dim)}
+.cb-t ol{list-style:none; margin:0; padding:0}
+.cb-t li{display:grid; grid-template-columns:110px 1fr; gap:12px; font-size:17px; border-top:1px solid var(--hair); padding:10px 0}
+.cb-t li span{font-family:var(--mono); font-size:13px; color:var(--dim); padding-top:3px}
+.cb-st{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; border-top:1px solid var(--ink); padding-top:14px}
+.cb-st b{display:block; font-family:var(--serif); font-weight:400; font-size:52px; line-height:1}
+.cb-st span{font-size:13px; color:var(--dim); line-height:1.3; display:block}
+.cb-lim{font-size:16px; border-left:2px solid rgb(var(--l)); padding-left:14px}
+.cb-open{justify-self:start; font-family:var(--mono); font-size:15px; border:1px solid var(--ink); border-radius:999px; padding:12px 20px}
+.cb-open:hover{background:var(--ink); color:var(--room)}
+.cb-end{width:2900px; display:grid; gap:20px; justify-items:center; text-align:center; padding-top:30px; border-top:2px dashed var(--hair2)}
+.cb-end .mono{font-size:20px; color:var(--dim); letter-spacing:.2em}
+.cb-end p{font-family:var(--serif); font-size:80px; line-height:1}
+.cv.mob .cb-title{width:760px}
+.cv.mob .cb-title h1{font-size:150px} .cv.mob .cb-title h1 em{font-size:160px} .cv.mob .cb-title p.l{font-size:40px} .cv.mob .cb-title .mono{font-size:22px}
+.cv.mob .cb-go{font-size:30px; padding:26px 40px}
+.cv.mob .cb-sec, .cv.mob .cb-end{width:760px}
+.cv.mob .cb-sec h2{font-size:112px} .cv.mob .cb-sec p{font-size:34px} .cv.mob .cb-end p{font-size:62px}
+.cv.mob .cb-p{flex-direction:column; gap:30px}
+.cv.mob .cb-p figure{width:760px}
+.cv.mob .cb-t{width:760px; gap:22px}
+.cv.mob .cb-t .mono{font-size:22px} .cv.mob .cb-t h3{font-size:100px} .cv.mob .cb-t .ln{font-size:46px}
+.cv.mob .cb-t dl div, .cv.mob .cb-t li{font-size:27px; grid-template-columns:160px 1fr}
+.cv.mob .cb-t dt, .cv.mob .cb-t li span{font-size:19px}
+.cv.mob .cb-t .pr{font-size:28px} .cv.mob .cb-st b{font-size:72px} .cv.mob .cb-st span{font-size:19px}
+.cv.mob .cb-lim{font-size:25px} .cv.mob .cb-open{font-size:23px; padding:16px 26px}
+.cv-chips{position:absolute; z-index:6; top:calc(56px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); display:flex; gap:4px; padding:4px; border-radius:999px; background:var(--cardbg); border:1px solid var(--cardhair); max-width:calc(100vw - 32px); overflow-x:auto}
+.cv-chips button{display:inline-flex; gap:8px; align-items:center; padding:7px 13px; border-radius:999px; font-size:13px; color:var(--carddim); white-space:nowrap}
+.cv-chips button:hover, .cv-chips button.on{background:var(--cardink); color:var(--cardsolid)}
+.cv-ui{position:absolute; z-index:6; right:calc(16px + env(safe-area-inset-right,0px)); bottom:calc(20px + env(safe-area-inset-bottom,0px)); display:grid; gap:10px; justify-items:end}
+.cv-ctl{display:flex; gap:2px; padding:3px; border-radius:999px; background:var(--cardbg); color:var(--cardink); border:1px solid var(--cardhair)}
+.cv-ctl button{min-width:34px; height:30px; border-radius:999px; font-family:var(--mono); font-size:12px; padding:0 10px}
+.cv-ctl button:hover{background:var(--cardink); color:var(--cardsolid)}
+.cv-map{position:relative; width:96px; height:144px; border-radius:12px; background:var(--cardbg); border:1px solid var(--cardhair); overflow:hidden; cursor:pointer}
+.cv-map i{position:absolute; background:var(--cardhair); border-radius:2px}
+.cv-map i.s{background:rgba(var(--l),.7)}
+.cv-map b{position:absolute; border:1.5px solid var(--cardink); border-radius:3px}
+.cv-hint{position:absolute; z-index:6; left:50%; bottom:calc(24px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); color:var(--dim); white-space:nowrap; transition:opacity .5s}
+.cv-edge{position:absolute; z-index:6; left:50%; transform:translate(-50%,0); display:grid; gap:8px; justify-items:center; color:var(--ink); opacity:0; transition:opacity .3s; pointer-events:none}
+.cv-edge.bot{bottom:calc(74px + env(safe-area-inset-bottom,0px))}
+.cv-edge.topE{top:calc(110px + env(safe-area-inset-top,0px))}
+.cv-edge .track{width:180px; height:2px; background:var(--hair); border-radius:2px; overflow:hidden}
+.cv-edge .track i{display:block; height:100%; width:0; background:rgb(var(--warm))}
+
+/* colour switch */
+.hdr-r{justify-self:end; display:flex; align-items:center; gap:8px}
+.snd{display:inline-flex; align-items:center; gap:8px; height:31px; padding:0 12px 0 10px; border-radius:999px; background:var(--cardbg); border:1px solid var(--cardhair); font-family:var(--mono); font-size:11px; color:var(--carddim)}
+.snd:hover{color:var(--cardink)}
+.snd .eq{position:relative; display:inline-flex; align-items:flex-end; gap:2px; height:12px}
+.snd[aria-pressed="false"] .eq i{height:6px}
+.snd[aria-pressed="false"] .eq::after{content:""; position:absolute; left:-2px; right:-2px; top:50%; height:1.5px; background:currentColor; transform:rotate(-35deg)}
+.snd .eq i{width:2px; height:3px; border-radius:1px; background:currentColor; transition:height .3s}
+.snd[aria-pressed="true"]{color:var(--cardink)}
+.snd[aria-pressed="true"] .eq i{animation:eq 1.1s ease-in-out infinite}
+.snd[aria-pressed="true"] .eq i:nth-child(2){animation-delay:-.4s} .snd[aria-pressed="true"] .eq i:nth-child(3){animation-delay:-.75s} .snd[aria-pressed="true"] .eq i:nth-child(4){animation-delay:-.2s}
+@keyframes eq{0%,100%{height:3px} 50%{height:12px}}
+.snd.wait .snd-l{animation:blinkL 1.6s ease-in-out infinite}
+@keyframes blinkL{50%{opacity:.4}}
+@media (max-width:700px){ .snd-l{display:none} .snd{padding:0 10px} }
+.themes{justify-self:end; display:flex; gap:2px; padding:3px; border-radius:999px; background:var(--cardbg); border:1px solid var(--cardhair)}
+.themes button{font-family:var(--mono); font-size:11px; padding:5px 10px; border-radius:999px; color:var(--carddim)}
+.themes button[aria-pressed="true"]{background:var(--cardink); color:var(--cardsolid)}
+
+/* chapter: when the camera rests at a room, the hall blurs and the room title takes the centre */
+.chapter{position:fixed; z-index:44; inset:0; display:grid; place-content:center; justify-items:center; text-align:center; gap:20px; padding:0 var(--gr) 0 var(--gl); pointer-events:none; opacity:0; transition:opacity .6s}
+.chapter.show{opacity:1}
+.chapter > *{transform:translateY(18px); transition:transform .9s var(--out)}
+.chapter.show > *{transform:none}
+.chapter.show > *:nth-child(2){transition-delay:.06s} .chapter.show > *:nth-child(3){transition-delay:.12s} .chapter.show > *:nth-child(4){transition-delay:.18s}
+.chapter .mono{font-size:13px; letter-spacing:.3em; color:var(--labc, rgb(var(--l)))}
+.chapter h2{font-family:var(--serif); font-weight:400; font-size:clamp(56px,9vw,150px); line-height:.9; max-width:13ch}
+.chapter .lk{font-size:clamp(17px,1.6vw,22px); color:var(--dim); max-width:40ch}
+.chapter .ws{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px}
+.chapter.show .ws{pointer-events:auto}
+.chapter .ws button{border:1px solid var(--hair2); border-radius:999px; padding:9px 16px; font-size:14px; display:inline-flex; gap:8px; align-items:center}
+.chapter .ws button:hover{background:var(--ink); color:var(--room)}
+.chapter .ws b{font-weight:500; font-family:var(--mono); font-size:11px; color:var(--labc, rgb(var(--l)))}
+#gal{transition:opacity .9s ease, visibility 0s .9s, filter .8s var(--out)}
+#gal.on{transition:opacity .9s ease, filter .8s var(--out)}
+#gal.chap{filter:var(--blurf)}
+.g-room{transition:filter .7s var(--out)}
+.g-art{transition:filter .7s var(--out)}
+#gal.focusing .g-room{filter:blur(2.5px)}
+#gal.focusing .g-art:not(.focus), #gal.ent .g-art{filter:var(--defocus)}
+.cb{transition:filter .6s var(--out), opacity .6s var(--out)}
+.cv.focusing .cb:not(.focus){filter:var(--defocus2)}
+.cv:not(.focusing) .cv-plane:has(.cb-p:hover) .cb-p:not(:hover){opacity:.55}
+
+/* aura blooms */
+.g-aura{width:1700px; height:1500px; margin:-750px 0 0 -850px; pointer-events:none; display:none;
+  background:radial-gradient(closest-side at 38% 58%, rgba(var(--a1),.95), rgba(var(--a1),0)), radial-gradient(closest-side at 64% 38%, rgba(var(--a2),.9), rgba(var(--a2),0)), radial-gradient(closest-side at 52% 50%, rgba(var(--a3),.75), rgba(var(--a3),0))}
+html[data-theme="aura"] .g-aura{display:none}
+html[data-theme="aura"] .g-cone, html[data-theme="aura"] .g-fix, html[data-theme="aura"] .g-pool{display:none}
+html[data-theme="aura"] .intro::after{content:""; position:fixed; inset:-20%; pointer-events:none;
+  background:radial-gradient(closest-side at 32% 42%, rgba(255,110,80,.5), transparent), radial-gradient(closest-side at 68% 60%, rgba(255,205,85,.5), transparent), radial-gradient(closest-side at 55% 28%, rgba(255,150,70,.35), transparent);
+  animation:drift 26s ease-in-out infinite alternate}
+html[data-theme="aura"] .intro .c{z-index:1}
+.tail > .wrap{position:relative}
+@keyframes drift{to{transform:translate(4%,-3%) rotate(8deg) scale(1.08)}}
+
+/* glow: a flat light layer under the work, never over it; it settles behind the work in focus
+   and its blooms lean toward the pointer */
+@property --c{syntax:'<color>'; inherits:false; initial-value:#ff8a60}
+.glow{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; opacity:.62}
+.tail .glow{position:fixed}
+.glow i{position:absolute; left:0; top:0; width:1000px; height:1000px; margin:-500px 0 0 -500px; border-radius:50%;
+  background:radial-gradient(closest-side, var(--c), color-mix(in srgb, var(--c) 0%, transparent)); will-change:transform; transition:--c 1.2s ease}
+
+/* page turn */
+.turn{position:fixed; inset:-20vh 0; z-index:80; background:var(--turn); transform:translateY(110%); border-radius:50% 50% 0 0 / 14vh 14vh 0 0; pointer-events:none; transition:transform .85s var(--ease), border-radius .85s var(--ease)}
+.turn.in{transform:translateY(0); border-radius:0}
+.turn.up{transform:translateY(-110%); border-radius:0 0 50% 50% / 0 0 14vh 14vh}
+.turn.noanim{transition:none}
+
+/* ═══ 3 · CLOSING ═══ */
+.tail{overflow-y:auto; overscroll-behavior:contain; background:linear-gradient(180deg,var(--turn) 0, var(--room) 70vh)}
+.wrap{padding-left:var(--gl); padding-right:var(--gr)}
+.inner{max-width:1320px; margin:0 auto}
+.back{display:inline-flex; gap:10px; align-items:center; font-family:var(--mono); font-size:12px; color:var(--dim); border:1px solid var(--hair); border-radius:999px; padding:8px 14px; margin-top:calc(80px + env(safe-area-inset-top,0px))}
+.back:hover{color:var(--ink); border-color:var(--ink)}
+.ab{padding-block:60px 60px}
+.ab-lead{font-size:clamp(30px,4.4vw,64px); line-height:1.05; letter-spacing:-.035em; max-width:21ch; margin-top:22px}
+.ab-steps{list-style:none; margin:64px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px}
+.ab-steps li{border-top:1px solid var(--ink); padding-top:16px; display:grid; gap:8px; align-content:start}
+.ab-steps span{font-family:var(--mono); font-size:12px; color:var(--dim)}
+.ab-steps h3{font-size:22px; letter-spacing:-.02em}
+.ab-steps p{color:var(--dim); font-size:15px}
+.ab-steps small{font-family:var(--mono); font-size:11.5px; color:var(--accentText)}
+.caps{margin-top:72px; border-top:1px solid var(--hair)}
+.caps h3{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); font-weight:400; padding:20px 0 8px}
+.caps .r{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.4fr); gap:20px; padding:14px 0; border-bottom:1px solid var(--hair); align-items:center}
+.caps .r p{font-size:18px}
+.caps .r div{display:flex; flex-wrap:wrap; gap:8px}
+.caps .r a, .caps .r button{border:1px solid var(--hair); border-radius:999px; padding:5px 12px; font-size:13px; display:inline-flex; align-items:center; gap:8px}
+.caps .r a:hover{border-color:var(--ink)}
+.ct{padding-block:80px 120px}
+.ct-h{font-size:clamp(52px,10vw,160px); line-height:.9; letter-spacing:-.055em; margin-top:20px}
+.ct-row{display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px; margin-top:44px}
+.ct-btn{display:inline-flex; align-items:center; gap:12px; background:var(--ink); color:var(--room); text-decoration:none; padding:18px 26px; border-radius:999px; transition:transform .4s var(--out)}
+.ct-btn i{width:8px; height:8px; border-radius:50%; background:#C48A3A}
+.ct-link{font-family:var(--mono); font-size:13px; text-decoration:none; border-bottom:1px solid var(--hair); padding-bottom:2px}
+.ct-foot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:90px; color:var(--dim); border-top:1px solid var(--hair); padding-top:16px}
+
+/* first-screen shortcut */
+.skipw{position:fixed; z-index:46; left:50%; top:62%; transform:translate(-50%,12px); display:grid; justify-items:center; gap:12px; text-align:center; width:max-content; max-width:calc(100vw - 32px);
+  opacity:0; visibility:hidden; transition:opacity .5s, transform .6s var(--out), visibility 0s .5s}
+.skipw.show{opacity:1; visibility:visible; transform:translate(-50%,0); transition:opacity .5s, transform .6s var(--out)}
+.skip-h{color:var(--dim); font-size:12px}
+.skip{display:inline-flex; gap:10px; align-items:center; background:var(--ink); color:var(--room); padding:14px 24px; border-radius:999px; font-size:15px; box-shadow:0 18px 40px -18px rgba(0,0,0,.45)}
+.skip b{font-weight:400; transition:transform .3s var(--out)}
+.skip:hover b{transform:translateX(4px)}
+@media (max-width:700px){ .skipw{top:auto; bottom:calc(204px + env(safe-area-inset-bottom,0px)); gap:8px} .skip{font-size:14px; padding:12px 20px} .skip-h{font-size:11px} }
+/* status pill */
+.info .st, .cb-t .st{justify-self:start; display:inline-block; font-family:var(--mono); font-size:11px; letter-spacing:.02em; color:var(--cardink); background:rgba(var(--l),.22); border:1px solid rgba(var(--l),.55); border-radius:999px; padding:3px 10px; margin-top:-4px}
+.cb-t .st{font-size:15px; padding:5px 14px; color:var(--ink)}
+.cv.mob .cb-t .st{font-size:21px}
+/* phones: the card carries the title, so the panel caption goes */
+@media (max-width:700px){ .g-art .cap{display:none} .g-art .bd{padding-bottom:22px} }
+
+/* ABOUT */
+.info .kd{font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--cardink); margin-top:-6px}
+.cb-t .kd{font-family:var(--mono); font-size:17px; color:var(--ink); margin-top:-6px}
+.cv.mob .cb-t .kd{font-size:24px}
+.me{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:56px; align-items:center; padding-block:40px 24px; position:relative}
+.me-h{font-size:clamp(52px,7vw,104px); line-height:.9; letter-spacing:-.055em; margin-top:18px}
+.me-h span{display:block; font-family:var(--serif); font-size:.34em; letter-spacing:0; color:var(--dim); margin-top:14px}
+.me-role{font-size:clamp(20px,2vw,26px); margin-top:22px; letter-spacing:-.01em}
+.me-now{color:var(--dim); margin-top:10px; line-height:1.7}
+.me-bio{display:grid; gap:14px; margin-top:24px; max-width:58ch}
+.me .ct-row{margin-top:28px}
+.ct-btn.todo{opacity:.55; cursor:default}
+.me-bio p{font-size:16.5px; line-height:1.65; color:#3A3A3A}
+.me-pic{margin:0 clamp(24px,6vw,96px) 0 0; justify-self:end; width:clamp(200px,20vw,280px); position:relative}
+.me-pic::before{content:""; position:absolute; inset:8% -6% 0; border-radius:50%; background:radial-gradient(closest-side, rgba(255,140,90,.55), rgba(255,200,110,.35) 55%, transparent); filter:blur(30px); z-index:-1}
+.me-pic img{width:100%; -webkit-mask-image:linear-gradient(#000 82%, transparent); mask-image:linear-gradient(#000 82%, transparent)}
+.me-facts{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; margin-top:48px; padding-bottom:40px}
+.me-facts h3{font-weight:400; font-size:12px; color:var(--dim); padding-bottom:12px; border-bottom:1px solid var(--hair)}
+.me-facts ul{list-style:none; margin:0; padding:0}
+.me-facts li{display:flex; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px solid var(--hair); flex-wrap:wrap}
+.me-facts li b{font-weight:500; font-size:15.5px}
+.me-facts li span{color:var(--dim); font-size:14.5px}
+.me-facts section{min-width:0}
+.me-facts .me-freelance, .me-facts .me-papers, .me-facts .me-bg{margin-bottom:32px}
+.me-facts .me-freelance li, .me-facts .me-papers li{display:block}
+.me-freelance a, .me-papers a{display:grid; gap:5px; text-decoration:none; line-height:1.5; overflow-wrap:anywhere}
+.me-freelance a:hover b, .me-papers a:hover b{text-decoration:underline; text-underline-offset:4px}
+.me-freelance a:focus-visible, .me-papers a:focus-visible{outline:2px solid var(--ink); outline-offset:5px}
+.me-freelance small, .me-papers small{font-size:12.5px; color:var(--dim)}
+.me-hl{list-style:none; margin:28px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px; border-top:1px solid var(--ink); padding-top:18px}
+.me-hl b{display:block; font-family:var(--serif); font-weight:400; font-size:clamp(40px,4.4vw,64px); line-height:1}
+.me-hl span{display:block; color:var(--dim); font-size:14px; margin-top:6px}
+.me-sec{margin-top:64px}
+.me-sec > h3{font-weight:400; font-size:12px; color:var(--dim); padding-bottom:12px; border-bottom:1px solid var(--hair)}
+.me-exp{list-style:none; margin:0; padding:0}
+.me-exp li{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr) 170px; gap:24px; padding:16px 0; border-bottom:1px solid var(--hair); align-items:baseline}
+.me-exp li div b{display:block; font-weight:500; font-size:17px}
+.me-exp li div span{display:block; color:var(--dim); font-size:14.5px; margin-top:2px}
+.me-exp li p{font-size:15px; color:#3A3A3A}
+.me-exp time{color:var(--dim); text-align:right}
+.me-exp.edu li{grid-template-columns:minmax(0,1fr) auto}
+.me-two{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px}
+.me-sk div{display:grid; grid-template-columns:140px minmax(0,1fr); gap:16px; padding:14px 0; border-bottom:1px solid var(--hair)}
+.me-sk dt{font-weight:500; font-size:15px}
+.me-sk dd{margin:0; color:#3A3A3A; font-size:15px}
+@media (max-width:900px){
+  .me{grid-template-columns:1fr; gap:24px}
+  .me-pic{order:-1; justify-self:start; width:min(150px,40%); margin:0}
+  .me-facts{grid-template-columns:1fr; gap:28px}
+  .me-hl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .me-exp li{grid-template-columns:1fr; gap:6px}
+  .me-exp time{text-align:left}
+  .me-two{grid-template-columns:1fr; gap:0}
+  .me-sk div{grid-template-columns:1fr; gap:4px}
+}
+
+/* CASE · light paper */
+.case{position:fixed; inset:0; z-index:70; overflow-y:auto; overscroll-behavior:contain; background:var(--paper); color:var(--fg); opacity:0; visibility:hidden; transition:opacity .5s, visibility 0s .6s; color-scheme:light}
+.case.open{opacity:1; visibility:visible; transition:opacity .5s}
+.cs{padding:0 var(--gr) 0 var(--gl)}
+.cs-in{max-width:1180px; margin:0 auto}
+.cs-bar{position:sticky; top:0; z-index:3; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:calc(14px + env(safe-area-inset-top,0px)) 0 14px; background:var(--paper)}
+.cs-bar .mono{color:var(--muted); display:flex; align-items:center; gap:8px}
+.cs-bar .nav{display:flex; gap:6px}
+.cs-bar button{border:1px solid var(--line); border-radius:999px; height:36px; min-width:36px; padding:0 14px; font-family:var(--mono); font-size:12px}
+.cs-bar button:hover{background:var(--fg); color:var(--paper)}
+.cs-cover{margin:18px 0 0; border-radius:16px; overflow:hidden; background:#ddd}
+.cs-cover img{width:100%; aspect-ratio:2/1; object-fit:cover}
+.cs-head{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:40px; align-items:end; padding:48px 0 40px}
+.cs-head h1{font-size:clamp(56px,9vw,150px); line-height:.86; letter-spacing:-.065em}
+.cs-head .ln{font-family:var(--serif); font-size:clamp(26px,2.8vw,40px); line-height:1.1; margin-top:20px; max-width:20ch}
+.cs-meta div{display:grid; grid-template-columns:90px minmax(0,1fr); gap:12px; border-top:1px solid var(--line); padding:10px 0}
+.cs-meta dt{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); padding-top:3px}
+.cs-meta dd{font-size:15px}
+.cs-row{display:grid; grid-template-columns:220px minmax(0,1fr); gap:32px; padding:40px 0; border-top:1px solid var(--line)}
+.cs-row h4{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); font-weight:400}
+.cs-row .big{font-size:clamp(22px,2.4vw,32px); line-height:1.25; letter-spacing:-.02em; max-width:34ch}
+.cs-dec{list-style:none; margin:0; padding:0}
+.cs-dec li{display:grid; grid-template-columns:40px 140px minmax(0,1fr); gap:16px; padding:16px 0; border-bottom:1px solid var(--line); font-size:19px; align-items:baseline}
+.cs-dec li span{font-family:var(--mono); font-size:12px; color:var(--muted)}
+.cs-dec li b{font-weight:500; font-size:13px; font-family:var(--mono); color:#8A5A1E}
+.cs-st{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px}
+.cs-st b{display:block; font-family:var(--serif); font-weight:400; font-size:clamp(52px,6vw,92px); line-height:.9}
+.cs-st span{color:var(--muted); font-size:14px; display:block; margin-top:8px}
+.cs-lim{font-size:19px; max-width:52ch; border-left:2px solid #C48A3A; padding-left:16px}
+.cs-slots{display:grid; grid-template-columns:2fr 1fr; grid-auto-rows:180px; gap:12px}
+.cs-slots div{border:1px dashed rgba(22,21,20,.25); border-radius:14px; display:grid; place-items:center; font-family:var(--mono); font-size:12px; color:var(--muted); text-align:center; padding:8px}
+.cs-slots div:first-child{grid-row:span 2}
+.cs-live{font-family:var(--mono); font-size:13px; border-bottom:1px solid var(--fg); text-decoration:none; justify-self:start}
+.cs-next{display:grid; grid-template-columns:minmax(0,1fr) 220px; gap:24px; align-items:end; width:100%; text-align:left; padding:48px 0 120px; border-top:1px solid var(--line)}
+.cs-next small{font-family:var(--mono); font-size:12px; color:var(--muted)}
+.cs-next strong{display:block; font-weight:500; font-size:clamp(40px,6vw,96px); line-height:.9; letter-spacing:-.055em; transition:transform .6s var(--out)}
+.cs-next:hover strong{transform:translateX(16px)}
+.cs-next img{border-radius:10px; aspect-ratio:4/3; object-fit:cover}
+.case.open .rv{animation:rise 1s var(--out) both; animation-delay:calc(var(--d,0) * 70ms + 300ms)}
+@keyframes rise{from{opacity:0; transform:translateY(46px)}}
+.flip{position:fixed; z-index:95; object-fit:cover; pointer-events:none; transition:left .95s var(--ease), top .95s var(--ease), width .95s var(--ease), height .95s var(--ease), border-radius .95s var(--ease)}
+
+@media (max-width:1000px){
+  .rail{display:none}
+  .ab-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .caps .r{grid-template-columns:1fr; gap:10px}
+  .cs-head{grid-template-columns:1fr}
+  .cs-row{grid-template-columns:1fr; gap:14px}
+  .cs-st{grid-template-columns:1fr}
+  .cs-dec li{grid-template-columns:32px minmax(0,1fr)}
+  .cs-dec li b, .cs-dec li em{grid-column:2}
+  .cs-next{grid-template-columns:1fr}
+}
+@media (max-width:700px){
+  .top{grid-template-columns:1fr auto}
+  .where{display:none}
+  .brand em{display:none}
+  .info, .info.r, .info.l{background:rgba(255,255,255,.97); padding:14px 16px 16px; gap:8px; bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+  .info h2{font-size:32px}
+  .info .ln{font-size:14px}
+  .info dl div{grid-template-columns:72px minmax(0,1fr); padding:7px 0}
+  .info dd{font-size:13.5px}
+  .info .go{padding:9px 16px; font-size:13px}
+  .guide li{grid-template-columns:auto 26px minmax(0,1fr) auto; padding:8px 0; font-size:14px}
+  .guide li .f, .guide > p{display:none}
+  .info.guide{left:var(--gl); right:var(--gr); width:auto; bottom:calc(14px + env(safe-area-inset-bottom,0px)); padding:14px 16px}
+  .themes.lang button{padding:5px 9px}
+  .cv-chips{display:none}
+  .cv-hint{top:calc(58px + env(safe-area-inset-top,0px)); bottom:auto}
+  .cv-ctl button{min-width:30px; height:28px; padding:0 8px}
+  .cs-bar .rn, .cs-bar .lg{display:none}
+  .gal{perspective-origin:50% 34%}
+  .gal::before{background:radial-gradient(circle at 50% 34%, rgba(var(--fog),1) 0, rgba(var(--fog),.85) 5%, rgba(var(--fog),0) 22%)}
+  .info, .info.r, .info.l{left:var(--gl); right:var(--gr); width:auto; top:auto; bottom:calc(16px + env(safe-area-inset-bottom,0px)); transform:translateY(12px); padding:16px; gap:10px}
+  .info.show{transform:none}
+  .info h2{font-size:36px}
+  .info dl div:nth-child(1){display:none}
+  .info.roomc{left:var(--gl); right:var(--gr); width:auto; transform:translateY(10px)}
+  .info.roomc.show{transform:none}
+  .g-plan, .g-hint, .cv-map{display:none}
+  .cv-chips{top:calc(52px + env(safe-area-inset-top,0px))}
+  .ab-steps{grid-template-columns:1fr}
+  .cs-slots{grid-template-columns:1fr; grid-auto-rows:120px}
+  .cs-slots div:first-child{grid-row:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s !important; transition-duration:.001s !important}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#" id="brand">Katherine Lin <em data-t="brandEm">— selected work</em></a>
+  <span class="where mono" id="where"><span class="dot"></span><span id="whereT">Entrance</span></span>
+  <div class="hdr-r"><button type="button" class="snd" id="snd" aria-pressed="false" aria-label="Music"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="snd-l" id="sndL">Sound off</span></button>
+  <div class="themes lang" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="zh">中文</button></div></div>
+</header>
+
+<div class="intro" id="intro"><div class="c">
+  <p class="nm">Katherine Lin</p>
+  <div class="ln"><i id="inBar"></i></div>
+  <p class="lab mono" id="inLab">Lighting the gallery</p>
+</div></div>
+
+<nav class="rail" id="rail" aria-label="Map">
+  <button type="button" data-go="g0"><span data-t="railEntrance">Entrance</span><i></i></button>
+  <button type="button" data-go="r0"><span data-t="rail0">I · AI & trust</span><i></i></button>
+  <button type="button" data-go="r1"><span data-t="rail1">II · UX & recovery</span><i></i></button>
+  <button type="button" data-go="r2"><span data-t="rail2">III · Research</span><i></i></button>
+  <button type="button" data-go="board"><span data-t="board">The board</span><i></i></button>
+  <button type="button" data-go="tail"><span data-t="tail">Process & contact</span><i></i></button>
+</nav>
+
+<section class="mode gal on" id="gal" aria-label="Gallery walk">
+  <canvas class="g-room" id="gRoom" aria-hidden="true"></canvas>
+  <div class="glow" id="glowG" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="g-yaw" id="gYaw"><div class="g-cam" id="gCam"></div></div>
+  <div class="g-plan" aria-hidden="true"><div class="lb"><span>I</span><span>II</span><span>III</span><span data-t="planBoard">Board</span></div><div class="bar" id="planBar"></div></div>
+  <p class="g-hint mono" id="gHint" data-t="gHint">Scroll · one project at a time ↓</p>
+</section>
+
+<section class="mode cv" id="cv" aria-label="The board">
+  <div class="glow" id="glowC" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="cv-plane" id="cvPlane"></div>
+  <div class="cv-chips" id="cvChips"></div>
+  <div class="cv-edge topE" id="edgeTop"><span class="mono" data-t="edgeTop">Keep scrolling up · back to the gallery</span><div class="track"><i></i></div></div>
+  <div class="cv-edge bot" id="edgeBot"><div class="track"><i></i></div><span class="mono" data-t="edgeBot">Keep scrolling · turn the page</span></div>
+  <p class="cv-hint mono" id="cvHint" data-t="cvHint">Scroll to reveal the board ↓</p>
+  <div class="cv-ui"><div class="cv-map" id="cvMap" aria-hidden="true"></div>
+    <div class="cv-ctl"><button type="button" id="cvOut" aria-label="Zoom out">−</button><button type="button" id="cvFit" data-t="fit">Fit</button><button type="button" id="cvIn" aria-label="Zoom in">+</button></div></div>
+</section>
+
+<section class="mode tail" id="tail" aria-label="Process and contact"></section>
+
+<div class="info" id="info" aria-live="polite"></div>
+<div class="chapter" id="chapter" aria-live="polite"></div>
+<div class="skipw" id="skipw"><button type="button" class="skip" id="skip"><span data-t="skip">View all projects</span> <b aria-hidden="true">→</b></button><p class="skip-h mono" data-t="skipHint">or scroll to walk through the exhibition, one project at a time ↓</p></div>
+<div class="turn" id="turn"></div>
+<div class="case" id="case" role="dialog" aria-modal="true" aria-label="Case study"></div>
+<div class="cursor" id="cursor"><span id="curLab">View</span></div>
+
+<script>
+const IMG = "../../assets/previews/";
+const ROOMS = [{"n": "I", "name": "AI products", "short": "AI products", "l": "255,206,150", "look": "Products built around AI, from model choice to fallback and user control."}, {"n": "II", "name": "Experience design", "short": "Experience design", "l": "200,218,255", "look": "Product and UX work for clients and commissions: research, definition, prototyping and evaluation."}, {"n": "III", "name": "Research & data", "short": "Research & data", "l": "238,222,196", "look": "Academic research and data analysis that inform product decisions."}];
+const P = [{"id": "circleu", "room": 0, "feat": true, "title": "CircleU", "img": "circleu.jpg", "live": "https://katherine0292.github.io/CircleU/", "role": "Product lead (PM & UX): research, MVP scope, AI design, release", "tools": "", "stage": "Released on TestFlight · 6 installs, 143 sessions", "limit": "", "type": "On-device AI iOS app", "line": "A reflection and communication-practice app for difficult conversations, built on Apple's on-device foundation models.", "context": "Apple Foundation Program, Sydney · 5-person team, Apple mentors", "roleS": "Product lead (PM & UX): research, MVP scope, AI design, release", "stageS": "TestFlight 1.0 (first release): 6 installs, 143 sessions", "problem": "People who struggle to speak up replay difficult conversations without a plan for what to say next. CircleU connects recording, AI reflection and an AI coach in one loop that ends in wording the user can use.", "decisions": [["Scope", "Defined a 10-feature MVP with P0/P1 priorities; cut community and incentive modules"], ["AI", "Moved from cloud Gemini to on-device Foundation Models, with a rule-engine fallback and an input quality gate"], ["Trust", "Kept AI interpretation separate from the user's words; rewrites need confirmation and can be undone"]], "stats": [["6→9/10", "task completion after redesign"], ["20", "user interviews"], ["10", "usability tests"]]}, {"id": "wildling", "room": 0, "feat": false, "title": "Wildling", "img": "wildling-portfolio.webp", "live": "https://katherine0292.github.io/wildling/portfolio/", "role": "Sole designer and developer", "tools": "", "stage": "Live and playable · V3.1", "limit": "", "type": "Gesture-controlled AI pet · Freelance commission", "line": "A browser installation where visitors care for three kittens by hand gesture, and each kitten's decisions are explained in real time.", "context": "Independent commission from the project lead of a Sydney game and interaction exhibition", "roleS": "Sole designer and developer", "stageS": "Live · real-hand performance not yet measured", "problem": "In an unattended gallery, a visitor needs to know whether a response comes from the camera, the gesture or the character. Wildling separates tracking failure, unclear gesture and character refusal, so users can tell which layer a response comes from.", "decisions": [["Perception", "MediaPipe Hand Landmarker extracts 21 hand keypoints on the device"], ["Behaviour", "Hard constraints and utility scoring choose actions from five needs"], ["Explanation", "The MIND panel reads the same decision record the behaviour layer writes"]], "stats": [["123", "deterministic replay tests"], ["3", "failure layers separated"], ["23", "decision records"]], "play": "https://katherine0292.github.io/wildling/"}, {"id": "transfer-coach", "room": 1, "feat": true, "title": "Transfer Coach", "img": "transfer-coach.webp", "live": "https://katherine0292.github.io/Transfer-Coach/portfolio/", "role": "UX researcher: interviews, usability testing, heuristic evaluation", "tools": "", "stage": "38-screen hi-fi prototype delivered to the client", "limit": "", "type": "Transit app UX redesign · Freelance commission", "line": "A decision layer for multi-transfer commutes: will I make the connection, and what do I do if I won't?", "context": "Independent commission for TripView, Sydney, 2026", "roleS": "UX researcher and interaction designer (solo): research, concept, prototype, evaluation", "stageS": "38-screen prototype delivered · sample data, no live feed", "problem": "Commuters making two or more transfers face uncertainty when a service runs late. A route planned at home cannot answer: Can I catch it? Will I arrive on time? What should I do now?", "decisions": [["Delay", "An explicit delayed state with old time, new time and arrival impact"], ["Clarity", "Backup options ranked by arrival time and safety margin"], ["Recovery", "Choosing an alternative starts guidance immediately"]], "stats": [["7", "moderated usability sessions"], ["3", "evaluation methods"], ["8/13", "recommendations fully implemented"]]}, {"id": "foodsense", "room": 1, "feat": false, "title": "FoodSense", "img": "foodsense.jpg", "live": "https://katherine0292.github.io/FoodSense/", "role": "UI/UX designer: core flows, interaction, prototypes", "tools": "", "stage": "25 iOS states · 3 clickable prototypes", "limit": "", "type": "AI food-recognition app · Freelance commission", "line": "An iOS app that turns fridge-camera detections into a confirmed inventory and a meal the household can cook.", "context": "Independent client commission; client not named in the public materials", "roleS": "UI/UX designer: interaction, visual design, prototypes", "stageS": "Interactive prototype · detection data simulated", "problem": "In shared households, groceries get hidden and manual inventory becomes a chore. FoodSense focuses on one decision: confirm what is available, see what to use first, and choose a meal that fits.", "decisions": [["Review", "AI detections arrive as a draft that the user confirms or corrects"], ["Action", "“Use first” links ingredients directly to feasible recipes"], ["Integrity", "Later scans never overwrite manual corrections"]], "stats": [["25", "iOS design states"], ["4", "core flows"], ["3", "clickable prototypes"]]}, {"id": "musictag", "room": 1, "feat": false, "title": "MusicTag", "img": "musictag.webp", "live": "https://katherine0292.github.io/MusicTag/", "role": "UX designer: interviews, personas, Ease Mode, usability testing", "tools": "", "stage": "Browser prototype · 24 design states", "limit": "", "type": "Music experience for adults 65+ · University–industry project", "line": "A simplified phone interface paired with a tactile remote, designed so older listeners can find and play familiar music on their own.", "context": "University–industry collaboration with Spotify", "roleS": "UX and interaction design: research, prototype, voice spec, evaluation plan", "stageS": "Interactive prototype · voice and Bluetooth simulated · usability study planned", "problem": "Listening routines break when saved songs are hard to find, controls change, or a voice request is misunderstood.", "decisions": [["Navigation", "A stable home, library and pinned favourites"], ["Voice", "Voice suggests matches; the listener confirms before playback"], ["Hardware", "A 5-button tactile remote handles playback and volume"]], "stats": [["24", "iOS design states"], ["6", "listening journeys"], ["8", "voice states defined"]]}, {"id": "hci-research", "room": 2, "feat": true, "title": "HCI Research", "img": "hci-research.jpg", "live": "https://katherine0292.github.io/HCI-Research/", "role": "Lead researcher: framing, interviews, analysis, probe design", "tools": "", "stage": "Two study phases complete · evaluation plan proposed", "limit": "", "type": "HCI paper research · Field study", "line": "A two-phase HCI study of how people keep track of belongings and resume interrupted routines, with design implications.", "context": "HCI paper research in an academic setting, 2026 · Project: Remembering in Motion", "roleS": "Lead researcher: framing, interviews, analysis, probe design", "stageS": "Two study phases complete · evaluation plan proposed", "problem": "The study separates losing an object's location from losing progress on an unfinished task, and identifies which cues help people recover.", "decisions": [["Method", "Semi-structured interviews and affinity analysis"], ["Field", "A two-week in-context probe using messages, voice notes and photos"], ["Output", "Evidence-linked design hypotheses and an evaluation plan"]], "stats": [["15", "participants"], ["356", "coded entries"], ["6", "themes"]]}, {"id": "who-said-what-when", "room": 2, "feat": false, "title": "Data Benchmark", "img": "who-said-what-when-benchmark.png", "live": "https://katherine0292.github.io/who-said-what-when-benchmark/", "role": "Task design, annotation workflow, validation and scoring tools", "tools": "", "stage": "25 items · 178 annotated turns", "limit": "", "type": "Research paper · Audio AI benchmark", "line": "An audio question-answering evaluation pilot that tests whether systems get the speaker, meaning and time evidence right.", "context": "Research paper forthcoming · Corresponding author · Project: Who Said What When", "roleS": "Corresponding author · task design, annotation, data validation and scoring tools", "stageS": "Evaluation pilot · independent listening review pending", "problem": "An answer can sound right while crediting the wrong speaker or citing the wrong passage. The benchmark scores speaker, meaning and supporting time intervals together.", "decisions": [["Annotation", "Two-round workflow: speaker turns first, then questions and evidence"], ["Metric", "Temporal IoU over the union of supporting intervals"], ["Pass", "Joint Pass requires speaker, time and meaning to be correct"]], "stats": [["25", "pilot items"], ["178", "conversation turns"], ["3", "scored dimensions"]]}, {"id": "data-visualisation", "room": 2, "feat": false, "title": "Data Visualisation", "img": "data-visualisation.png", "live": "https://katherine0292.github.io/Data-Visualisation/portfolio/", "role": "Data analysis, visualisation and storytelling, end to end", "tools": "", "stage": "6 figures · 19-slide story · short film", "limit": "", "type": "Data visualisation & storytelling · Freelance commission", "line": "A data-driven story that turns international-student enrolment data into decisions a prospective student can act on.", "context": "Independent commission for Harbourline Education Consulting · Project: The Price of Arrival", "roleS": "Data analysis, visualisation and storytelling, end to end", "stageS": "6 figures · 19-slide story · short film", "problem": "A record-enrolment headline says little about a student's intake, campus or budget. The story is structured around the decisions a persona has to make.", "decisions": [["Metrics", "Separated total enrolments from new commencements"], ["Integrity", "Replaced a Sankey diagram the data could not support"], ["Scope", "Removed a budget calculator that CPI data could not back"]], "stats": [["5", "public datasets"], ["6", "figures"], ["19", "story slides"]]}];
+const CAPS = [];
+
+const $ = (s,r=document) => r.querySelector(s);
+const $$ = (s,r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const clamp = (v,a=0,b=1) => Math.max(a, Math.min(b, v));
+const lerp = (a,b,t) => a + (b-a)*t;
+const eio = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+const pad = n => String(n).padStart(2,"0");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const fine = matchMedia("(pointer:fine)").matches;
+const idx = id => P.findIndex(p => p.id === id);
+const L = p => ROOMS[p.room].l;
+let mode = "gal", caseIdx = -1, introDone = false;
+const THEMES = {
+  dark:{rooms:["255,206,150","200,218,255","238,222,196"], pool:null,
+    c:{bg:"#1A1816", ceil:["#121110"], wall:["#24211E"], floor:["#191816"], runway:"#211F1C", base:"rgba(255,222,176,.05)", baseLine:"rgba(255,222,176,.28)", strip:"rgba(255,222,176,.30)", joint:"255,255,255", jointA:.05, fog:["24,22,20"]}},
+  light:{rooms:["205,120,60","70,110,215","150,118,70"], pool:"255,214,160",
+    c:{bg:"#E6E3DE", ceil:["#F3F1ED"], wall:["#E7E3DD"], floor:["#DCD7CF"], runway:"#D3CDC4", base:"rgba(255,255,255,.5)", baseLine:"rgba(255,255,255,.95)", strip:"rgba(255,255,255,.9)", joint:"0,0,0", jointA:.06, fog:["236,234,230"]}},
+  vivid:{rooms:["255,90,54","43,68,255","255,184,28"], pool:"255,255,255",
+    c:{bg:"#FF5A36", ceil:["#B83418","#1626A8","#C98A00"], wall:["#FF5A36","#2B44FF","#FFB81C"], floor:["#E04524","#1E33D6","#EBA200"], runway:"rgba(255,255,255,.10)", base:"rgba(255,255,255,.12)", baseLine:"rgba(255,255,255,.6)", strip:"rgba(255,255,255,.65)", joint:"255,255,255", jointA:.10, fog:["255,90,54","43,68,255","255,184,28"]}},
+  aura:{rooms:["240,95,60","235,90,120","225,150,30"], pool:null, aura:[["255,110,80","255,205,85","255,150,70"],["255,105,140","255,185,120","255,140,110"],["255,180,60","255,228,120","255,150,80"]],
+    c:{bg:"#EFEFEF", ceil:["#F3F3F3"], wall:["#ECECEC"], floor:["#E7E7E7"], runway:"#E2E2E2", base:"rgba(255,255,255,.6)", baseLine:"rgba(255,255,255,.95)", strip:"rgba(255,255,255,.9)", joint:"0,0,0", jointA:.035, fog:["239,239,239"]}}
+};
+let TH = THEMES.dark;
+const pick = (arr, i) => arr[Math.min(i, arr.length - 1)];
+
+/* ═════════ language ═════════ */
+let LANG = "en";
+const NUM_ZH = {I:"一", II:"二", III:"三"};
+const STR = {
+  en:{brandEm:"— portfolio", railEntrance:"Entrance", rail0:"I · AI products", rail1:"II · Experience design", rail2:"III · Research & data", board:"All projects", tail:"About",
+    planBoard:"All", skip:"View all projects", skipHint:"or scroll to walk through the exhibition, one project at a time ↓", gHint:"Scroll · one project at a time ↓", edgeTop:"Keep scrolling up · back to the gallery", edgeBot:"Keep scrolling · About", cvHint:"Scroll to see all projects ↓", fit:"Fit",
+    entrance:"Entrance", room:n => n, ROOM:n => n, works:k => `${k} projects`, WORKS:k => `${k} PROJECTS`, featured:"Key project", FEATURED:"KEY PROJECT",
+    guide:"Portfolio guide", guideFoot:"Scroll to move through the projects. All projects are summarised on one board at the end.",
+    type:"Type", context:"Context", role:"My role", roleShort:"Role", stage:"Status", open:"View project ↗", play:"Play it ↗", openShort:"Open ↗",
+    eyebrow:"AI PRODUCT & EXPERIENCE · SYDNEY", sub:"I turn user research into working AI product experiences,<br class='dt'> with a focus on uncertainty, error recovery and user control.",
+    bEyebrow:"AI product & experience · Sydney", bH1:"Katherine Lin<br><em>AI product manager.</em>",
+    bLead:"I lead products from user research and definition through to testing and release, with a focus on AI experiences that people can trust. Eight projects, grouped by type.", bGo:"See all projects ↓",
+    endLabel:"END OF PROJECTS", endText:"About me ↓", top:"Top", toTail:"About ↓",
+    back:"↑ Back to all projects", intro1:"Loading portfolio", intro2:"Interrupted at 62% · resuming", intro3:"Eight projects · three categories",
+    aboutEyebrow:"About", aboutRole:"AI product & experience",
+    aboutNow:"Master of Interaction Design (HCI), University of Technology Sydney",
+    bio:["Katherine Lin works across AI product and experience design, from user research and requirements to testing and release. As product lead for CircleU in the Apple Foundation Program, she took an on-device AI iOS app from a 20-person study to TestFlight. Her freelance commissions span AI interaction, accessible experiences and data storytelling, from research and requirements to working prototypes. She is completing a Master of Interaction Design (HCI) at UTS and builds working prototypes in SwiftUI, JavaScript and Python."],
+    freelanceH:"Freelance · Independent commissions", clientLabel:"Client",
+    freelance:[
+      ["wildling","Gesture-controlled AI pet · Design & development","Project lead, Sydney game and interaction exhibition"],
+      ["foodsense","AI food-recognition app · UI/UX & prototyping","Not named in the public materials"],
+      ["transfer-coach","Transit app · UX research & interaction design","TripView"],
+      ["data-visualisation","Data visualisation & interactive storytelling","Harbourline Education Consulting"]
+    ],
+    paperH:"Papers & research",
+    papers:[["hci-research","HCI paper research · Lead researcher","Interviews, field study and analysis"],["who-said-what-when","Audio AI benchmark paper · Corresponding author","Paper forthcoming · benchmark pilot"]],
+    bgH:"Programme & work experience", eduH:"Education", resume:"Resume ↗", resumeTodo:"Resume link coming soon",
+    bg:[["Spotify · University–industry project","UX & interaction design, MusicTag"],["Apple Foundation Program","Product lead, CircleU"],["Cider","Product & operations"],["Shopee","Market research"],["Publicis Luxe","Brand strategy"]],
+    edu:[["University of Technology Sydney","Master of Interaction Design (HCI) · 2026 – 2027"],["Macao University of Tourism","Bachelor of Convention and Event Management · 2021 – 2025"]],
+    contact:"Contact", ctH:"Let’s talk.", touch:"Get in touch", again:"View the portfolio again ↺", foot:"AI product & experience"},
+  zh:{brandEm:"— 作品集", railEntrance:"入口", rail0:"一 · AI 产品", rail1:"二 · 体验设计", rail2:"三 · 研究与数据", board:"全部项目", tail:"关于我",
+    planBoard:"全部", skip:"查看全部项目", skipHint:"或向下滑动，逐件浏览展览 ↓", gHint:"滑动 · 一次一个项目 ↓", edgeTop:"继续上滑 · 回到展厅", edgeBot:"继续下滑 · 关于我", cvHint:"下滑查看全部项目 ↓", fit:"适应",
+    entrance:"入口", room:n => NUM_ZH[n], ROOM:n => NUM_ZH[n], works:k => `${k} 个项目`, WORKS:k => `${k} 个项目`, featured:"重点项目", FEATURED:"重点项目",
+    guide:"作品集导览", guideFoot:"滑动依次浏览项目，最后所有项目会汇总在一块展板上。",
+    type:"类型", context:"背景", role:"我的职责", roleShort:"职责", stage:"进度", open:"查看项目 ↗", play:"在线试玩 ↗", openShort:"打开 ↗",
+    eyebrow:"AI 产品与体验 · 悉尼", sub:"我将用户研究转化为可运行的 AI 产品体验，<br class='dt'>关注不确定性、纠错与用户掌控。",
+    bEyebrow:"AI 产品与体验 · 悉尼", bH1:"Katherine Lin<br><em>AI 产品经理</em>",
+    bLead:"我负责产品从用户研究、需求定义到测试与发布的完整过程，专注于让用户可以信任的 AI 体验。以下八个项目按类型分组。", bGo:"查看全部项目 ↓",
+    endLabel:"项目到此结束", endText:"关于我 ↓", top:"顶部", toTail:"关于我 ↓",
+    back:"↑ 回到全部项目", intro1:"正在加载作品集", intro2:"加载在 62% 处中断 · 正在恢复", intro3:"八个项目 · 三个类别",
+    aboutEyebrow:"关于我", aboutRole:"AI 产品与体验",
+    aboutNow:"悉尼科技大学 交互设计硕士（HCI 方向）在读",
+    bio:["林尚澄（Katherine）专注 AI 产品与体验，覆盖用户研究、需求定义、测试到发布的全过程。她在 Apple Foundation Program 担任 CircleU 产品负责人，把一款端侧 AI iOS 应用从 20 人用户研究推进到 TestFlight 发布。她也独立承接 AI 交互、无障碍体验与数据叙事委托，将研究与需求转化为可运行原型。她目前就读于悉尼科技大学交互设计硕士（HCI 方向），能用 SwiftUI、JavaScript 和 Python 搭建可运行的原型。"],
+    freelanceH:"Freelance · 独立委托项目", clientLabel:"委托方",
+    freelance:[
+      ["wildling","手势交互 AI 宠物 · 产品设计与开发","悉尼游戏与交互展览项目负责人"],
+      ["foodsense","AI 食物识别 App · UI/UX 与原型","公开材料未具名"],
+      ["transfer-coach","出行 App · UX 研究与交互设计","TripView"],
+      ["data-visualisation","数据可视化与交互叙事","Harbourline Education Consulting"]
+    ],
+    paperH:"论文与研究经历",
+    papers:[["hci-research","HCI 论文研究 · 主研究者","访谈、田野研究与分析"],["who-said-what-when","音频 AI Benchmark 论文 · 通讯作者","论文即将发表 · 评测试点"]],
+    bgH:"项目与工作经历", eduH:"教育背景", resume:"简历 ↗", resumeTodo:"简历链接即将补充",
+    bg:[["Spotify · 校企合作（MusicTag）","UX 研究与交互设计"],["Apple Foundation Program","CircleU 产品负责人"],["Cider","产品与运营"],["Shopee","市场研究"],["阳狮集团 Publicis Luxe","品牌策略"]],
+    edu:[["悉尼科技大学（UTS）","交互设计硕士（HCI 方向）· 2026 – 2027"],["澳门旅游大学","会展管理本科 · 2021 – 2025"]],
+    contact:"联系", ctH:"期待交流。", touch:"联系我", again:"重新浏览作品集 ↺", foot:"AI 产品与体验"}
+
+};
+let T = STR.en;
+const ROOMS_ZH = [{"name": "AI 产品", "short": "AI 产品", "look": "以 AI 为核心的产品：从模型选型到降级、纠错与用户掌控。"}, {"name": "体验设计", "short": "体验设计", "look": "面向客户与委托方的产品与体验设计：研究、定义、原型与评估。"}, {"name": "研究与数据", "short": "研究与数据", "look": "学术研究与数据分析，为产品决策提供依据。"}];
+const CAPS_ZH = [];
+const P_ZH = {"circleu": {"type": "端侧 AI iOS 应用", "line": "面向“困难对话”的反思与表达练习 App，基于 Apple 端侧大模型。", "context": "Apple Foundation Program（悉尼）· 5 人团队，Apple 导师指导", "roleS": "产品负责人（PM & UX）：用户研究、MVP 定义、AI 方案、发布", "stageS": "TestFlight 1.0（首个版本）：6 次安装、143 次会话", "problem": "不善表达的用户会反复回想困难对话，却不知道下一句怎么说。CircleU 把记录、AI 反思和 AI 教练串成闭环，最终给出可以直接使用的措辞。", "decisions": [["范围", "定义 10 项功能的 MVP 并按 P0/P1 分级，砍掉社区与激励模块"], ["AI", "从云端 Gemini 迁移至端侧 Foundation Models，设计本地规则引擎降级与输入质量门控"], ["信任", "AI 解读与用户原话分离，改写需确认且可撤销"]], "stats": ["改版后任务完成数（10 人）", "场用户访谈", "场可用性测试"], "limit": ""}, "wildling": {"type": "手势交互 AI 宠物 · 独立委托", "line": "浏览器互动装置：用手势照顾三只小猫，每只小猫的决策都会实时解释。", "context": "委托方：悉尼游戏与交互展览项目负责人；独立设计与开发", "roleS": "独立设计与开发", "stageS": "已上线 · 真实手势表现待测", "problem": "在无人引导的展厅里，参观者需要知道回应来自摄像头、手势还是角色本身。Wildling 区分追踪失败、手势不明确与角色拒绝，帮助用户理解回应来自哪一层。", "decisions": [["感知层", "MediaPipe Hand Landmarker 在本机提取 21 个手部关键点"], ["行为层", "基于五项需求，以硬约束与 utility 打分选择行为"], ["解释层", "MIND 面板读取行为层写入的同一份决策记录"]], "stats": ["个确定性回放测试", "层失败原因区分", "条决策记录"], "limit": ""}, "foodsense": {"type": "AI 食物识别 App · 独立委托", "line": "把冰箱摄像头的识别结果变成经确认的库存，以及一道家里能做的菜。", "context": "独立承接的客户委托；公开材料未具名委托方", "roleS": "UI/UX 设计：交互、视觉与原型", "stageS": "交互原型 · 识别数据为模拟", "problem": "合住家庭里食材常被遮挡，手动记库存又成了负担。FoodSense 聚焦一个决定：确认现有食材，看清哪些该先用，选一道能做的菜。", "decisions": [["确认", "AI 识别结果以草稿形式出现，由用户确认或纠正"], ["行动", "“优先使用”直接关联可做的菜谱"], ["一致性", "后续扫描不会覆盖用户的手动修改"]], "stats": ["个 iOS 设计状态", "条核心流程", "个可点击原型"], "limit": ""}, "transfer-coach": {"type": "出行 App 体验改造 · 独立委托", "line": "面向多次换乘通勤的决策层：能否赶上换乘？赶不上时下一步怎么做？", "context": "委托方：TripView（悉尼），2026；独立承接", "roleS": "UX 研究与交互设计（独立完成）：研究、概念、原型与评估", "stageS": "38 屏原型已交付 · 示例数据，未接入实时数据", "problem": "两次以上换乘的通勤者在晚点时充满不确定。出发前规划好的路线回答不了：赶得上吗？能准时到吗？现在该怎么办？", "decisions": [["延误", "明确的延误状态：原时间、新时间与对到达的影响"], ["清晰", "备选方案按到达时间与安全余量排序"], ["恢复", "选中备选路线后立即开始引导"]], "stats": ["场有主持的可用性测试", "种评估方法", "条建议已完全落实"], "limit": ""}, "musictag": {"type": "65+ 音乐体验 · 校企合作", "line": "简化的手机界面搭配实体遥控器，帮助老年人自己找到并播放熟悉的音乐。", "context": "与 Spotify 合作的校企项目", "roleS": "UX 与交互设计：研究、原型、语音规范、评估计划", "stageS": "交互原型 · 语音与蓝牙为模拟 · 可用性测试待开展", "problem": "当收藏的歌难以找到、操作方式改变或语音请求被误解时，老年人的听歌习惯就会中断。", "decisions": [["导航", "稳定的首页、曲库与置顶收藏"], ["语音", "语音给出候选，播放前由用户确认"], ["硬件", "5 键实体遥控器负责播放与音量"]], "stats": ["个 iOS 设计状态", "条听歌旅程", "个语音状态"], "limit": ""}, "hci-research": {"type": "HCI 论文研究 · 田野研究", "line": "两阶段 HCI 研究：人们如何记住随身物品、如何在被打断后恢复日常流程，并提出设计启示。", "context": "学术场景下的 HCI 论文研究，2026 · 项目名：Remembering in Motion", "roleS": "主研究者：问题框定、访谈、分析、探针设计", "stageS": "两阶段研究完成 · 已提出评估方案", "problem": "研究区分“找不到东西”和“忘了做到哪”两类问题，并找出哪些线索能帮助人们恢复。", "decisions": [["方法", "半结构化访谈与亲和图分析"], ["田野", "两周情境探针：消息、语音与照片记录"], ["产出", "有证据支撑的设计假设与评估方案"]], "stats": ["位参与者", "条编码", "个主题"], "limit": ""}, "who-said-what-when": {"type": "论文研究 · 音频 AI 评测", "line": "音频问答评测试点：检验系统能否同时答对说话人、语义和时间证据。", "context": "论文即将发表 · 通讯作者 · 项目名：Who Said What When", "roleS": "通讯作者 · 任务设计、标注流程、数据校验与评分工具", "stageS": "评测试点 · 待独立听审", "problem": "回答可能听起来正确，却张冠李戴或引用了错误片段。这个 Benchmark 把说话人、语义和时间证据放在一起评分。", "decisions": [["标注", "两轮流程：先标说话轮次，再写问题与证据"], ["指标", "在支撑区间的并集上计算时间 IoU"], ["通过", "说话人、时间、语义全部正确才算 Joint Pass"]], "stats": ["条试点样本", "个对话轮次", "个评分维度"], "limit": ""}, "data-visualisation": {"type": "数据可视化与叙事 · 独立委托", "line": "把国际学生入学数据转化为准留学生可以据此行动的决策。", "context": "委托方：Harbourline Education Consulting；独立承接 · 项目名：The Price of Arrival", "roleS": "数据分析、可视化与叙事，端到端负责", "stageS": "6 张图表 · 19 页叙事 · 短片", "problem": "“入学人数创新高”的标题说明不了具体的入学批次、校区和预算。叙事围绕一位用户画像需要做的决定展开。", "decisions": [["口径", "区分在读总人数与新入学人数"], ["严谨", "替换掉数据无法支撑的桑基图"], ["范围", "删除 CPI 数据无法支撑的预算计算器"]], "stats": ["个公开数据集", "张图表", "页叙事幻灯片"], "limit": ""}};
+let EN = null;
+/* Paste the resume URL here; until then the button shows that the link is coming. */
+const RESUME_URL = "";
+/* Each project site remembers its language in its own storage key and reads no URL parameter.
+   Pages on katherine0292.github.io share one storage origin, so writing the key just before
+   opening the link makes the project open in the visitor's language. ?lang= is added as well
+   for sites that may read it later. */
+const SITE_LANG_KEY = {"circleu":"cu-lang2", "wildling":"wl-lang", "musictag":"tlr-lang", "transfer-coach":"tc-lang", "foodsense":"fs-lang",
+  "hci-research":"rim-lang", "data-visualisation":"poa-lang", "who-said-what-when":"wswPreferredLanguage"};
+function plink(p, kind){
+  const u = new URL(kind === "play" ? p.play : p.live);
+  u.searchParams.set("lang", LANG);
+  return u.href;
+}
+function linkAttrs(p, kind){ return `href="${plink(p, kind)}" target="_blank" rel="noopener" data-p="${p.id}" data-kind="${kind || "live"}"`; }
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-p]"); if (!a) return;
+  const k = SITE_LANG_KEY[a.dataset.p];
+  if (k) try { localStorage.setItem(k, LANG); } catch(_){}
+}, true);
+function setLangData(){
+  if (!EN) EN = {P:P.map(p => ({line:p.line, type:p.type, context:p.context, roleS:p.roleS, stageS:p.stageS, problem:p.problem, decisions:p.decisions, stats:p.stats, limit:p.limit})),
+    R:ROOMS.map(r => ({name:r.name, short:r.short, look:r.look})), C:CAPS.map(c => c[0])};
+  P.forEach((p, i) => { const e = EN.P[i];
+    if (LANG === "zh"){ const z = P_ZH[p.id]; Object.assign(p, z, {stats:e.stats.map((s, k) => [s[0], z.stats[k]])}); }
+    else Object.assign(p, e); });
+  ROOMS.forEach((r, i) => Object.assign(r, LANG === "zh" ? ROOMS_ZH[i] : EN.R[i]));
+  CAPS.forEach((c, i) => c[0] = LANG === "zh" ? CAPS_ZH[i] : EN.C[i]);
+}
+function applyStatic(){
+  document.documentElement.lang = LANG === "zh" ? "zh-Hans" : "en";
+  $$("[data-t]").forEach(el => { const v = T[el.dataset.t]; if (typeof v === "string") el.innerHTML = v; });
+  $$(".lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === LANG));
+}
+
+/* ───────── shared: case page ───────── */
+function caseHTML(i){
+  const p = P[i], n = P[(i+1)%P.length], r = ROOMS[p.room];
+  return `<div class="cs"><div class="cs-in">
+  <div class="cs-bar"><span class="mono" style="--l:${r.l}"><span class="dot"></span><span class="rn">${esc(r.name)} · </span>${pad(i+1)} / 08</span>
+    <div class="nav"><button type="button" data-cgo="${(i+7)%8}" aria-label="Previous project">←</button><button type="button" data-cgo="${(i+1)%8}" aria-label="Next project">→</button><button type="button" data-close><span class="lg">Back · Esc</span><span class="sm">Close</span></button></div></div>
+  <figure class="cs-cover"><img src="${IMG+p.img}" alt="${esc(p.title)}"></figure>
+  <header class="cs-head"><div><h1 class="rv">${esc(p.title)}</h1><p class="ln rv" style="--d:1">${esc(p.line)}</p></div>
+    <dl class="cs-meta rv" style="--d:2"><div><dt>Type</dt><dd>${esc(p.type)}</dd></div><div><dt>Context</dt><dd>${esc(p.context)}</dd></div><div><dt>Role</dt><dd>${esc(p.role)}</dd></div><div><dt>Tools</dt><dd>${esc(p.tools)}</dd></div><div><dt>Stage</dt><dd>${esc(p.stage)}</dd></div></dl></header>
+  <section class="cs-row rv" style="--d:3"><h4>01 · Problem</h4><p class="big">${esc(p.problem)}</p></section>
+  <section class="cs-row rv" style="--d:4"><h4>02 · Decisions</h4><ol class="cs-dec">${p.decisions.map((d,k)=>`<li><span>${pad(k+1)}</span><b>${esc(d[0])}</b><em style="font-family:var(--sans);font-style:normal">${esc(d[1])}</em></li>`).join("")}</ol></section>
+  <section class="cs-row rv" style="--d:5"><h4>03 · Evidence</h4><div class="cs-st">${p.stats.map(s=>`<div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join("")}</div></section>
+  <section class="cs-row rv" style="--d:6"><h4>04 · Not yet proven</h4><p class="cs-lim">${esc(p.limit)}</p></section>
+  <section class="cs-row rv" style="--d:7"><h4>05 · Media slots</h4><div style="display:grid;gap:16px"><div class="cs-slots"><div>Prototype film<br>16:9 autoplay, muted</div><div>Before / after</div><div>Process wall</div></div><a class="cs-live" href="${p.live}" target="_blank" rel="noopener">Open the live project ↗</a></div></section>
+  <button class="cs-next" type="button" data-cgo="${(i+1)%8}"><span><small>Next work · Room ${ROOMS[n.room].n}</small><strong>${esc(n.title)} →</strong></span><img src="${IMG+n.img}" alt=""></button>
+  </div></div>`;
+}
+function openCase(i, rect){
+  caseIdx = i; const c = $("#case");
+  c.innerHTML = caseHTML(i); c.scrollTop = 0;
+  document.documentElement.classList.add("case-open"); cursor(false); $("#info").classList.remove("show");
+  requestAnimationFrame(() => {
+    c.classList.add("open");
+    const cover = $(".cs-cover img", c);
+    if (rect && !reduce){
+      cover.style.opacity = 0; const r2 = cover.getBoundingClientRect();
+      const fl = new Image(); fl.src = IMG + P[i].img; fl.className = "flip"; fl.alt = "";
+      Object.assign(fl.style, {left:rect.left+"px", top:rect.top+"px", width:rect.width+"px", height:rect.height+"px", borderRadius:"6px"});
+      document.body.appendChild(fl); fl.getBoundingClientRect();
+      Object.assign(fl.style, {left:r2.left+"px", top:r2.top+"px", width:r2.width+"px", height:r2.height+"px", borderRadius:"16px"});
+      setTimeout(() => { cover.style.opacity = 1; fl.remove(); }, 980);
+    }
+    setTimeout(() => $("[data-close]", c)?.focus({preventScroll:true}), 60);
+  });
+}
+function closeCase(){ if (caseIdx < 0) return; $("#case").classList.remove("open"); document.documentElement.classList.remove("case-open"); caseIdx = -1; G.dirty = true; }
+$("#case").addEventListener("click", e => {
+  const g = e.target.closest("[data-cgo]"); if (g){ caseIdx = +g.dataset.cgo; $("#case").innerHTML = caseHTML(caseIdx); $("#case").scrollTop = 0; return; }
+  if (e.target.closest("[data-close]")) closeCase();
+});
+
+/* cursor */
+const curEl = $("#cursor"); let mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my, mouseMoved = 0;
+addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; mouseMoved = performance.now(); }, {passive:true});
+function cursor(big, label){ curEl.classList.toggle("big", !!big); if (label) $("#curLab").textContent = label; }
+const hoverCursor = (el, label) => { el.addEventListener("pointerenter", () => cursor(true, label)); el.addEventListener("pointerleave", () => cursor(false)); };
+
+/* ═════════ 1 · GALLERY ═════════ */
+const PERS = 1000, HW = 1000, CH = 860, FLOOR = CH/2, PANEL_BOTTOM = 290, SEGLEN = 1600;
+let ITEMS = [], GLEN = 0;
+function galPlan(){
+  const mob = innerWidth < 700; ITEMS = []; let Z = 600, g = 0;
+  ITEMS.push({k:"entrance", Z, D: mob ? 2150 : 1650, x:0, yaw:0});
+  Z += 1500;
+  ROOMS.forEach((r, ri) => {
+    r.Z = Z; Z += ri ? 900 : 1100;
+    P.forEach((p, i) => { if (p.room !== ri) return;
+      const side = g++ % 2 ? 1 : -1; p.side = side; p.px = mob ? 0 : side * (p.feat ? 320 : 380); p.Z = Z; p.w = p.feat ? 620 : 520;
+      ITEMS.push({k:"panel", i, Z, D: mob ? (p.feat ? 1800 : 1600) : (p.feat ? 1200 : 1100), x:p.px * .25, yaw: mob ? 0 : side * 2.5}); Z += 1400; });
+    Z += 200;
+  });
+  GLEN = Z + 1600;
+  ITEMS.forEach(it => it.cz = it.Z - it.D + PERS);
+}
+function galBuild(){
+  galPlan();
+  const plane = (cls, w, h, tf, extra="") => `<div class="${cls}" style="width:${w}px;height:${h}px;margin:${-h/2}px 0 0 ${-w/2}px;transform:${tf};${extra}"></div>`;
+  let s = "";
+  // the corridor is built from short segments so the browser never paints one enormous layer
+  s += `<div class="g-title" data-z="600" style="transform:translate3d(0,-250px,-600px)"><p class="mono">${T.eyebrow}</p><h1>Katherine<br class="mb"> Lin</h1><p class="s">${T.sub}</p></div>`;
+  if (TH.aura){ const a = TH.aura[0]; s += `<div class="g-aura" data-z="700" style="--a1:${a[0]};--a2:${a[1]};--a3:${a[2]};transform:translate3d(0,-120px,-1100px) scale(1.4)"></div>`; }
+  s += `<div class="g-fix" data-z="700" style="--l:var(--warm);transform:translate3d(0,${-FLOOR+2}px,-700px) rotateX(-90deg)"></div><div class="g-pool" data-z="700" style="--l:var(--warm);transform:translate3d(0,${FLOOR-1}px,-700px) rotateX(90deg)"></div>`;
+  ROOMS.forEach((r, ri) => {
+    s += `<div class="g-fix" data-z="${r.Z}" style="--l:${TH.pool || r.l};transform:translate3d(0,${-FLOOR+2}px,${-r.Z}px) rotateX(-90deg)"></div><div class="g-pool" data-z="${r.Z}" style="--l:${TH.pool || r.l};transform:translate3d(0,${FLOOR-1}px,${-r.Z}px) rotateX(90deg)"></div>`;
+  });
+  P.forEach((p, i) => {
+    if (TH.aura){ const a = TH.aura[p.room]; s += `<div class="g-aura" data-z="${p.Z}" style="--a1:${a[0]};--a2:${a[1]};--a3:${a[2]};transform:translate3d(${p.px}px,-40px,${-p.Z - 320}px)"></div>`; }
+    s += `<div class="g-cone" data-z="${p.Z}" style="--l:${TH.pool || L(p)};transform:translate3d(${p.px}px,${-FLOOR}px,${-p.Z - 60}px)"></div>`;
+    s += `<div class="g-pool" data-z="${p.Z}" style="--l:${TH.pool || L(p)};transform:translate3d(${p.px}px,${FLOOR-1}px,${-p.Z}px) rotateX(90deg)"></div>`;
+    s += `<div class="g-fix" data-z="${p.Z}" style="--l:${TH.pool || L(p)};transform:translate3d(${p.px}px,${-FLOOR+2}px,${-p.Z}px) rotateX(-90deg)"></div>`;
+    s += `<a class="g-art${p.feat?" feat":""}" data-i="${i}" ${linkAttrs(p)} style="--l:${L(p)};width:${p.w}px" aria-label="${esc(p.title)} · ${esc(T.open)}">
+      <div class="bd">${p.feat ? `<span class="badge">${T.FEATURED}</span>` : ""}<img src="${IMG+p.img}" alt="${esc(p.title)}">
+      <div class="cap"><h3>${esc(p.title)}</h3><span class="mono">${esc(p.type).replace(" · ", "<br>")}</span></div></div><div class="legs"></div></a>`;
+  });
+  $("#gCam").innerHTML = s;
+  $("#planBar").innerHTML = ROOMS.map(r => `<span style="--l:${r.l}"></span>`).join("") + `<span style="--l:var(--warm)"></span><i id="planDot"></i>`;
+  G.arts = $$(".g-art"); G.zs = $$("#gCam [data-z]").filter(el => !el.classList.contains("g-art"));
+  G.pose = () => P.map((p,i) => `translate3d(${p.px - p.w/2}px,${PANEL_BOTTOM - G.arts[i].offsetHeight}px,${-p.Z}px) rotateY(${-p.side*9}deg)`);
+  const place = () => { const t = G.pose(); G.arts.forEach((a,i) => a.style.transform = t[i]); G.dirty = true; };
+  place(); document.fonts?.ready.then(place);
+  G.arts.forEach(a => hoverCursor(a, T.openShort));
+  G.cache = new Map();
+}
+const G = {room:-1, s:0, from:0, to:0, t0:0, dur:1, anim:false, push:0, pushFrom:0, pushTo:0, pushT0:0, pushAnim:false, yaw:0, pitch:0, dirty:true, lastK:-1};
+const setS = (el, prop, v) => { const key = el; let c = G.cache.get(key); if (!c){ c = {}; G.cache.set(key, c); } if (c[prop] !== v){ c[prop] = v; el.style[prop] = v; } };
+function galGo(k, instant){
+  k = clamp(k, 0, ITEMS.length - 1);
+  if (instant || reduce){ G.s = G.to = k; G.anim = false; G.dirty = true; return; }
+  G.from = G.s; G.to = k; G.t0 = performance.now(); G.dur = 1300 + Math.min(1400, Math.max(0, Math.abs(k - G.s) - 1) * 260); G.anim = true;
+}
+function galPushTo(v){ G.pushFrom = G.push; G.pushTo = v; G.pushT0 = performance.now(); G.pushAnim = true; }
+function galFrame(now){
+  if (G.anim){ const t = clamp((now - G.t0) / G.dur); G.s = lerp(G.from, G.to, eio(t)); if (t >= 1){ G.anim = false; G.s = G.to; } G.dirty = true; }
+  if (G.pushAnim){ const t = clamp((now - G.pushT0) / 1100); G.push = lerp(G.pushFrom, G.pushTo, eio(t)); if (t >= 1) G.pushAnim = false; G.dirty = true; }
+  const nx = fine ? (mx / innerWidth - .5) : 0, ny = fine ? (my / innerHeight - .5) : 0;
+  const n = ITEMS.length, k0 = Math.min(n - 2, Math.floor(G.s)), fr = clamp(G.s - k0), A = ITEMS[k0], B = ITEMS[k0 + 1];
+  const yawT = lerp(A.yaw, B.yaw, fr) + nx * 4, pitchT = -ny * 2.5;
+  if (Math.abs(yawT - G.yaw) > .01 || Math.abs(pitchT - G.pitch) > .01){ G.yaw += (yawT - G.yaw) * .06; G.pitch += (pitchT - G.pitch) * .06; G.dirty = true; }
+  if (!G.dirty || mode !== "gal" && !G.pushAnim) return;
+  G.dirty = false;
+  const camZ = lerp(A.cz, B.cz, fr) + G.push * 900, camX = lerp(A.x, B.x, fr);
+  { const it = ITEMS[Math.round(G.s)], ri = it.k === "entrance" ? 0 : it.k === "room" ? it.r : P[it.i].room;
+    if (ri !== G.room){ G.room = ri; $("#gal").style.setProperty("--fog", pick(TH.c.fog, ri)); } }
+  $("#gYaw").style.transform = `rotateX(${G.pitch.toFixed(3)}deg) rotateY(${G.yaw.toFixed(3)}deg)`;
+  $("#gCam").style.transform = `translate3d(${(-camX).toFixed(1)}px,${RC.camY}px,${camZ.toFixed(1)}px)`;
+  // only what sits ahead of the viewer, within the fog, is painted
+  drawRoom(camX, camZ, G.yaw, G.pitch);
+  G.zs.forEach(el => { const D = PERS + +el.dataset.z - camZ; const op = el.classList.contains("g-title") ? clamp((D - 350) / 450) : clamp((D - 200) / 400) * (D < 9000 ? 1 : 0);
+    setS(el, "opacity", op.toFixed(2)); setS(el, "visibility", op > .01 ? "visible" : "hidden"); });
+  G.arts.forEach((a,i) => { const D = PERS + P[i].Z - camZ; const op = clamp((D - 260) / 340) * (D < 9000 ? 1 : 0); setS(a, "opacity", op.toFixed(2)); setS(a, "visibility", op > .01 ? "visible" : "hidden"); });
+  $("#planDot") && ($("#planDot").style.left = (clamp(G.s / (n - 1)) * 76) + "%");
+}
+function galUI(){
+  const k = Math.round(G.to), it = ITEMS[k], info = $("#info");
+  const resting = mode === "gal" && !G.anim && !G.pushAnim && introDone && caseIdx < 0;
+  // on wide screens the card sits a fixed gap beside the artwork instead of at the screen edge
+  if (resting && it.k === "panel" && innerWidth >= 700 && G.cardFor !== k){
+    G.cardFor = k; const r = $(".bd", G.arts[it.i]).getBoundingClientRect(), cw = info.offsetWidth, gap = 56, W = innerWidth;
+    const left = P[it.i].side < 0 ? Math.min(r.right + gap, W - cw - 72) : Math.max(r.left - gap - cw, 24);
+    info.style.left = Math.round(left) + "px"; info.style.right = "auto";
+  }
+  if (!resting || it.k !== "panel") G.cardFor = -1;
+  if (k !== G.lastK){ G.lastK = k; renderInfo(it); setWhere(it); G.arts.forEach((a,i) => a.classList.toggle("focus", it.k === "panel" && it.i === i)); }
+  info.classList.toggle("show", resting && it.k !== "room");
+  const chap = resting && it.k === "room";
+  $("#chapter").classList.toggle("show", chap);
+  const gal = $("#gal"); gal.classList.toggle("chap", chap); gal.classList.toggle("focusing", resting && it.k === "panel"); gal.classList.toggle("ent", resting && it.k === "entrance");
+  $("#gHint").style.opacity = 0;
+  $("#skipw").classList.toggle("show", mode === "gal" && introDone && caseIdx < 0 && k === 0 && !G.pushAnim);
+}
+function renderInfo(it){
+  const info = $("#info"); info.className = "info"; info.style.removeProperty("--l"); if (innerWidth >= 700){ info.style.left = ""; info.style.right = ""; }
+  if (it.k === "entrance"){ info.classList.add("guide");
+    info.innerHTML = `<div class="row1 mono eyebrow">${T.guide}</div>
+      <ol>${ROOMS.map((r,ri) => `<li style="--l:${r.l}"><span class="dot"></span><span class="mono">${LANG === "zh" ? NUM_ZH[r.n] : r.n}</span><span>${esc(r.name)}</span><small>${T.works(P.filter(p=>p.room===ri).length)}</small><span class="f">${T.featured}: ${esc(P.find(p=>p.room===ri && p.feat).title)}</span></li>`).join("")}</ol>
+      <p class="mono" style="color:var(--carddim)">${T.guideFoot}</p>`; return; }
+  if (it.k !== "panel"){ info.innerHTML = ""; return; }
+  const p = P[it.i], r = ROOMS[p.room];
+  info.classList.add(p.side < 0 || innerWidth < 700 ? "r" : "l"); info.style.setProperty("--l", r.l);
+  info.innerHTML = `<div class="row1 mono"><span class="dot"></span>${esc(r.short)} · ${pad(it.i+1)}/08${p.feat ? `<span class="feat">${T.featured}</span>` : ""}</div>
+    <h2>${esc(p.title)}</h2><p class="kd">${esc(p.type)}</p><p class="st">${esc(p.stageS)}</p><p class="ln">${esc(p.line)}</p>
+    <dl><div><dt>${T.context}</dt><dd>${esc(p.context)}</dd></div><div><dt>${T.role}</dt><dd>${esc(p.roleS)}</dd></div></dl>
+    <div class="gos"><a class="go" ${linkAttrs(p)}>${T.open}</a>${p.play ? `<a class="go alt" ${linkAttrs(p, "play")}>${T.play}</a>` : ""}</div>`;
+}
+
+/* The room shell (floor, walls, ceiling, runway lights) is drawn on a 2D canvas with the same
+   projection CSS uses for the panels, so it lines up exactly but costs a few polygons per frame. */
+const RC = {ctx:null, w:0, h:0, oy:.46, camY:0};
+function roomSize(){
+  const cv = $("#gRoom"), dpr = Math.min(devicePixelRatio || 1, 1.5);
+  RC.w = innerWidth; RC.h = innerHeight; cv.width = RC.w * dpr; cv.height = RC.h * dpr;
+  RC.ctx = cv.getContext("2d"); RC.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  RC.oy = parseFloat(getComputedStyle($("#gal")).perspectiveOrigin.split(" ")[1]) / RC.h || .46; RC.camY = innerWidth < 700 ? -215 : 0; G.dirty = true;
+}
+function drawRoom(camX, camZ, yaw, pitch){
+  const c = RC.ctx; if (!c) return;
+  const W = RC.w, H = RC.h, oy = RC.oy * H, NEAR = PERS - 30;
+  const ya = yaw * Math.PI/180, pa = pitch * Math.PI/180, cyw = Math.cos(ya), syw = Math.sin(ya), cp = Math.cos(pa), sp = Math.sin(pa);
+  const view = (x, y, Z) => { const X = x - camX, Y = y + RC.camY, Zc = -Z + camZ;
+    const x1 = X*cyw + Zc*syw, z1 = -X*syw + Zc*cyw;          // rotateY
+    const y2 = Y*cp - z1*sp, z2 = Y*sp + z1*cp;               // rotateX
+    return [x1, y2, z2]; };
+  const proj = v => { const f = PERS / (PERS - v[2]); return [W/2 + v[0]*f, oy + (H/2 + v[1] - oy)*f]; };
+  const poly = (pts, fill) => {
+    let vs = pts.map(p => view(p[0], p[1], p[2])), out = [];
+    for (let k = 0; k < vs.length; k++){ const a = vs[k], b = vs[(k+1) % vs.length], ina = a[2] < NEAR, inb = b[2] < NEAR;
+      if (ina) out.push(a);
+      if (ina !== inb){ const t = (NEAR - a[2]) / (b[2] - a[2]); out.push([a[0] + (b[0]-a[0])*t, a[1] + (b[1]-a[1])*t, NEAR]); } }
+    if (out.length < 3) return;
+    c.beginPath(); out.forEach((v, k) => { const q = proj(v); k ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1]); }); c.closePath(); c.fillStyle = fill; c.fill();
+  };
+  const z0 = camZ - PERS - 400, z1 = camZ + 9000, T = TH.c;
+  c.fillStyle = T.bg; c.fillRect(0, 0, W, H);
+  const cuts = [-1e7, ROOMS[1].Z - 700, ROOMS[2].Z - 700, 1e8];
+  for (let ri = 0; ri < 3; ri++){
+    const za = Math.max(cuts[ri], z0), zb = Math.min(cuts[ri+1], z1); if (zb <= za) continue;
+    poly([[-HW,-FLOOR,za],[HW,-FLOOR,za],[HW,-FLOOR,zb],[-HW,-FLOOR,zb]], pick(T.ceil, ri));
+    poly([[-HW,-FLOOR,za],[-HW,FLOOR,za],[-HW,FLOOR,zb],[-HW,-FLOOR,zb]], pick(T.wall, ri));
+    poly([[HW,-FLOOR,za],[HW,FLOOR,za],[HW,FLOOR,zb],[HW,-FLOOR,zb]], pick(T.wall, ri));
+    poly([[-HW,FLOOR,za],[HW,FLOOR,za],[HW,FLOOR,zb],[-HW,FLOOR,zb]], pick(T.floor, ri));
+    poly([[-450,FLOOR,za],[450,FLOOR,za],[450,FLOOR,zb],[-450,FLOOR,zb]], T.runway);
+  }
+  // wall base glow and runway light strips
+  [-HW, HW].forEach(x => { poly([[x,FLOOR-36,z0],[x,FLOOR,z0],[x,FLOOR,z1],[x,FLOOR-36,z1]], T.base); poly([[x,FLOOR-3,z0],[x,FLOOR,z0],[x,FLOOR,z1],[x,FLOOR-3,z1]], T.baseLine); });
+  [-450, 450].forEach(x => poly([[x-2,FLOOR,z0],[x+2,FLOOR,z0],[x+2,FLOOR,z1],[x-2,FLOOR,z1]], T.strip));
+  // floor joints, fading with distance
+  for (let Z = Math.ceil(z0 / 400) * 400; Z < z1; Z += 400){ const a = clamp(1 - (Z - camZ) / 7000) * T.jointA; if (a <= .004) continue; poly([[-HW,FLOOR,Z],[HW,FLOOR,Z],[HW,FLOOR,Z+3],[-HW,FLOOR,Z+3]], `rgba(${T.joint},${a.toFixed(3)})`); }
+  { const vp = proj(view(camX, -RC.camY, camZ + 60000)), f = pick(T.fog, Math.max(0, G.room)), R = Math.max(W, H) * .24;
+    const g = c.createRadialGradient(vp[0], vp[1], 0, vp[0], vp[1], R); g.addColorStop(0, `rgba(${f},1)`); g.addColorStop(.25, `rgba(${f},.85)`); g.addColorStop(1, `rgba(${f},0)`);
+    c.fillStyle = g; c.fillRect(0, 0, W, H); }
+}
+
+/* ═════════ 2 · BOARD (Canvas) ═════════ */
+const C = {vel:0, dragging:false, cam:{x:0,y:0,s:.5}, anim:null, state:"opening", blocks:[], over:0, under:0, lastPan:0, bounds:null, focusI:-1};
+function cvBuild(){
+  const proj = (p, i) => `<article class="cb cb-p" data-i="${i}" style="--l:${L(p)}">
+    <figure>${p.feat ? `<span class="badge">${T.featured}</span>` : ""}<img src="${IMG+p.img}" alt="${esc(p.title)}"></figure>
+    <div class="cb-t"><p class="mono">${pad(i+1)} — ${esc(ROOMS[p.room].short)}</p><h3>${esc(p.title)}</h3><p class="kd">${esc(p.type)}</p><p class="st">${esc(p.stageS)}</p><p class="ln">${esc(p.line)}</p>
+      <dl><div><dt>${T.context}</dt><dd>${esc(p.context)}</dd></div><div><dt>${T.roleShort}</dt><dd>${esc(p.roleS)}</dd></div></dl>
+      <p class="pr">${esc(p.problem)}</p>
+      <ol>${p.decisions.map(d => `<li><span>${esc(d[0])}</span>${esc(d[1])}</li>`).join("")}</ol>
+      <div class="cb-st">${p.stats.map(s => `<div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join("")}</div>
+      <div class="cb-gos"><a class="cb-open" ${linkAttrs(p)}>${T.open}</a>${p.play ? `<a class="cb-open alt" ${linkAttrs(p, "play")}>${T.play}</a>` : ""}</div></div></article>`;
+  $("#cvPlane").innerHTML = `
+    ${ROOMS.map((r, ri) => `<div class="cb cb-sec" data-b="sec${ri}" style="--l:${r.l}"><span class="mono"><span class="dot"></span>${T.ROOM(r.n)} · ${T.WORKS(P.filter(p=>p.room===ri).length)}</span><h2>${esc(r.name)}</h2><p>${esc(r.look)}</p></div>
+      ${P.map((p,i) => p.room === ri ? proj(p,i) : "").join("")}`).join("")}
+    <button type="button" class="cb cb-end" data-b="end" id="cvEnd"><span class="mono">${T.endLabel}</span><p>${T.endText}</p></button>`;
+  $("#cvChips").innerHTML = `${ROOMS.map((r,ri) => `<button type="button" data-j="sec${ri}" style="--l:${r.l}"><span class="dot"></span>${LANG === "zh" ? NUM_ZH[r.n] : r.n} · ${esc(r.short)}</button>`).join("")}<button type="button" data-j="tail">${T.toTail}</button>`;
+  cvLayout();
+  $$(".cb-p").forEach(el => hoverCursor(el, LANG === "zh" ? "放大" : "Zoom"));
+  $$(".cb-open").forEach(el => hoverCursor(el, T.openShort));
+  $("#cvEnd").addEventListener("click", () => toTail());
+  $$("#cvChips button").forEach(b => b.addEventListener("click", () => { const j = b.dataset.j; if (j === "tail") return toTail(); C.state = "free"; cvJump(j); }));
+  document.fonts?.ready.then(() => { cvLayout(); cvDrawMap(); });
+}
+function cvLayout(){
+  // title, then for each room: header, then its works in two staggered columns; the end line closes the board
+  const el = b => $(`[data-b="${b}"]`, $("#cvPlane"));
+  const place = (e, x, y) => { e.style.left = x + "px"; e.style.top = y + "px"; };
+  const mob = innerWidth < 700; $("#cv").classList.toggle("mob", mob);
+  let y = 0;
+  ROOMS.forEach((r, ri) => {
+    const sec = el("sec"+ri); place(sec, 0, y); y += sec.offsetHeight + 120;
+    const works = $$(".cb-p", $("#cvPlane")).filter(e => P[+e.dataset.i].room === ri);
+    if (mob){ works.forEach(w => { place(w, 0, y); y += w.offsetHeight + 160; }); y += 120; }
+    else {
+      let cy = [y, y + 300];
+      works.forEach((w, k) => { const col = k % 2; place(w, col ? 1520 : 0, cy[col]); cy[col] += w.offsetHeight + 180; });
+      y = Math.max(...cy) + 260;
+    }
+  });
+  place(el("end"), 0, y);
+  C.blocks = $$(".cb", $("#cvPlane")).map(e => ({el:e, x:e.offsetLeft, y:e.offsetTop, w:e.offsetWidth, h:e.offsetHeight, b:e.dataset.b || "p", i: e.dataset.i != null ? +e.dataset.i : -1}));
+  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; C.blocks.forEach(b => { x0=Math.min(x0,b.x); y0=Math.min(y0,b.y); x1=Math.max(x1,b.x+b.w); y1=Math.max(y1,b.y+b.h); });
+  C.bounds = {x:x0, y:y0, w:x1-x0, h:y1-y0};
+}
+const vw = () => innerWidth, vh = () => innerHeight;
+const cvFit = (r, k=.86) => ({x:r.x + r.w/2, y:r.y + r.h/2, s:Math.min(vw()*k / r.w, vh()*k / r.h)});
+const cvBoardScale = () => Math.min(vw() * (vw() < 700 ? .9 : .78) / C.bounds.w, .62);
+function cvLimits(s){
+  const B = C.bounds, padT = 140 / s, padB = 120 / s;
+  let minY = B.y - padT + vh()/2/s, maxY = B.y + B.h + padB - vh()/2/s; if (maxY < minY) maxY = minY = (minY + maxY) / 2;
+  let minX = B.x - 160/s + vw()/2/s, maxX = B.x + B.w + 160/s - vw()/2/s; if (maxX < minX) maxX = minX = B.x + B.w/2;
+  return {minX, maxX, minY, maxY};
+}
+function cvSetFocus(i){ $("#cv").classList.add("focusing"); C.blocks.forEach(x => x.el.classList.toggle("focus", x.i === i)); }
+function cvClearFocus(){ $("#cv").classList.remove("focusing"); }
+function cvFly(to, dur, done){
+  cvClearFocus();
+  const from = {...C.cam}; const dist = Math.hypot(to.x - from.x, to.y - from.y);
+  const k = clamp(dist * Math.min(from.s, to.s) / Math.min(vw(), vh()), 0, 3);
+  dur = reduce ? 0 : (dur || 1100 + Math.min(700, dist * .08));
+  const t0 = performance.now(); $("#cvPlane").classList.add("moving");
+  C.anim = now => { const t = dur ? clamp((now - t0) / dur) : 1, e = eio(t);
+    C.cam.x = lerp(from.x, to.x, e); C.cam.y = lerp(from.y, to.y, e);
+    C.cam.s = Math.exp(lerp(Math.log(from.s), Math.log(to.s), e)) / (1 + k * .45 * Math.sin(Math.PI * t));
+    if (t >= 1){ C.anim = null; $("#cvPlane").classList.remove("moving"); done?.(); } };
+}
+function cvReveal(){
+  C.state = "free"; $("#cvHint").style.opacity = 0;
+  const s = cvBoardScale(); const lim = cvLimits(s);
+  cvFly({x:C.bounds.x + C.bounds.w/2, y:lim.minY, s}, 1300);
+}
+function cvJump(b){
+  const blk = C.blocks.find(x => x.b === b); if (!blk) return;
+  const s = Math.max(C.cam.s, cvBoardScale()); const lim = cvLimits(s);
+  cvFly({x:clamp(C.bounds.x + C.bounds.w/2, lim.minX, lim.maxX), y:clamp(blk.y + vh()/2/s - 110/s, lim.minY, lim.maxY), s});
+}
+function cvFocus(i){ C.focusI = i; const b = C.blocks.find(x => x.i === i); cvFly(cvFit(b, .9), 0, () => cvSetFocus(i)); }
+function cvApply(){
+  const c = C.cam, R = 140;
+  const rub = (-Math.min(C.over, R*2) * .35 + Math.min(C.under, R*2) * .35);
+  const tx = vw()/2 - c.x*c.s, ty = vh()/2 - c.y*c.s + rub;
+  $("#cvPlane").style.transform = `translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) scale(${c.s.toFixed(4)})`;
+  let g = 48 * c.s; while (g < 14) g *= 4;
+  const cv = $("#cv"); cv.style.backgroundSize = `${g}px ${g}px`; cv.style.backgroundPosition = `${tx}px ${ty}px`;
+  const TH = vw() < 700 ? 170 : 240;
+  $("#edgeBot").style.opacity = C.over > 4 ? 1 : 0; $("#edgeBot i").style.width = clamp(C.over / TH) * 100 + "%";
+  $("#edgeTop").style.opacity = C.under > 4 ? 1 : 0; $("#edgeTop i").style.width = clamp(C.under / TH) * 100 + "%";
+  if (C.vp){ const B = C.bounds, k = Math.min(96 / B.w, 144 / B.h), ox = (96 - B.w*k)/2, oy = (144 - B.h*k)/2, w = vw()/c.s, h = vh()/c.s;
+    Object.assign(C.vp.style, {left:(ox + (c.x - w/2 - B.x)*k)+"px", top:(oy + (c.y - h/2 - B.y)*k)+"px", width:(w*k)+"px", height:(h*k)+"px"}); }
+  // section chip follows the view
+  let cur = "sec0"; C.blocks.forEach(b => { if ((b.b === "title" || b.b.startsWith("sec")) && b.y < c.y) cur = b.b; });
+  $$("#cvChips button").forEach(b => b.classList.toggle("on", b.dataset.j === cur));
+  C.curRoom = cur.startsWith("sec") ? +cur.slice(3) : 0;
+  if (mode === "cv"){ const ri = cur.startsWith("sec") ? +cur.slice(3) : -1; setWhereText(ri >= 0 ? `${T.board} · ${ROOMS[ri].short}` : T.board, ri >= 0 ? ROOMS[ri].l : null); rail(ri >= 0 ? "board" : "board"); }
+}
+function cvDrawMap(){
+  const B = C.bounds, k = Math.min(96 / B.w, 144 / B.h), ox = (96 - B.w*k)/2, oy = (144 - B.h*k)/2;
+  $("#cvMap").innerHTML = C.blocks.map(b => `<i class="${b.b.startsWith("sec") ? "s" : ""}" style="--l:${b.b.startsWith("sec") ? ROOMS[+b.b.slice(3)].l : "0,0,0"};left:${ox+(b.x-B.x)*k}px;top:${oy+(b.y-B.y)*k}px;width:${Math.max(2,b.w*k)}px;height:${Math.max(2,b.h*k)}px"></i>`).join("") + `<b></b>`;
+  C.vp = $("#cvMap b");
+}
+function cvPan(dx, dy, momentum){
+  if (Math.abs(dx) + Math.abs(dy) > 2) cvClearFocus();
+  const c = C.cam, lim = cvLimits(c.s);
+  c.x = clamp(c.x + dx / c.s, lim.minX, lim.maxX);
+  const ny = c.y + dy / c.s;
+  const now = performance.now();
+  if (ny >= lim.maxY){ if (!C.botAt) C.botAt = now; } else C.botAt = 0;
+  if (ny <= lim.minY){ if (!C.topAt) C.topAt = now; } else C.topAt = 0;
+  if (momentum && (ny > lim.maxY || ny < lim.minY)){ c.y = clamp(ny, lim.minY, lim.maxY); C.vel = 0; C.lastPan = now; return; }
+  if (ny > lim.maxY){ if (now - C.botAt > 320) C.over += (ny - lim.maxY) * c.s; c.y = lim.maxY; } else if (ny < lim.minY){ if (now - C.topAt > 320) C.under += (lim.minY - ny) * c.s; c.y = lim.minY; } else { c.y = ny; C.over = Math.max(0, C.over - Math.abs(dy)); C.under = Math.max(0, C.under - Math.abs(dy)); }
+  C.lastPan = performance.now();
+}
+function cvZoomAt(px, py, f){
+  cvClearFocus();
+  const c = C.cam, wx = c.x + (px - vw()/2) / c.s, wy = c.y + (py - vh()/2) / c.s;
+  const ns = clamp(c.s * f, cvBoardScale() * .6, 2.2); c.x = wx - (px - vw()/2) / ns; c.y = wy - (py - vh()/2) / ns; c.s = ns;
+  const lim = cvLimits(ns); c.x = clamp(c.x, lim.minX, lim.maxX); c.y = clamp(c.y, lim.minY, lim.maxY);
+}
+function cvFrame(now){
+  if (mode !== "cv") return;
+  if (C.anim) C.anim(now);
+  const TH = vw() < 700 ? 170 : 240;
+  if (C.vel && !C.dragging){ cvPan(0, C.vel, true); C.vel *= .94; if (Math.abs(C.vel) < .3) C.vel = 0; }
+  if (!C.dragging && C.over >= TH){ C.over = 0; C.botAt = 0; toTail(); }
+  else if (!C.dragging && C.under >= TH){ C.under = 0; C.topAt = 0; toGallery(); }
+  else if (now - C.lastPan > 240 && !C.dragging){
+    { C.over *= .82; C.under *= .82; if (C.over < .5) C.over = 0; if (C.under < .5) C.under = 0; }
+  }
+  cvApply();
+}
+function cvInput(){
+  const view = $("#cv");
+  const pts = new Map(); let moved = 0, pinch = null, lastY = 0;
+  view.addEventListener("pointerdown", e => { if (e.target.closest("button,a") || mode !== "cv") return; pts.set(e.pointerId, {x:e.clientX, y:e.clientY, t:performance.now()}); try { view.setPointerCapture(e.pointerId); } catch(_){} moved = 0; C.anim = null; C.vel = 0; C.dragging = true; view.classList.add("drag");
+    if (pts.size === 2){ const [a,b] = [...pts.values()]; pinch = {d:Math.hypot(a.x-b.x, a.y-b.y)}; } });
+  view.addEventListener("pointermove", e => { const p = pts.get(e.pointerId); if (!p) return;
+    if (pts.size === 2 && pinch){ pts.set(e.pointerId, {x:e.clientX, y:e.clientY}); const [a,b] = [...pts.values()]; const d = Math.hypot(a.x-b.x, a.y-b.y); cvZoomAt((a.x+b.x)/2, (a.y+b.y)/2, d / pinch.d); pinch.d = d; moved = 99; return; }
+    const dx = e.clientX - p.x, dy = e.clientY - p.y; moved += Math.abs(dx) + Math.abs(dy);
+    if (C.state === "opening"){ if (moved > 40 && dy < 0){ pts.clear(); cvReveal(); } return; }
+    const k = e.pointerType === "touch" ? 1.4 : 1, now = performance.now(), dt = Math.max(8, now - (p.t || now));
+    cvPan(-dx, -dy * k); if (e.pointerType === "touch") C.vel = clamp(-dy * k / dt * 16, -60, 60); pts.set(e.pointerId, {x:e.clientX, y:e.clientY, t:now}); });
+  const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null;
+    if (!pts.size){ view.classList.remove("drag"); C.dragging = false;
+      const TH = vw() < 700 ? 170 : 240;
+      if (C.over >= TH * .55){ C.over = 0; C.vel = 0; return toTail(); }
+      if (C.under >= TH * .55){ C.under = 0; C.vel = 0; return toGallery(); }
+      if (e.pointerType !== "touch" || moved < 6) C.vel = 0; }
+    if (moved < 6 && e.type === "pointerup" && C.state === "free"){ const el = document.elementFromPoint(e.clientX, e.clientY)?.closest(".cb-p"); if (el){ const i = +el.dataset.i;
+      const zoomed = C.cam.s > cvBoardScale() * 1.6;
+      if (C.focusI === i && zoomed) $(".cb-open", el)?.click(); else cvFocus(i); } } };
+  view.addEventListener("pointerup", up); view.addEventListener("pointercancel", up);
+  $("#cvFit").addEventListener("click", () => { C.state = "free"; const s = cvBoardScale(); cvFly({x:C.bounds.x + C.bounds.w/2, y:clamp(C.cam.y, cvLimits(s).minY, cvLimits(s).maxY), s}, 700); });
+  $("#cvIn").addEventListener("click", () => cvFly({...C.cam, s:Math.min(2.2, C.cam.s*1.6)}, 500));
+  $("#cvOut").addEventListener("click", () => cvFly({...C.cam, s:Math.max(cvBoardScale()*.6, C.cam.s/1.6)}, 500));
+  $("#cvMap").addEventListener("click", e => { C.state = "free"; const r = $("#cvMap").getBoundingClientRect(), B = C.bounds, k = Math.min(96 / B.w, 144 / B.h), ox = (96 - B.w*k)/2, oy = (144 - B.h*k)/2;
+    const s = Math.max(C.cam.s, cvBoardScale()), lim = cvLimits(s); cvFly({x:clamp(B.x + (e.clientX - r.left - ox)/k, lim.minX, lim.maxX), y:clamp(B.y + (e.clientY - r.top - oy)/k, lim.minY, lim.maxY), s}); });
+}
+
+/* ═════════ 3 · CLOSING ═════════ */
+function tailBuild(){
+  const IMGP = IMG + "profile-cutout.png";
+  const resume = RESUME_URL ? `<a class="ct-btn mag" href="${RESUME_URL}" target="_blank" rel="noopener"><i></i>${T.resume}</a>` : `<span class="ct-btn todo" title="${T.resumeTodo}"><i></i>${T.resume}</span>`;
+  $("#tail").innerHTML = `<div class="glow" id="glowT" aria-hidden="true"><i></i><i></i><i></i></div><div class="wrap"><div class="inner">
+    <button class="back" type="button" id="backBoard">${T.back}</button>
+    <section class="me" id="s-about">
+      <div class="me-txt">
+        <p class="mono eyebrow" style="color:var(--dim)">${T.aboutEyebrow}</p>
+        <h2 class="me-h">Katherine Lin<span>${LANG === "zh" ? "林尚澄" : "Shangcheng Lin"}</span></h2>
+        <p class="me-role">${T.aboutRole}</p>
+        <p class="me-now mono">${T.aboutNow}</p>
+        <div class="me-bio">${T.bio.map(b => `<p>${b}</p>`).join("")}</div>
+        <div class="ct-row">${resume}</div>
+      </div>
+      <figure class="me-pic"><img src="${IMGP}" alt="Katherine Lin"></figure>
+    </section>
+    <div class="me-facts">
+      <section><h3 class="mono eyebrow">${T.freelanceH}</h3>
+        <ul class="me-freelance">${T.freelance.map(([id, kind, client]) => { const p = P.find(p => p.id === id); return `<li><a ${linkAttrs(p)}><b>${esc(p.title)} ↗</b><span>${kind}</span><small>${T.clientLabel}：${client}</small></a></li>`; }).join("")}</ul>
+        <h3 class="mono eyebrow">${T.bgH}</h3><ul class="me-bg">${T.bg.map(x => `<li><b>${x[0]}</b><span>${x[1]}</span></li>`).join("")}</ul>
+        <h3 class="mono eyebrow">${T.paperH}</h3><ul class="me-papers">${T.papers.map(([id, role, status]) => { const p = P.find(p => p.id === id); return `<li><a ${linkAttrs(p)}><b>${esc(p.title)} ↗</b><span>${esc(role)}</span><small>${esc(status)}</small></a></li>`; }).join("")}</ul></section>
+      <section><h3 class="mono eyebrow">${T.eduH}</h3><ul>${T.edu.map(x => `<li><b>${x[0]}</b><span>${x[1]}</span></li>`).join("")}</ul></section>
+    </div>
+    <div class="ct-foot mono"><span>Shangcheng Lin (Katherine)</span><span>${T.foot}</span><button class="ct-link" type="button" id="replay">${T.again}</button></div>
+  </div></div>`;
+  $("#backBoard").addEventListener("click", () => toBoard(true));
+  glowInit("glowT", [[-.25,-.1],[.25,.15],[0,.05]]); glowColors("glowT", 0); GL.glowT.t = {x:innerWidth*.62, y:innerHeight*.4, s:Math.max(innerWidth, innerHeight)*.55};
+  $("#replay").addEventListener("click", () => { toGallery(true); galGo(0, true); runIntro(); });
+  $$(".mag").forEach(m => { if (!fine) return; m.addEventListener("pointermove", e => { const r = m.getBoundingClientRect(); m.style.transform = `translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.4}px)`; }); m.addEventListener("pointerleave", () => m.style.transform = ""); });
+}
+
+/* ═════════ mode changes ═════════ */
+function setMode(m){ mode = m; ["gal","cv","tail"].forEach(id => $("#"+id).classList.toggle("on", id === m));
+  if (m !== "gal") $("#skipw").classList.remove("show");
+  if (m !== "gal"){ $("#info").classList.remove("show"); $("#chapter").classList.remove("show"); $("#gal").classList.remove("chap","focusing","ent"); }
+  if (m !== "cv") cvClearFocus(); G.dirty = true; }
+function toBoard(fromBelow){
+  if (fromBelow){ // turn the page back down onto the board, at its end line
+    pageTurn(() => { setMode("cv"); C.state = "free"; const s = Math.max(C.cam.s, cvBoardScale()); C.cam = {x:C.bounds.x + C.bounds.w/2, y:cvLimits(s).maxY, s}; C.over = C.under = 0; }, true); return; }
+  // from the gallery: walk on through the end of the corridor into the board's opening title
+  galPushTo(1);
+  setTimeout(() => { setMode("cv"); C.over = C.under = 0;
+    // arrive close up on the first category, then pull back to the full board
+    const sec = C.blocks.find(b => b.b === "sec0"), s = cvBoardScale(), lim = cvLimits(s);
+    C.cam = {x:sec.x + Math.min(sec.w, vw() / (s * 1.6)) / 2, y:sec.y + sec.h / 2, s:s * 1.6}; C.state = "free"; $("#cvHint").style.opacity = 0;
+    cvFly({x:C.bounds.x + C.bounds.w/2, y:lim.minY, s}, 1300); setWhereText(T.board, null); rail("board"); }, reduce ? 0 : 450);
+}
+function toGallery(instant){
+  setMode("gal"); galPushTo(0); if (instant){ G.push = 0; G.pushAnim = false; }
+  galGo(ITEMS.length - 1, true); G.lastK = -1;
+}
+function toTail(){ pageTurn(() => { setMode("tail"); $("#tail").scrollTop = 0; setWhereText(T.tail, null); rail("tail"); }); }
+function pageTurn(mid, reverse){
+  const t = $("#turn");
+  if (reduce){ mid(); return; }
+  // forward: the curtain rises from below and leaves upward; reverse: it falls from above and leaves downward
+  t.classList.add("noanim"); t.classList.remove("in","up"); if (reverse) t.classList.add("up"); t.getBoundingClientRect(); t.classList.remove("noanim");
+  requestAnimationFrame(() => { t.classList.remove("up"); t.classList.add("in"); });
+  setTimeout(() => { mid(); t.classList.remove("in"); if (!reverse) t.classList.add("up"); }, 850);
+  setTimeout(() => { t.classList.add("noanim"); t.classList.remove("up","in"); t.getBoundingClientRect(); t.classList.remove("noanim"); }, 1800);
+}
+
+/* where / rail */
+function setWhereText(t, l){ $("#whereT").textContent = t; $("#where").style.setProperty("--l", l || "var(--warm)"); }
+function setWhere(it){
+  if (mode !== "gal") return;
+  if (it.k === "entrance"){ setWhereText(T.entrance, null); rail("g0"); return; }
+  const ri = it.k === "room" ? it.r : P[it.i].room; setWhereText(ROOMS[ri].short, ROOMS[ri].l); rail("r" + ri);
+}
+function rail(g){ $$("#rail button").forEach(b => b.classList.toggle("on", b.dataset.go === g)); }
+$$("#rail button").forEach(b => b.addEventListener("click", () => { closeCase(); const g = b.dataset.go;
+  if (g === "g0" || g.startsWith("r")){ const k = g === "g0" ? 0 : ITEMS.findIndex(it => it.k === "panel" && P[it.i].room === +g.slice(1)); if (mode !== "gal") toGallery(true); galGo(k); return; }
+  if (g === "board"){ if (mode === "gal") toBoard(); else if (mode === "tail") toBoard(true); return; }
+  if (g === "tail" && mode !== "tail") toTail(); }));
+$("#brand").addEventListener("click", e => { e.preventDefault(); closeCase(); if (mode !== "gal") toGallery(true); galGo(0); });
+
+/* ═════════ input: one gesture, one page ═════════ */
+let wLast = 0, wAcc = 0, wUsed = false, wStepAt = 0, tailUp = 0, tailUpAt = 0;
+function step(dir){
+  if (mode === "gal"){
+    if (G.pushAnim) return;
+    const last = ITEMS.length - 1;
+    if (dir > 0 && G.to >= last) return toBoard();
+    galGo(G.to + dir);
+  } else if (mode === "cv" && C.state === "opening"){
+    if (dir > 0) cvReveal(); else toGallery();
+  }
+}
+addEventListener("wheel", e => {
+  if (caseIdx >= 0 || !introDone) return;
+  if (mode === "tail"){
+    const t = $("#tail"), now = performance.now(); if (now - tailUpAt > 300) tailUp = 0; tailUpAt = now;
+    if (t.scrollTop <= 0 && e.deltaY < 0){ tailUp += -e.deltaY; if (tailUp > 380){ tailUp = 0; toBoard(true); } } else tailUp = 0; return; }
+  e.preventDefault();
+  if (mode === "cv" && C.state === "free"){
+    if (e.ctrlKey || e.metaKey) return cvZoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * .01));
+    C.anim = null; return cvPan(e.deltaX, e.deltaY);
+  }
+  const now = performance.now();
+  if (now - wLast > 220){ wAcc = 0; wUsed = false; }
+  wLast = now;
+  if (wUsed && now - wStepAt < 1250) return;
+  wAcc += e.deltaY;
+  if (Math.abs(wAcc) > 28){ wUsed = true; wStepAt = now; step(Math.sign(wAcc)); wAcc = 0; }
+}, {passive:false});
+let tY = null;
+addEventListener("touchstart", e => { tY = e.touches[0].clientY; }, {passive:true});
+addEventListener("touchend", e => { if (tY == null || caseIdx >= 0 || !introDone) return; const dy = tY - e.changedTouches[0].clientY; tY = null;
+  if (mode === "gal" && Math.abs(dy) > 45) step(Math.sign(dy));
+  if (mode === "tail" && $("#tail").scrollTop <= 0 && dy < -80) toBoard(true); }, {passive:true});
+addEventListener("keydown", e => {
+  if (e.key === "Escape") return closeCase();
+  if (caseIdx >= 0){ if (e.key === "ArrowRight" || e.key === "ArrowLeft"){ caseIdx = (caseIdx + (e.key === "ArrowRight" ? 1 : 7)) % 8; $("#case").innerHTML = caseHTML(caseIdx); } return; }
+  const down = ["ArrowDown","PageDown"," "].includes(e.key), up = ["ArrowUp","PageUp"].includes(e.key);
+  if (mode === "gal" || (mode === "cv" && C.state === "opening")){ if (down || up){ e.preventDefault(); step(down ? 1 : -1); } }
+  else if (mode === "cv"){ if (down || up){ e.preventDefault(); cvPan(0, (down ? 1 : -1) * vh() * .6); } }
+});
+
+/* ═════════ glow ═════════ */
+const GL = {};
+function glowInit(id, offs){
+  const el = $("#" + id); if (!el) return;
+  GL[id] = {el, t:{x:innerWidth/2, y:innerHeight*.45, s:Math.min(innerWidth, innerHeight)}, col:null,
+    b:[...el.children].map((e, k) => ({e, x:innerWidth/2, y:innerHeight/2, s:600, k:[.14, .28, .42][k], o:offs[k], f:[1, .8, .62][k]}))};
+}
+function glowColors(id, ri){ const g = GL[id]; if (!g || g.col === ri) return; g.col = ri; const a = (TH.aura || THEMES.aura.aura)[ri]; g.b.forEach((b, k) => b.e.style.setProperty("--c", `rgb(${a[k]})`)); }
+function glowFrame(id, now){
+  const g = GL[id]; if (!g) return; const t = g.t;
+  const pull = fine ? 1 : 0;
+  g.b.forEach((b, k) => {
+    const tx = t.x + b.o[0] * t.s + (mx - t.x) * b.k * pull, ty = t.y + b.o[1] * t.s + (my - t.y) * b.k * pull;
+    const ts = t.s * b.f * (1 + .05 * Math.sin(now / 1400 + k * 2));
+    b.x += (tx - b.x) * .05; b.y += (ty - b.y) * .05; b.s += (ts - b.s) * .05;
+    b.e.style.transform = `translate(${b.x.toFixed(1)}px,${b.y.toFixed(1)}px) scale(${(b.s / 1000).toFixed(3)})`;
+  });
+}
+let glowTick = 0;
+function glowGallery(now){
+  const it = ITEMS[Math.round(G.to)], resting = !G.anim && !G.pushAnim;
+  const ri = it.k === "panel" ? P[it.i].room : 0; glowColors("glowG", ri);
+  const W = innerWidth, H = innerHeight, mob = W < 700, T = GL.glowG.t;
+  if (it.k === "panel" && resting){
+    if (glowTick++ % 12 === 0){ const r = $("img", G.arts[it.i]).getBoundingClientRect(), side = P[it.i].side;
+      // sit behind the work, pushed away from the side card
+      T.x = r.left + r.width/2 + (mob ? 0 : side * r.width * .16); T.y = r.top + r.height * .62; T.s = r.width * (mob ? 1.15 : 1.25); }
+  } else if (it.k === "entrance" && resting){ T.x = W/2; T.y = H * (mob ? .32 : .4); T.s = Math.min(W, H) * (mob ? 1.1 : .95); }
+  else { T.x = W/2; T.y = H * .45; T.s = Math.min(W, H) * .55; }
+  glowFrame("glowG", now);
+}
+function glowBoard(now){
+  const W = innerWidth, H = innerHeight, T = GL.glowC.t;
+  const f = $("#cv").classList.contains("focusing") && C.focusI >= 0 ? $(`.cb-p[data-i="${C.focusI}"] img`) : null;
+  if (f){ const r = f.getBoundingClientRect(); T.x = r.left + r.width/2; T.y = r.top + r.height * .6; T.s = r.width * 1.2; glowColors("glowC", P[C.focusI].room); }
+  else { T.x = W * .42; T.y = H * .45; T.s = Math.max(W, H) * .62; glowColors("glowC", C.curRoom || 0); }
+  glowFrame("glowC", now);
+}
+
+/* ═════════ music ═════════
+   Generated live with Web Audio: a warm pad, a soft bell line and a low root, each section in its own
+   key and tempo, crossfading as the visitor moves. Browsers only allow sound after the first click, tap
+   or key press, so the music tries to start on load and otherwise begins on that first interaction. */
+const MUSIC_THEMES = {
+  entrance:{pad:[48,55,59,62,64], arp:[72,74,76,79,83,84], bpm:72, dens:.34, cut:950, bass:36},
+  ai:      {pad:[50,57,61,64,66], arp:[74,76,78,81,85,86], bpm:84, dens:.5,  cut:1500, bass:38},
+  ux:      {pad:[53,60,64,67,69], arp:[72,76,77,79,81,84], bpm:90, dens:.55, cut:1250, bass:41},
+  research:{pad:[45,52,55,59,60], arp:[69,71,72,76,79,81], bpm:66, dens:.3,  cut:820,  bass:33},
+  board:   {pad:[43,50,54,57,62], arp:[67,71,74,78,79,83], bpm:96, dens:.6,  cut:1700, bass:31},
+  about:   {pad:[51,58,62,65,67], arp:[70,74,75,77,79,82], bpm:70, dens:.4,  cut:1050, bass:39}
+};
+const M = {ctx:null, on:false, want:true, theme:"", padGroup:null, next:0, step:0, timer:null};
+const mtof = n => 440 * Math.pow(2, (n - 69) / 12);
+try { M.want = localStorage.getItem("ks-music") !== "off"; } catch(_){}
+function musicInit(){
+  if (M.ctx) return;
+  const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+  const c = M.ctx = new AC();
+  M.master = c.createGain(); M.master.gain.value = 0;
+  const comp = c.createDynamicsCompressor(); comp.threshold.value = -20; comp.ratio.value = 3;
+  M.master.connect(comp).connect(c.destination);
+  // reverb from a decaying noise impulse
+  const len = c.sampleRate * 3.6, ir = c.createBuffer(2, len, c.sampleRate);
+  for (let ch = 0; ch < 2; ch++){ const d = ir.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
+  M.verb = c.createConvolver(); M.verb.buffer = ir;
+  M.wet = c.createGain(); M.wet.gain.value = .55; M.verb.connect(M.wet).connect(M.master);
+  M.dry = c.createGain(); M.dry.gain.value = .8; M.dry.connect(M.master);
+}
+function musicPad(name){
+  const c = M.ctx, t = c.currentTime, th = MUSIC_THEMES[name];
+  const g = c.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.05, t + 3.5);
+  const f = c.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = th.cut; f.Q.value = .6;
+  const lfo = c.createOscillator(), lg = c.createGain(); lfo.frequency.value = .07; lg.gain.value = th.cut * .35; lfo.connect(lg).connect(f.frequency); lfo.start();
+  f.connect(g); g.connect(M.dry); g.connect(M.verb);
+  const oscs = [lfo];
+  th.pad.forEach(n => [-7, 7].forEach(dt => { const o = c.createOscillator(); o.type = "sawtooth"; o.frequency.value = mtof(n); o.detune.value = dt; const og = c.createGain(); og.gain.value = .14; o.connect(og).connect(f); o.start(); oscs.push(o); }));
+  return {g, oscs};
+}
+function musicBell(time, note, vel){
+  const c = M.ctx, o = c.createOscillator(), o2 = c.createOscillator(), g = c.createGain();
+  o.type = "sine"; o.frequency.value = mtof(note); o2.type = "triangle"; o2.frequency.value = mtof(note) * 2.001;
+  const g2 = c.createGain(); g2.gain.value = .18;
+  g.gain.setValueAtTime(0, time); g.gain.linearRampToValueAtTime(.06 * vel, time + .012); g.gain.exponentialRampToValueAtTime(.0001, time + 2.2);
+  o.connect(g); o2.connect(g2).connect(g); g.connect(M.dry); g.connect(M.verb);
+  o.start(time); o2.start(time); o.stop(time + 2.3); o2.stop(time + 2.3);
+}
+function musicBass(time, note, dur){
+  const c = M.ctx, o = c.createOscillator(), g = c.createGain();
+  o.type = "sine"; o.frequency.value = mtof(note);
+  g.gain.setValueAtTime(0, time); g.gain.linearRampToValueAtTime(.07, time + .25); g.gain.setTargetAtTime(0, time + dur * .7, .4);
+  o.connect(g).connect(M.dry); o.start(time); o.stop(time + dur + 2);
+}
+function musicTick(){
+  const c = M.ctx; if (!c || !M.on) return;
+  const th = MUSIC_THEMES[M.theme] || MUSIC_THEMES.entrance, stepDur = 60 / th.bpm / 2;
+  while (M.next < c.currentTime + .25){
+    const k = M.step % 16;
+    if (k === 0) musicBass(M.next, th.bass, stepDur * 16);
+    if (k === 8 && Math.random() < .5) musicBass(M.next, th.bass + 7, stepDur * 8);
+    const accent = k % 4 === 0;
+    if (Math.random() < th.dens * (accent ? 1.4 : .8)){
+      const n = th.arp[(M.step * 3 + Math.floor(Math.random() * 3)) % th.arp.length];
+      musicBell(M.next, n, accent ? 1 : .6);
+    }
+    M.next += stepDur; M.step++;
+  }
+}
+function musicSetTheme(name){
+  if (name === M.theme) return; M.theme = name;
+  if (!M.ctx || !M.on) return;
+  const t = M.ctx.currentTime, old = M.padGroup;
+  if (old){ old.g.gain.cancelScheduledValues(t); old.g.gain.setValueAtTime(old.g.gain.value, t); old.g.gain.linearRampToValueAtTime(0, t + 3); old.oscs.forEach(o => o.stop(t + 3.2)); }
+  M.padGroup = musicPad(name);
+}
+function musicStart(){
+  musicInit(); if (!M.ctx) return;
+  const c = M.ctx;
+  return c.resume().then(() => {
+    if (c.state !== "running" || M.on) return;
+    M.on = true; const t = c.currentTime;
+    M.master.gain.cancelScheduledValues(t); M.master.gain.setValueAtTime(M.master.gain.value, t); M.master.gain.linearRampToValueAtTime(.9, t + 2.5);
+    const name = M.theme || "entrance"; M.theme = ""; musicSetTheme(name);
+    M.next = c.currentTime + .1; M.step = 0; clearInterval(M.timer); M.timer = setInterval(musicTick, 40);
+    musicUI();
+  }).catch(() => {});
+}
+function musicStop(){
+  if (!M.ctx || !M.on){ M.on = false; musicUI(); return; }
+  const c = M.ctx, t = c.currentTime; M.on = false;
+  M.master.gain.cancelScheduledValues(t); M.master.gain.setValueAtTime(M.master.gain.value, t); M.master.gain.linearRampToValueAtTime(0, t + .6);
+  clearInterval(M.timer);
+  setTimeout(() => { if (!M.on){ if (M.padGroup){ M.padGroup.oscs.forEach(o => { try { o.stop(); } catch(_){} }); M.padGroup = null; } c.suspend(); } }, 700);
+  musicUI();
+}
+function musicUI(){
+  const b = $("#snd"); if (!b) return;
+  b.setAttribute("aria-pressed", M.on);
+  b.classList.toggle("wait", M.want && !M.on);
+  const zh = LANG === "zh";
+  $("#sndL").textContent = M.on ? (zh ? "音乐 开" : "Sound on") : (M.want ? (zh ? "点击开启音乐" : "Tap for sound") : (zh ? "音乐 关" : "Sound off"));
+  b.setAttribute("aria-label", M.on ? (zh ? "关闭音乐" : "Turn music off") : (zh ? "开启音乐" : "Turn music on"));
+}
+function musicSection(){
+  if (mode === "cv") return "board";
+  if (mode === "tail") return "about";
+  const it = ITEMS[Math.round(G.to)];
+  if (!it || it.k !== "panel") return "entrance";
+  return ["ai", "ux", "research"][P[it.i].room];
+}
+$("#snd").addEventListener("click", e => {
+  e.stopPropagation();
+  if (M.on){ M.want = false; musicStop(); } else { M.want = true; musicStart(); }
+  try { localStorage.setItem("ks-music", M.want ? "on" : "off"); } catch(_){}
+  musicUI();
+});
+// first interaction anywhere starts the music if the browser blocked autoplay
+const kick = () => { if (M.want && !M.on) musicStart(); };
+["pointerdown", "keydown", "touchend"].forEach(ev => addEventListener(ev, kick, {capture:true, passive:true}));
+document.addEventListener("visibilitychange", () => { if (!M.ctx) return; if (document.hidden) M.ctx.suspend(); else if (M.on) M.ctx.resume(); });
+
+/* ═════════ loop ═════════ */
+function loop(now){
+  requestAnimationFrame(loop);
+  cx += (mx-cx)*.3; cy += (my-cy)*.3; curEl.style.transform = `translate(${cx}px,${cy}px)`;
+  musicSetTheme(musicSection());
+  galFrame(now); if (mode === "gal"){ galUI(); glowGallery(now); } cvFrame(now); if (mode === "cv") glowBoard(now); if (mode === "tail") glowFrame("glowT", now);
+}
+
+/* intro: lights on, flicker, resume */
+function runIntro(){
+  closeCase(); introDone = false;
+  const it = $("#intro"), bar = $("#inBar"), lab = $("#inLab");
+  it.classList.remove("out","on","flick"); bar.style.width = "0"; lab.textContent = T.intro1;
+  $("#gal").classList.remove("lit");
+  const fin = () => { it.classList.add("out"); introDone = true; G.lastK = -1; setTimeout(() => $("#gal").classList.add("lit"), 250); };
+  if (reduce){ it.classList.add("on"); bar.style.width = "100%"; setTimeout(fin, 300); return; }
+  setTimeout(() => { it.classList.add("on"); bar.style.width = "62%"; }, 150);
+  setTimeout(() => { it.classList.add("flick"); lab.textContent = T.intro2; }, 1000);
+  setTimeout(() => { it.classList.remove("flick"); lab.textContent = T.intro3; bar.style.width = "100%"; }, 1800);
+  setTimeout(fin, 2500);
+}
+const clock = () => { try { $("#clock").textContent = "Sydney " + new Intl.DateTimeFormat("en-AU", {hour:"2-digit", minute:"2-digit", timeZone:"Australia/Sydney"}).format(new Date()); } catch(e){} };
+clock(); setInterval(clock, 30000);
+
+function applyTheme(t, initial){
+  if (!THEMES[t]) t = "dark"; TH = THEMES[t]; document.documentElement.dataset.theme = t;
+  ROOMS.forEach((r, i) => r.l = TH.rooms[i]);
+  $$(".themes button").forEach(b => b.setAttribute("aria-pressed", b.dataset.t === t));
+  if (initial) return;
+  const k = G.to; galBuild(); galGo(k, true); G.lastK = -1; G.room = -1;
+  const cam = {...C.cam}, st = C.state, fi = C.focusI; cvBuild(); cvDrawMap(); C.cam = cam; C.state = st; C.focusI = fi;
+  tailBuild(); if (mode === "gal") setWhere(ITEMS[Math.round(G.to)]);
+  try { history.replaceState(null, "", "#" + t); } catch(e){}
+}
+applyTheme("aura", true);
+function applyLang(l, initial){
+  LANG = l === "zh" ? "zh" : "en"; T = STR[LANG]; setLangData(); applyStatic();
+  try { localStorage.setItem("ks-lang", LANG); } catch(e){}
+  if (initial) return;
+  const k = G.to; galBuild(); galGo(k, true); G.lastK = -1;
+  const cam = {...C.cam}, st = C.state, fi = C.focusI; cvBuild(); cvDrawMap(); C.cam = cam; C.state = st; C.focusI = fi;
+  tailBuild();
+  if (mode === "gal") setWhere(ITEMS[Math.round(G.to)]); else if (mode === "tail") setWhereText(T.tail, null);
+  musicUI();
+}
+$$(".lang button").forEach(b => b.addEventListener("click", () => applyLang(b.dataset.lang)));
+$("#skip").addEventListener("click", () => { $("#skipw").classList.remove("show"); toBoard(); });
+{ let l = "en"; try { l = localStorage.getItem("ks-lang") || (location.hash === "#zh" ? "zh" : "en"); } catch(e){ l = location.hash === "#zh" ? "zh" : "en"; } if (location.hash === "#zh" || location.hash === "#en") l = location.hash.slice(1); applyLang(l, true); }
+glowInit("glowG", [[-.16,.08],[.18,-.1],[0,0]]); glowInit("glowC", [[-.2,.1],[.22,-.12],[0,0]]);
+roomSize(); galBuild(); cvBuild(); cvInput(); tailBuild(); cvDrawMap();
+{ const t = C.blocks.find(b => b.b === "sec0"); C.cam = cvFit(t, .8); }
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { const k = G.to; galBuild(); roomSize(); galGo(k, true); cvLayout(); cvDrawMap(); G.lastK = -1; }, 250); });
+requestAnimationFrame(loop);
+musicUI(); if (M.want) musicStart();
+runIntro();
+</script>
+</body>
+</html>
