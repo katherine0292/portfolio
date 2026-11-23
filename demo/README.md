@@ -173,3 +173,9 @@
 ## v20 · Cider 经历（[预览](v20/index.html)）
 
 - 更正 Cider 职责为产品国际运营，并同步英文表述。
+
+
+## v21 · 经历与原型技能（[预览](v21/index.html)）
+
+- 原型技能改为 SwiftUI 和 JavaScript。
+- 将项目经历与实习经历分开。
