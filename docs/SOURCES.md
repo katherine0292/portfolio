@@ -127,3 +127,5 @@ CircleU is a team project. The [original team repository](https://github.com/tua
 The portfolio owner clarified that MusicTag is a university–industry collaboration with Spotify, not a freelance commission. The current portfolio and case summary use this classification; older source-repository briefs and visual versions may retain the previous wording.
 
 Wildling, FoodSense, Transfer Coach and The Price of Arrival are presented as independent commissions based on their public project briefs. FoodSense does not name its client in the public materials. Client names, payments and commercial outcomes are not inferred from prototype delivery.
+
+The portfolio owner confirmed that Wildling was commissioned by Stamp Gallery, a private gallery. The current portfolio, case summary and project catalogue reflect this client attribution.

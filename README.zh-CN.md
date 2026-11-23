@@ -19,7 +19,7 @@
 | 项目 | 核心问题与设计 | 当前成果 | 入口 |
 | --- | --- | --- | --- |
 | **CircleU** | 将困难时刻的记录转化为反思、表达和后续回顾；采用端侧 AI、可编辑建议与明确降级路径。 | 团队项目；已有 TestFlight 版本，当前改版在模拟器测试。个人贡献覆盖研究、产品、设计与开发。 | [案例](projects/circleu.md) · [作品页](https://katherine0292.github.io/CircleU/) · [仓库](https://github.com/katherine0292/CircleU) |
-| **Wildling** | 用手势或鼠标照顾小猫，通过 MIND 面板解释行为，并区分追踪丢失与角色拒绝。 | 可玩的 V3.1 浏览器版本；源仓库报告 119 个确定性回放测试。真实场地手势表现仍待测量。 | [案例](projects/wildling.md) · [试玩](https://katherine0292.github.io/wildling/) · [仓库](https://github.com/katherine0292/wildling) |
+| **Wildling** | 用手势或鼠标照顾小猫，通过 MIND 面板解释行为，并区分追踪丢失与角色拒绝。 | 受私人画廊 Stamp Gallery 委托；可玩的 V3.1 浏览器版本；源仓库报告 119 个确定性回放测试。真实场地手势表现仍待测量。 | [案例](projects/wildling.md) · [试玩](https://katherine0292.github.io/wildling/) · [仓库](https://github.com/katherine0292/wildling) |
 | **MusicTag** | 面向 65 岁以上听众，让熟悉的音乐易于找到，以手机选曲、实体遥控器操作播放，并提供语音失败恢复。 | Spotify 校企合作；24 个设计状态和浏览器原型。语音、蓝牙和服务连接为模拟。 | [案例](projects/musictag.md) · [作品页](https://katherine0292.github.io/MusicTag/) · [仓库](https://github.com/katherine0292/MusicTag) |
 | **Transfer Coach** | 在延误、错过班次和下错站时，分别回答能否赶上、能否准时到达、现在应做什么。 | 独立委托 UX 项目；38 屏原型、启发式评估、7 场可用性测试与体验日志。 | [案例](projects/transfer-coach.md) · [作品页](https://katherine0292.github.io/Transfer-Coach/portfolio/) · [仓库](https://github.com/katherine0292/Transfer-Coach) |
 | **Who Said What When** | 将对话音频问答中的说话人、答案含义和时间证据分开评估，并形成联合指标。 | 0.1.0 pilot；25 条数据，默认评估 18 条。全部仍待独立听审，尚无 gold 测试集。 | [案例](projects/who-said-what-when.md) · [演示](https://katherine0292.github.io/who-said-what-when-benchmark/) · [仓库](https://github.com/katherine0292/who-said-what-when-benchmark) |

@@ -44,6 +44,8 @@
       "title": "Wildling",
       "summary": "Explainable creatures, met through hand interaction",
       "category": "Creative interaction / explainable behaviour",
+      "client": "Stamp Gallery",
+      "context": "Independent commission for a private gallery",
       "role": "AI product and interaction designer, developer",
       "status": "Playable V3.1 browser build; venue recognition study pending",
       "skills": [

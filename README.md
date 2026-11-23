@@ -39,7 +39,7 @@ This portfolio brings together **eight projects**, including four independent fr
 <h3>02 · Wildling</h3>
 <p><strong>Meet a creature whose choices you can understand.</strong></p>
 <p>A browser installation where hand gestures and mouse input share one care experience. A visible MIND panel explains each kitten's decisions.</p>
-<p>JavaScript · p5.js · MediaPipe · Web Audio<br><strong>Stage:</strong> Playable V3.1 browser build.<br><strong>Context:</strong> Independent exhibition commission; client: the project lead of a Sydney game and interaction exhibition.</p>
+<p>JavaScript · p5.js · MediaPipe · Web Audio<br><strong>Stage:</strong> Playable V3.1 browser build.<br><strong>Context:</strong> Independent exhibition commission for Stamp Gallery, a private gallery.</p>
 <p><a href="projects/wildling.md">Case study</a> · <a href="https://katherine0292.github.io/wildling/">Play</a> · <a href="https://github.com/katherine0292/wildling">Repository</a></p>
 </td>
 </tr>

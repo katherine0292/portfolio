@@ -8,7 +8,7 @@
 
 | | |
 | --- | --- |
-| Context | Independent exhibition interaction commission from the project lead of a Sydney game and interaction exhibition |
+| Context | Independent exhibition interaction commission for Stamp Gallery, a private gallery |
 | My role | AI product and interaction designer, developer |
 | Tools | Plain ES modules, p5.js, MediaPipe Hand Landmarker, Web Audio |
 | Delivery | Playable V3.1 browser build with hand, mouse and touch interaction |
@@ -46,6 +46,6 @@ Recognition performance with real hands at venue lighting and distance remains t
 - [AI capability boundaries](https://github.com/katherine0292/wildling/blob/main/docs/ai-boundaries.md)
 - [Usability study plan](https://github.com/katherine0292/wildling/blob/main/docs/research/usability-test-plan.md)
 
-**中文摘要：** 由悉尼游戏与交互展览项目负责人委托，独立完成产品与交互设计、浏览器开发。用手势或鼠标与三只小猫互动。重点在于让追踪状态、角色需求和拒绝原因都可以理解。项目将预训练手部模型、规则、效用决策和统计适应分开描述；真实场地的识别率仍待测量。
+**中文摘要：** 受私人画廊 Stamp Gallery 委托，独立完成产品与交互设计、浏览器开发。用手势或鼠标与三只小猫互动。重点在于让追踪状态、角色需求和拒绝原因都可以理解。项目将预训练手部模型、规则、效用决策和统计适应分开描述；真实场地的识别率仍待测量。
 
 [Source snapshot and preview provenance](../docs/SOURCES.md#wildling)
