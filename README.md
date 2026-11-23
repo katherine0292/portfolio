@@ -10,7 +10,7 @@
 
 I design experiences that help people act when information is uncertain, an interface gets in the way, or a routine breaks. My work connects research, interaction design and working prototypes, from private reflection on an iPhone to explainable creatures in the browser.
 
-This portfolio brings together **eight projects**. Each case study explains the problem, my contribution, the design decisions, the evidence and the current delivery stage.
+This portfolio brings together **eight projects**, including four independent freelance commissions: Wildling, FoodSense, Transfer Coach and The Price of Arrival. Each case study explains the problem, my contribution, the design decisions, the evidence and the current delivery stage.
 
 [GitHub profile](https://github.com/katherine0292) · [All projects](#selected-projects) · [Skills and evidence](#skills-and-evidence) · [Source register](docs/SOURCES.md)
 
@@ -39,7 +39,7 @@ This portfolio brings together **eight projects**. Each case study explains the 
 <h3>02 · Wildling</h3>
 <p><strong>Meet a creature whose choices you can understand.</strong></p>
 <p>A browser installation where hand gestures and mouse input share one care experience. A visible MIND panel explains each kitten's decisions.</p>
-<p>JavaScript · p5.js · MediaPipe · Web Audio<br><strong>Stage:</strong> Playable V3.1 browser build.<br><strong>Focus:</strong> Explainable behaviour, gesture interaction and creative coding.</p>
+<p>JavaScript · p5.js · MediaPipe · Web Audio<br><strong>Stage:</strong> Playable V3.1 browser build.<br><strong>Context:</strong> Independent exhibition commission; client: the project lead of a Sydney game and interaction exhibition.</p>
 <p><a href="projects/wildling.md">Case study</a> · <a href="https://katherine0292.github.io/wildling/">Play</a> · <a href="https://github.com/katherine0292/wildling">Repository</a></p>
 </td>
 </tr>
@@ -49,7 +49,7 @@ This portfolio brings together **eight projects**. Each case study explains the 
 <h3>03 · MusicTag</h3>
 <p><strong>Familiar music, within reach.</strong></p>
 <p>An accessible music experience for adults aged 65+, pairing a simplified phone interface with tactile playback and recoverable voice search.</p>
-<p>UX research · Accessible interaction · HTML/CSS/JavaScript<br><strong>Stage:</strong> Browser prototype and 24 design states.<br><strong>Context:</strong> Independent design commission.</p>
+<p>UX research · Accessible interaction · HTML/CSS/JavaScript<br><strong>Stage:</strong> Browser prototype and 24 design states.<br><strong>Context:</strong> University–industry collaboration with Spotify.</p>
 <p><a href="projects/musictag.md">Case study</a> · <a href="https://katherine0292.github.io/MusicTag/">Portfolio</a> · <a href="https://github.com/katherine0292/MusicTag">Repository</a></p>
 </td>
 <td width="50%" valign="top">
@@ -57,7 +57,7 @@ This portfolio brings together **eight projects**. Each case study explains the 
 <h3>04 · Transfer Coach</h3>
 <p><strong>A next step when the journey changes.</strong></p>
 <p>A transport decision layer that separates catching the connection from arriving on time, with explicit delay, missed-service and wrong-stop recovery.</p>
-<p>UX research · Decision support · Interactive HTML prototype<br><strong>Stage:</strong> 38-screen prototype and three-method evaluation.<br><strong>Context:</strong> Independent commissioned UX project.</p>
+<p>UX research · Decision support · Interactive HTML prototype<br><strong>Stage:</strong> 38-screen prototype and three-method evaluation.<br><strong>Context:</strong> Independent UX commission for TripView.</p>
 <p><a href="projects/transfer-coach.md">Case study</a> · <a href="https://katherine0292.github.io/Transfer-Coach/portfolio/">Portfolio</a> · <a href="https://github.com/katherine0292/Transfer-Coach">Repository</a></p>
 </td>
 </tr>
@@ -75,7 +75,7 @@ This portfolio brings together **eight projects**. Each case study explains the 
 <h3>06 · FoodSense</h3>
 <p><strong>From what is in the fridge to what to cook.</strong></p>
 <p>An iOS product design concept for reviewing grocery detections, prioritising ingredients and choosing a feasible meal in a shared household.</p>
-<p>AI interaction design · iOS UX · Browser prototyping<br><strong>Stage:</strong> 25 iOS states, 10 paper screens and three prototypes.<br><strong>Context:</strong> Independent client commission.</p>
+<p>AI interaction design · iOS UX · Browser prototyping<br><strong>Stage:</strong> 25 iOS states, 10 paper screens and three prototypes.<br><strong>Context:</strong> Independent client commission; client not named in the public materials.</p>
 <p><a href="projects/foodsense.md">Case study</a> · <a href="https://katherine0292.github.io/FoodSense/">Portfolio</a> · <a href="https://github.com/katherine0292/FoodSense">Repository</a></p>
 </td>
 </tr>
@@ -93,7 +93,7 @@ This portfolio brings together **eight projects**. Each case study explains the 
 <h3>08 · The Price of Arrival</h3>
 <p><strong>Turn a headline into a decision someone can make.</strong></p>
 <p>An interactive data story about international study in Sydney, connecting course activity, study locations, historical visa context and price trends.</p>
-<p>Tableau · Data preparation · Visual storytelling · HTML<br><strong>Stage:</strong> Six figures, a 19-slide story, film and evaluation workbook.<br><strong>Context:</strong> Independent data visualisation project.</p>
+<p>Tableau · Data preparation · Visual storytelling · HTML<br><strong>Stage:</strong> Six figures, a 19-slide story, film and evaluation workbook.<br><strong>Context:</strong> Independent data visualisation commission for Harbourline Education Consulting.</p>
 <p><a href="projects/data-visualisation.md">Case study</a> · <a href="https://katherine0292.github.io/Data-Visualisation/">Interactive story</a> · <a href="https://github.com/katherine0292/Data-Visualisation">Repository</a></p>
 </td>
 </tr>

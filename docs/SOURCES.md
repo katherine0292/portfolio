@@ -120,3 +120,10 @@ CircleU is a team project. The [original team repository](https://github.com/tua
   - [`docs/methodology.md`](https://github.com/katherine0292/Data-Visualisation/blob/358f1c9341709c05faa76e3dcaf81363f93b696c/docs/methodology.md)
   - [`docs/design-process.md`](https://github.com/katherine0292/Data-Visualisation/blob/358f1c9341709c05faa76e3dcaf81363f93b696c/docs/design-process.md)
   - [`docs/commission-brief.md`](https://github.com/katherine0292/Data-Visualisation/blob/358f1c9341709c05faa76e3dcaf81363f93b696c/docs/commission-brief.md)
+
+
+## Project relationship clarification · 2026-11-23
+
+The portfolio owner clarified that MusicTag is a university–industry collaboration with Spotify, not a freelance commission. The current portfolio and case summary use this classification; older source-repository briefs and visual versions may retain the previous wording.
+
+Wildling, FoodSense, Transfer Coach and The Price of Arrival are presented as independent commissions based on their public project briefs. FoodSense does not name its client in the public materials. Client names, payments and commercial outcomes are not inferred from prototype delivery.

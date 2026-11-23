@@ -8,7 +8,7 @@
 
 | | |
 | --- | --- |
-| Context | Independent data visualisation project |
+| Context | Independent data visualisation commission for Harbourline Education Consulting |
 | My role | Data visualisation designer and data storyteller, from sourcing through delivery |
 | Tools and methods | Public aggregate datasets, Tableau, personas, storyboarding and interactive HTML |
 | Delivery | 5 public datasets, 6 figures, a 19-slide presentation with 10 illustrated scenes, film and evaluation workbook |
@@ -47,6 +47,6 @@ The evaluation workbook contains self-assessment and proposed audience checks; i
 
 Clone or download the project and open `index.html` in a desktop browser. Use the arrow keys for slides and reveals, **N** for notes and **F** for fullscreen.
 
-**中文摘要：** 独立数据可视化与叙事项目，用六幅图帮助读者区分课程总量、新开课程、学习地点和价格趋势。重点在于定义清楚、选择合适图表，并将解释范围与数据来源一同呈现。评估目标与实际结果分别标注。
+**中文摘要：** 为 Harbourline Education Consulting 独立承接的数据可视化与叙事委托，用六幅图帮助读者区分课程总量、新开课程、学习地点和价格趋势。重点在于定义清楚、选择合适图表，并将解释范围与数据来源一同呈现。评估目标与实际结果分别标注。
 
 [Source snapshot and preview provenance](../docs/SOURCES.md#data-visualisation)

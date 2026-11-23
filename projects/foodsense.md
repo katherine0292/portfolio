@@ -8,7 +8,7 @@
 
 | | |
 | --- | --- |
-| Context | Independent client commission |
+| Context | Independent client commission; client not named in the public materials |
 | My role | UI/UX designer: synthesis, interaction and visual design, prototyping |
 | Audience | Budget-conscious international residents sharing limited fridge space in Sydney |
 | Delivery | 10 paper screens, 25 iOS design states in 4 flows, and 3 clickable prototypes |

@@ -119,7 +119,7 @@
 - 首屏改为一句定位：“我将用户研究转化为可运行的 AI 产品体验，关注不确定性、纠错与用户掌控。”并加入显眼的“查看全部项目”按钮，桌面和手机都有。
 - 分组改为 AI 产品 / 体验设计 / 研究与数据；项目来源（客户委托、委托项目）写进项目类型标签。
 - 每个项目增加一个简短状态标签，标明完成度（原型、模拟、试点、待测、TestFlight 版本）。
-- 数据与完整案例同步：Wildling 五项需求、123 个测试、三层原因模型；Transfer Coach 独立完成；MusicTag 为独立委托、以 Spotify 为交互场景、可用性测试待开展；WSW 为 178 个对话轮次、试点待独立听审；CircleU 的 TestFlight 数据来自 1.0 首个版本。
+- 数据与完整案例同步：Wildling 五项需求、123 个测试、三层原因模型；Transfer Coach 独立完成；MusicTag 的旧版委托表述已在 v14 按作者核实改为 Spotify 校企合作，可用性测试待开展；WSW 为 178 个对话轮次、试点待独立听审；CircleU 的 TestFlight 数据来自 1.0 首个版本。
 - 手机端隐藏展板底部的标题栏，只保留介绍卡中的标题。
 
 ## v13（[`demo/v13/index.html`](v13/index.html)）当前推荐
@@ -132,3 +132,10 @@
 1. 先选主世界：Departure 最适合招聘方快速浏览；Clay Island 记忆点最强。
 2. 混合使用：比如 Clay Island 做首页，Departure 看板做 `/work`，Field Notes 做研究类案例页。
 3. 把案例页的 `05 Media slots` 换成真实视频、前后对比和原型链接。
+
+
+## v14 · Freelance 实践（[预览](v14/index.html)）
+
+- 关于我新增四项独立委托：Wildling、FoodSense、Transfer Coach 与 The Price of Arrival，简要说明项目类型、个人工作与委托方。
+- 同步中英文项目卡片与案例背景；MusicTag 按作者核实归为与 Spotify 合作的校企项目，单独列入项目经历。
+- 无公开委托方名称的项目标明未具名；研究项目与独立委托分开表达，保留原型、模拟及待测状态。

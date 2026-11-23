@@ -8,7 +8,7 @@
 
 | | |
 | --- | --- |
-| Context | Independent UX and interaction design commission |
+| Context | University–industry collaboration with Spotify |
 | My role | Research, synthesis, interaction design, prototyping, voice specification and evaluation planning |
 | Audience | Listeners aged 65+ with varied digital confidence, vision, dexterity and language needs |
 | Delivery | Working browser prototype, bilingual portfolio and 24 design states |
@@ -44,6 +44,6 @@ The next evaluation asks intended listeners to recover familiar songs, retry a m
 - [Project brief](https://github.com/katherine0292/MusicTag/blob/main/docs/project-brief.md)
 - [Evaluation documentation](https://github.com/katherine0292/MusicTag/blob/main/docs/evaluation.md)
 
-**中文摘要：** 独立音乐体验设计委托，面向 65 岁以上听众。以稳定的手机导航、触觉播放控制和可恢复语音搜索降低操作负担。当前交付为原型与规范，蓝牙、语音和生产服务尚未接入。
+**中文摘要：** 与 Spotify 合作的校企项目，负责 UX 与交互设计。面向 65 岁以上听众。以稳定的手机导航、触觉播放控制和可恢复语音搜索降低操作负担。当前交付为原型与规范，蓝牙、语音和生产服务尚未接入。
 
 [Source snapshot and preview provenance](../docs/SOURCES.md#musictag)
